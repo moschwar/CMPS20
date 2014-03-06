@@ -4,117 +4,445 @@ var bg = new Sprite();
 bg.width = 1194;
 bg.height = 1050;
     
+clearColor = [0, .5, .5, .5];
 var can = document.getElementById('canvas');
 var ctx = canvas.getContext("2d");
 world.x = -70 * 1;
 world.y = -70 * 5;
 
-var lights = new Array();
-lights[0] = new Light(70*3.5, 70*5, 1, "down");
-
-lights[0].update = function (d) {
-    if (lights[0].reverse) {
-        lights[0].rot -= 0.01;
-    } else {
-        lights[0].rot += 0.01;
+l90 = new Object();
+l90.reverse = false;
+l90.turn = false;
+l90.rot = 0;
+l90.ms0 = 0;
+l90.mc0 = 0;
+l90.ms1 = 0;
+l90.mc1 = 0;
+l90.ms2 = 0;
+l90.mc2 = 0;
+l90.ms3 = 0;
+l90.mc3 = 0;
+l90.update = function (d) {
+    if (!this.turn) {
+        if (this.reverse) {
+            this.rot -= 0.02;
+        } else {
+            this.rot += 0.02;
+        }
+        if (this.rot > 2.9) {
+            this.turn = true;
+            this.reverse = !this.reverse;
+            setTimeout(function () {
+                l90.turn = false;
+            }, 1000);
+        } else if (this.rot < 0) {
+            this.turn = true;
+            this.reverse = !this.reverse;
+            setTimeout(function () {
+                l90.turn = false;
+            }, 1000);
+        }
     }
-    if (lights[0].rot > lights[0].rotation) {
-        lights[0].reverse = !lights[0].reverse;
-    } else if (lights[0].rot < 0) {
-        lights[0].reverse = !lights[0].reverse;
-    }
-    if(lights[0].direc == "up") {
-        var x1 = lights[0].origin.x + Math.cos(lights[0].rot) * -100;
-        var y1 = lights[0].origin.y + Math.sin(lights[0].rot) * -100;
-        var x2 = lights[0].origin.x + Math.cos(lights[0].rot + .1) * -100;
-        var y2 = lights[0].origin.y + Math.sin(lights[0].rot + .1) * -100;
-        var x3 = lights[0].origin.x + Math.cos(lights[0].rot + .2) * -100;
-        var y3 = lights[0].origin.y + Math.sin(lights[0].rot + .2) * -100;
-        var x4 = lights[0].origin.x + Math.cos(lights[0].rot + .3) * -100;
-        var y4 = lights[0].origin.y + Math.sin(lights[0].rot + .3) * -100;
-    } else if(lights[0].direc == "down") {
-        var x1 = lights[0].origin.x + Math.cos(lights[0].rot) * 100;
-        var y1 = lights[0].origin.y + Math.sin(lights[0].rot) * 100;
-        var x2 = lights[0].origin.x + Math.cos(lights[0].rot + .1) * 100;
-        var y2 = lights[0].origin.y + Math.sin(lights[0].rot + .1) * 100;
-        var x3 = lights[0].origin.x + Math.cos(lights[0].rot + .2) * 100;
-        var y3 = lights[0].origin.y + Math.sin(lights[0].rot + .2) * 100;
-        var x4 = lights[0].origin.x + Math.cos(lights[0].rot + .3) * 100;
-        var y4 = lights[0].origin.y + Math.sin(lights[0].rot + .3) * 100;
-    } else if(lights[0].direc == "right") {
-        var x1 = lights[0].origin.x + Math.sin(lights[0].rot) * 100;
-        var y1 = lights[0].origin.y + Math.cos(lights[0].rot) * 100;
-        var x2 = lights[0].origin.x + Math.sin(lights[0].rot + .1) * 100;
-        var y2 = lights[0].origin.y + Math.cos(lights[0].rot + .1) * 100;
-        var x3 = lights[0].origin.x + Math.sin(lights[0].rot + .2) * 100;
-        var y3 = lights[0].origin.y + Math.cos(lights[0].rot + .2) * 100;
-        var x4 = lights[0].origin.x + Math.sin(lights[0].rot + .3) * 100;
-        var y4 = lights[0].origin.y + Math.cos(lights[0].rot + .3) * 100;
-    } else if(lights[0].direc == "left") {
-        var x1 = lights[0].origin.x + Math.sin(lights[0].rot) * -100;
-        var y1 = lights[0].origin.y + Math.cos(lights[0].rot) * -100;
-        var x2 = lights[0].origin.x + Math.sin(lights[0].rot + .1) * -100;
-        var y2 = lights[0].origin.y + Math.cos(lights[0].rot + .1) * -100;
-        var x3 = lights[0].origin.x + Math.sin(lights[0].rot + .2) * -100;
-        var y3 = lights[0].origin.y + Math.cos(lights[0].rot + .2) * -100;
-        var x4 = lights[0].origin.x + Math.sin(lights[0].rot + .3) * -100;
-        var y4 = lights[0].origin.y + Math.cos(lights[0].rot + .3) * -100;
-    }
-    
-    
-    /*for (var i = 0; i < bcollisions.length; i++) {
-        if (!(bcollisions[i] == undefined) && bcollisions[i].occurred) {
-            if(i == 0){
-            lights[0].lp[0].x = bcollisions[i].point.x;
-            lights[0].lp[0].y = bcollisions[i].point.y;
-            }
-            if(i == 1){
-            lights[0].lp[1].x = bcollisions[i].point.x;
-            lights[0].lp[1].y = bcollisions[i].point.y;
-            }
-            if(i == 2){
-            lights[0].lp[2].x = bcollisions[i].point.x;
-            lights[0].lp[2].y = bcollisions[i].point.y;
-            }
-            if(i == 3){
-            lights[0].lp[3].x = bcollisions[i].point.x;
-            lights[0].lp[3].y = bcollisions[i].point.y;
-            }
-            //break;
-        } 
-    }*/
-    //if(!(!(bcollisions[0] == undefined) && bcollisions[0].occurred)) {
-        lights[0].lp[0].x = x1;
-        lights[0].lp[0].y = y1;
-        lights[0].lp[1].x = x2;
-        lights[0].lp[1].y = y2;
-        lights[0].lp[2].x = x3;
-        lights[0].lp[2].y = y3;
-        lights[0].lp[3].x = x4;
-        lights[0].lp[3].y = y4;
-    //}
-
+    this.ms0 = Math.sin(this.rot);
+    this.mc0 = Math.cos(this.rot);
+    this.ms1 = Math.sin(this.rot + .1);
+    this.mc1 = Math.cos(this.rot + .1);
+    this.ms2 = Math.sin(this.rot + .2);
+    this.mc2 = Math.cos(this.rot + .2);
+    this.ms3 = Math.sin(this.rot + .3);
+    this.mc3 = Math.cos(this.rot + .3);
 };
 
-function Light(x, y, rotation, direc){
+l180 = new Object();
+l180.reverse = false;
+l180.turn = false;
+l180.rot = 0;
+l180.ms0 = 0;
+l180.mc0 = 0;
+l180.ms1 = 0;
+l180.mc1 = 0;
+l180.ms2 = 0;
+l180.mc2 = 0;
+l180.ms3 = 0;
+l180.mc3 = 0;
+l180.update = function (d) {
+    if (!this.turn) {
+        if (this.reverse) {
+            this.rot -= 0.02;
+        } else {
+            this.rot += 0.02;
+        }
+        if (this.rot > 2.9) {
+            this.turn = true;
+            this.reverse = !this.reverse;
+            setTimeout(function () {
+                l180.turn = false;
+            }, 1000);
+        } else if (this.rot < 0) {
+            this.turn = true;
+            this.reverse = !this.reverse;
+            setTimeout(function () {
+                l180.turn = false;
+            }, 1000);
+        }
+    }
+    this.ms0 = Math.sin(this.rot);
+    this.mc0 = Math.cos(this.rot);
+    this.ms1 = Math.sin(this.rot + .1);
+    this.mc1 = Math.cos(this.rot + .1);
+    this.ms2 = Math.sin(this.rot + .2);
+    this.mc2 = Math.cos(this.rot + .2);
+    this.ms3 = Math.sin(this.rot + .3);
+    this.mc3 = Math.cos(this.rot + .3);
+};
+l360 = new Object();
+l360.reverse = false;
+l360.turn = false;
+l360.rot = 0;
+l360.ms0 = 0;
+l360.mc0 = 0;
+l360.ms1 = 0;
+l360.mc1 = 0;
+l360.ms2 = 0;
+l360.mc2 = 0;
+l360.ms3 = 0;
+l360.mc3 = 0;
+l360.update = function (d) {
+    this.rot += 0.03;
+    this.ms0 = Math.sin(this.rot);
+    this.mc0 = Math.cos(this.rot);
+    this.ms1 = Math.sin(this.rot + .1);
+    this.mc1 = Math.cos(this.rot + .1);
+    this.ms2 = Math.sin(this.rot + .2);
+    this.mc2 = Math.cos(this.rot + .2);
+    this.ms3 = Math.sin(this.rot + .3);
+    this.mc3 = Math.cos(this.rot + .3);
+};
+
+var lights = new Array();
+//NEW LIGHTS HERE
+lights[0] = new Light(70 * 3.5, 70 * 4.5, 1, "down");
+lights[1] = new Light(70 * 1.7, 70 * 10.4, 1, "right");
+lights[2] = new Light(70 * 11.7, 70 * 1.4, 2, "right");
+lights[3] = new Light(70 * 15.3, 70 * 1.4, 2, "left");
+
+function findPoints(point) {
+    var points = new Object();
+    points.x0 = point.x0;
+    points.y0 = point.y0;
+    points.x1 = point.x1;
+    points.y1 = point.y1;
+    points.x2 = point.x2;
+    points.y2 = point.y2;
+    points.x3 = point.x3;
+    points.y3 = point.y3;
+    points.rotation = point.rotation;
+    points.direc = point.direc;
+    points.origin = point.origin;
+    if (points.rotation == 0) {
+        if (points.direc == "up") {
+            points.x0 = points.origin.x + l90.mc0 * -70 * 2.3;
+            points.y0 = points.origin.y + l90.ms0 * -70 * 2.3;
+            points.x1 = points.origin.x + l90.mc1 * -70 * 2.3;
+            points.y1 = points.origin.y + l90.ms1 * -70 * 2.3;
+            points.x2 = points.origin.x + l90.mc2 * -70 * 2.3;
+            points.y2 = points.origin.y + l90.ms2 * -70 * 2.3;
+            points.x3 = points.origin.x + l90.mc3 * -70 * 2.3;
+            points.y3 = points.origin.y + l90.ms3 * -70 * 2.3;
+        } else if (points.direc == "down") {
+            points.x0 = points.origin.x + l90.mc0 * 70 * 2.3;
+            points.y0 = points.origin.y + l90.ms0 * 70 * 2.3;
+            points.x1 = points.origin.x + l90.mc1 * 70 * 2.3;
+            points.y1 = points.origin.y + l90.ms1 * 70 * 2.3;
+            points.x2 = points.origin.x + l90.mc2 * 70 * 2.3;
+            points.y2 = points.origin.y + l90.ms2 * 70 * 2.3;
+            points.x3 = points.origin.x + l90.mc3 * 70 * 2.3;
+            points.y3 = points.origin.y + l90.ms3 * 70 * 2.3;
+        } else if (points.direc == "right") {
+            points.x0 = points.origin.x + l90.ms0 * 70 * 2.3;
+            points.y0 = points.origin.y + l90.mc0 * 70 * 2.3;
+            points.x1 = points.origin.x + l90.ms1 * 70 * 2.3;
+            points.y1 = points.origin.y + l90.mc1 * 70 * 2.3;
+            points.x2 = points.origin.x + l90.ms2 * 70 * 2.3;
+            points.y2 = points.origin.y + l90.mc2 * 70 * 2.3;
+            points.x3 = points.origin.x + l90.ms3 * 70 * 2.3;
+            points.y3 = points.origin.y + l90.mc3 * 70 * 2.3;
+        } else if (points.direc == "left") {
+            points.x0 = points.origin.x + l90.ms0 * -70 * 2.3;
+            points.y0 = points.origin.y + l90.mc0 * -70 * 2.3;
+            points.x1 = points.origin.x + l90.ms1 * -70 * 2.3;
+            points.y1 = points.origin.y + l90.mc1 * -70 * 2.3;
+            points.x2 = points.origin.x + l90.ms2 * -70 * 2.3;
+            points.y2 = points.origin.y + l90.mc2 * -70 * 2.3;
+            points.x3 = points.origin.x + l90.ms3 * -70 * 2.3;
+            points.y3 = points.origin.y + l90.mc3 * -70 * 2.3;
+        }
+    } else if (points.rotation == 1) {
+        if (points.direc == "up") {
+            points.x0 = points.origin.x + l180.mc0 * -70 * 2.3;
+            points.y0 = points.origin.y + l180.ms0 * -70 * 2.3;
+            points.x1 = points.origin.x + l180.mc1 * -70 * 2.3;
+            points.y1 = points.origin.y + l180.ms1 * -70 * 2.3;
+            points.x2 = points.origin.x + l180.mc2 * -70 * 2.3;
+            points.y2 = points.origin.y + l180.ms2 * -70 * 2.3;
+            points.x3 = points.origin.x + l180.mc3 * -70 * 2.3;
+            points.y3 = points.origin.y + l180.ms3 * -70 * 2.3;
+        } else if (points.direc == "down") {
+            points.x0 = points.origin.x + l180.mc0 * 70 * 2.3;
+            points.y0 = points.origin.y + l180.ms0 * 70 * 2.3;
+            points.x1 = points.origin.x + l180.mc1 * 70 * 2.3;
+            points.y1 = points.origin.y + l180.ms1 * 70 * 2.3;
+            points.x2 = points.origin.x + l180.mc2 * 70 * 2.3;
+            points.y2 = points.origin.y + l180.ms2 * 70 * 2.3;
+            points.x3 = points.origin.x + l180.mc3 * 70 * 2.3;
+            points.y3 = points.origin.y + l180.ms3 * 70 * 2.3;
+        } else if (points.direc == "right") {
+            points.x0 = points.origin.x + l180.ms0 * 70 * 2.3;
+            points.y0 = points.origin.y + l180.mc0 * 70 * 2.3;
+            points.x1 = points.origin.x + l180.ms1 * 70 * 2.3;
+            points.y1 = points.origin.y + l180.mc1 * 70 * 2.3;
+            points.x2 = points.origin.x + l180.ms2 * 70 * 2.3;
+            points.y2 = points.origin.y + l180.mc2 * 70 * 2.3;
+            points.x3 = points.origin.x + l180.ms3 * 70 * 2.3;
+            points.y3 = points.origin.y + l180.mc3 * 70 * 2.3;
+        } else if (points.direc == "left") {
+            points.x0 = points.origin.x + l180.ms0 * -70 * 2.3;
+            points.y0 = points.origin.y + l180.mc0 * -70 * 2.3;
+            points.x1 = points.origin.x + l180.ms1 * -70 * 2.3;
+            points.y1 = points.origin.y + l180.mc1 * -70 * 2.3;
+            points.x2 = points.origin.x + l180.ms2 * -70 * 2.3;
+            points.y2 = points.origin.y + l180.mc2 * -70 * 2.3;
+            points.x3 = points.origin.x + l180.ms3 * -70 * 2.3;
+            points.y3 = points.origin.y + l180.mc3 * -70 * 2.3;
+        }
+    } else if (points.rotation == 2) {
+        if (points.direc == "up") {
+            points.x0 = points.origin.x + l360.mc0 * -70 * 2.3;
+            points.y0 = points.origin.y + l360.ms0 * -70 * 2.3;
+            points.x1 = points.origin.x + l360.mc1 * -70 * 2.3;
+            points.y1 = points.origin.y + l360.ms1 * -70 * 2.3;
+            points.x2 = points.origin.x + l360.mc2 * -70 * 2.3;
+            points.y2 = points.origin.y + l360.ms2 * -70 * 2.3;
+            points.x3 = points.origin.x + l360.mc3 * -70 * 2.3;
+            points.y3 = points.origin.y + l360.ms3 * -70 * 2.3;
+        } else if (points.direc == "down") {
+            points.x0 = points.origin.x + l360.mc0 * 70 * 2.3;
+            points.y0 = points.origin.y + l360.ms0 * 70 * 2.3;
+            points.x1 = points.origin.x + l360.mc1 * 70 * 2.3;
+            points.y1 = points.origin.y + l360.ms1 * 70 * 2.3;
+            points.x2 = points.origin.x + l360.mc2 * 70 * 2.3;
+            points.y2 = points.origin.y + l360.ms2 * 70 * 2.3;
+            points.x3 = points.origin.x + l360.mc3 * 70 * 2.3;
+            points.y3 = points.origin.y + l360.ms3 * 70 * 2.3;
+        } else if (points.direc == "right") {
+            points.x0 = points.origin.x + l360.ms0 * 70 * 2.3;
+            points.y0 = points.origin.y + l360.mc0 * 70 * 2.3;
+            points.x1 = points.origin.x + l360.ms1 * 70 * 2.3;
+            points.y1 = points.origin.y + l360.mc1 * 70 * 2.3;
+            points.x2 = points.origin.x + l360.ms2 * 70 * 2.3;
+            points.y2 = points.origin.y + l360.mc2 * 70 * 2.3;
+            points.x3 = points.origin.x + l360.ms3 * 70 * 2.3;
+            points.y3 = points.origin.y + l360.mc3 * 70 * 2.3;
+        } else if (points.direc == "left") {
+            points.x0 = points.origin.x + l360.ms0 * -70 * 2.3;
+            points.y0 = points.origin.y + l360.mc0 * -70 * 2.3;
+            points.x1 = points.origin.x + l360.ms1 * -70 * 2.3;
+            points.y1 = points.origin.y + l360.mc1 * -70 * 2.3;
+            points.x2 = points.origin.x + l360.ms2 * -70 * 2.3;
+            points.y2 = points.origin.y + l360.mc2 * -70 * 2.3;
+            points.x3 = points.origin.x + l360.ms3 * -70 * 2.3;
+            points.y3 = points.origin.y + l360.mc3 * -70 * 2.3;
+        }
+    }
+
+    return points;
+}
+
+lights[0].update = function (d) {
+    var points = new Object();
+    points.x0 = this.x0;
+    points.y0 = this.y0;
+    points.x1 = this.x1;
+    points.y1 = this.y1;
+    points.x2 = this.x2;
+    points.y2 = this.y2;
+    points.x3 = this.x3;
+    points.y3 = this.y3;
+    points.rotation = this.rotation;
+    points.direc = this.direc;
+    points.origin = this.origin;
+    points = findPoints(points);
+    
+    this.xy0.x = points.x0;
+    this.xy0.y = points.y0;
+    this.xy1.x = points.x1;
+    this.xy1.y = points.y1;
+    this.xy2.x = points.x2;
+    this.xy2.y = points.y2;
+    this.xy3.x = points.x3;
+    this.xy3.y = points.y3;
+
+    for (var i = 0; i < 4 * 500; i++) {
+        //MOST IMPORTANT ONES NEED HIGHER INDEXES
+        this.bcollisions[0] = intersect(boxes[0].tl, boxes[0].bl, this.origin, this.xy0);
+        this.bcollisions[1] = intersect(boxes[0].tl, boxes[0].bl, this.origin, this.xy1);
+        this.bcollisions[2] = intersect(boxes[0].tl, boxes[0].bl, this.origin, this.xy2);
+        this.bcollisions[3] = intersect(boxes[0].tl, boxes[0].bl, this.origin, this.xy3);
+        this.bcollisions[4] = intersect(boxes[0].br, boxes[0].tr, this.origin, this.xy0);
+        this.bcollisions[5] = intersect(boxes[0].br, boxes[0].tr, this.origin, this.xy1);
+        this.bcollisions[6] = intersect(boxes[0].br, boxes[0].tr, this.origin, this.xy2);
+        this.bcollisions[7] = intersect(boxes[0].br, boxes[0].tr, this.origin, this.xy3);
+        this.bcollisions[8] = intersect(boxes[1].tl, boxes[1].bl, this.origin, this.xy0);
+        this.bcollisions[9] = intersect(boxes[1].tl, boxes[1].bl, this.origin, this.xy1);
+        this.bcollisions[10] = intersect(boxes[1].tl, boxes[1].bl, this.origin, this.xy2);
+        this.bcollisions[11] = intersect(boxes[1].tl, boxes[1].bl, this.origin, this.xy3);
+        this.bcollisions[12] = intersect(boxes[1].br, boxes[1].tr, this.origin, this.xy0);
+        this.bcollisions[13] = intersect(boxes[1].br, boxes[1].tr, this.origin, this.xy1);
+        this.bcollisions[14] = intersect(boxes[1].br, boxes[1].tr, this.origin, this.xy2);
+        this.bcollisions[15] = intersect(boxes[1].br, boxes[1].tr, this.origin, this.xy3);
+        this.bcollisions[16] = intersect(boxes[0].tl, boxes[0].tr, this.origin, this.xy0);
+        this.bcollisions[17] = intersect(boxes[0].tl, boxes[0].tr, this.origin, this.xy1);
+        this.bcollisions[18] = intersect(boxes[0].tl, boxes[0].tr, this.origin, this.xy2);
+        this.bcollisions[19] = intersect(boxes[0].tl, boxes[0].tr, this.origin, this.xy3);
+        this.bcollisions[20] = intersect(boxes[1].tl, boxes[1].tr, this.origin, this.xy0);
+        this.bcollisions[21] = intersect(boxes[1].tl, boxes[1].tr, this.origin, this.xy1);
+        this.bcollisions[22] = intersect(boxes[1].tl, boxes[1].tr, this.origin, this.xy2);
+        this.bcollisions[23] = intersect(boxes[1].tl, boxes[1].tr, this.origin, this.xy3);
+    }
+    for (var i = 0; i < this.bcollisions.length; i++) {
+        if (!(this.bcollisions[i] == undefined) && this.bcollisions[i].occurred) {
+            if (i % 4 == 0) {
+                this.lp[0].x = this.bcollisions[i].point.x;
+                this.lp[0].y = this.bcollisions[i].point.y;
+            } else if (i % 4 == 1) {
+                this.lp[1].x = this.bcollisions[i].point.x;
+                this.lp[1].y = this.bcollisions[i].point.y;
+            } else if (i % 4 == 2) {
+                this.lp[2].x = this.bcollisions[i].point.x;
+                this.lp[2].y = this.bcollisions[i].point.y;
+            } else if (i % 4 == 3) {
+                this.lp[3].x = this.bcollisions[i].point.x;
+                this.lp[3].y = this.bcollisions[i].point.y;
+            }
+
+        } else {
+            if (i == 0) {
+                this.lp[0].x = points.x0;
+                this.lp[0].y = points.y0;
+            } else if (i == 1) {
+                this.lp[1].x = points.x1;
+                this.lp[1].y = points.y1;
+            } else if (i == 2) {
+                this.lp[2].x = points.x2;
+                this.lp[2].y = points.y2;
+            } else if (i == 3) {
+                this.lp[3].x = points.x3;
+                this.lp[3].y = points.y3;
+            }
+        }
+    }
+};
+
+lights[1].update = function (d) {
+    var points = new Object();
+    points.x0 = this.x0;
+    points.y0 = this.y0;
+    points.x1 = this.x1;
+    points.y1 = this.y1;
+    points.x2 = this.x2;
+    points.y2 = this.y2;
+    points.x3 = this.x3;
+    points.y3 = this.y3;
+    points.rotation = this.rotation;
+    points.direc = this.direc;
+    points.origin = this.origin;
+    points = findPoints(points);
+
+    this.lp[0].x = points.x0;
+    this.lp[0].y = points.y0;
+    this.lp[1].x = points.x1;
+    this.lp[1].y = points.y1;
+    this.lp[2].x = points.x2;
+    this.lp[2].y = points.y2;
+    this.lp[3].x = points.x3;
+    this.lp[3].y = points.y3;
+};
+
+lights[2].update = function (d) {
+    var points = new Object();
+    points.x0 = this.x0;
+    points.y0 = this.y0;
+    points.x1 = this.x1;
+    points.y1 = this.y1;
+    points.x2 = this.x2;
+    points.y2 = this.y2;
+    points.x3 = this.x3;
+    points.y3 = this.y3;
+    points.rotation = this.rotation;
+    points.direc = this.direc;
+    points.origin = this.origin;
+    points = findPoints(points);
+    
+    this.lp[0].x = points.x0;
+    this.lp[0].y = points.y0;
+    this.lp[1].x = points.x1;
+    this.lp[1].y = points.y1;
+    this.lp[2].x = points.x2;
+    this.lp[2].y = points.y2;
+    this.lp[3].x = points.x3;
+    this.lp[3].y = points.y3;
+};
+
+lights[3].update = function (d) {
+    var points = new Object();
+    points.x0 = this.x0;
+    points.y0 = this.y0;
+    points.x1 = this.x1;
+    points.y1 = this.y1;
+    points.x2 = this.x2;
+    points.y2 = this.y2;
+    points.x3 = this.x3;
+    points.y3 = this.y3;
+    points.rotation = this.rotation;
+    points.direc = this.direc;
+    points.origin = this.origin;
+    points = findPoints(points);
+    
+    this.lp[0].x = points.x0;
+    this.lp[0].y = points.y0;
+    this.lp[1].x = points.x1;
+    this.lp[1].y = points.y1;
+    this.lp[2].x = points.x2;
+    this.lp[2].y = points.y2;
+    this.lp[3].x = points.x3;
+    this.lp[3].y = points.y3;
+};
+
+function Light(x, y, rotation, direc) {
     light = new Object();
     light.origin = new Vector(x, y);
     light.lp = new Array(4);
-    light.rot = 0;
     light.reverse = false;
-    light.rotation;
-    if(rotation == 0){
-        light.rotation = 1.25;
-    } else if (rotation == 1){
-        light.rotation = 2.9;
-    }
+    light.rotation = rotation;
+    light.bcollisions = new Array();
+    light.x0 = 0;
+    light.y0 = 0;
+    light.x1 = 0;
+    light.y1 = 0;
+    light.x2 = 0;
+    light.y2 = 0;
+    light.x3 = 0;
+    light.y3 = 0;
+    light.xy0 = new Vector(light.x0, light.y0);
+    light.xy1 = new Vector(light.x1, light.y1);
+    light.xy2 = new Vector(light.x2, light.y2);
+    light.xy3 = new Vector(light.x3, light.y3);
     light.direc = direc;
     for (var i = 0; i < light.lp.length; i++) {
         light.lp[i] = new Vector(light.origin.x, light.origin.y);
     }
     return light;
-}
-
+};
 
 var xcenter = 420;
 var ycenter = 315;
@@ -138,14 +466,6 @@ alert.width = 70 * 2;
 alert.height = 70 * 2;
 alert.x = 70 * 8;
 alert.y = 70 * 8;
-
-
-/*var light = new Sprite();
-light.image = Textures.load("https://raw.github.com/moschwar/CMPS20/master/IncognitOwl/Resources/light.png");
-light.width = 72;
-light.height = 140;
-light.x = 70 * 3;
-light.y = 70 * 5;*/
 
 var dirts = new Array();
 for (var i = 0; i < 10; i++) {
@@ -209,16 +529,16 @@ walls.r = function(x, y1, y2) {
 };
 
 //MAKE SURE TO SET WALLS LENGTH
-walls[0] = walls.l(2, 5, 13);
+walls[0] = walls.l(2, 5, 14);
 walls[1] = walls.u(2, 5, 12);
-walls[2] = walls.r(4, 8, 13);
-walls[3] = walls.d(2, 13, 4);
+walls[2] = walls.r(4, 8, 14);
+walls[3] = walls.d(2, 14, 4);
 walls[4] = walls.d(4, 8, 15);
 walls[5] = walls.r(7, 6, 7);
 walls[6] = walls.u(7, 7, 8);
-walls[7] = walls.r(15, 0, 8);
-walls[8] = walls.l(12, 0, 5);
-walls[9] = walls.u(12, 0, 15);
+walls[7] = walls.r(15, 1, 8);
+walls[8] = walls.l(12, 1, 5);
+walls[9] = walls.u(12, 1, 15);
 walls[10] = walls.r(13, 6, 7);
 walls[11] = walls.d(13, 6, 14);
 walls[12] = walls.u(13, 7, 14);
@@ -228,11 +548,15 @@ var boxes = new Array();
 for (var i = 0; i < 2; i++) {
 	boxes[i] = new Sprite();
 	boxes[i].image = Textures.load("https://raw.github.com/moschwar/CMPS20/master/IncognitOwl/Resources/box_game_sprite_update-2.png");
-	boxes[i].width = 70;
-	boxes[i].height = 70;
+	boxes[i].width = 67;
+	boxes[i].height = 67;
 	boxes[i].x = -70;
 	boxes[i].y = 0;
 	boxes[i].placed = false;
+	boxes[i].tl = new Vector(boxes[i].x, boxes[i].y); //top left
+    boxes[i].tr = new Vector((boxes[i].x + boxes[i].width), boxes[i].y); //top right
+    boxes[i].bl = new Vector(boxes[i].x, (boxes[i].y + boxes[i].height)); //bottom left
+    boxes[i].br = new Vector((boxes[i].x + boxes[i].width), (boxes[i].y + boxes[i].height)); //bottom right
 	world.addChild(boxes[i]);
 }
 
@@ -368,7 +692,14 @@ cursor.update = function() {
 			world.addChild(end1);
 			world.addChild(end2);
 			world.addChild(end3);
+			world.addChild(l90);
+            world.addChild(l180);
+            world.addChild(l360);
 			world.addChild(lights[0]);
+			world.addChild(lights[1]);
+            world.addChild(lights[2]);
+            world.addChild(lights[3]);
+            
 			if (!((boxes[0].x == 70 * 8 && boxes[0].y == 70 * 6) || (boxes[1].x == 70 * 8 && boxes[1].y == 70 * 6))) {
 				guard.vision = 1;
 			} else {
@@ -407,10 +738,10 @@ function long_collision(px, py) {
 
 var player = new Sprite();
 player.image = Textures.load("https://raw2.github.com/moschwar/CMPS20/master/IncognitOwl/Resources/Jax_walk_FULL.png");
-player.width = 67;
-player.height = 67;
-player.x = 70 * 2.5;
-player.y = 70 * 11.5;
+player.width = 62;
+player.height = 62;
+player.x = 70 * 2.7;
+player.y = 70 * 12.7;
 player.tl = new Vector(player.x, player.y); //top left
 player.tr = new Vector((player.x + player.width), player.y); //top right
 player.bl = new Vector(player.x, (player.y + player.height)); //bottom left
@@ -452,6 +783,12 @@ player.update = function(d) {
     player.tr = new Vector((player.x + player.width), player.y); //top right
     player.bl = new Vector(player.x, (player.y + player.height)); //bottom left
     player.br = new Vector((player.x + player.width), (player.y + player.height)); //bottom right
+    for (var i = 0; i < boxes.length; i++) {
+        boxes[i].tl = new Vector(boxes[i].x, boxes[i].y); //top left
+        boxes[i].tr = new Vector((boxes[i].x + boxes[i].width), boxes[i].y); //top right
+        boxes[i].bl = new Vector(boxes[i].x, (boxes[i].y + boxes[i].height)); //bottom left
+        boxes[i].br = new Vector((boxes[i].x + boxes[i].width), (boxes[i].y + boxes[i].height)); //bottom right
+    }
 	this.frameRate = 0;
 	var speed = this.speed * d;
 	if (player.noleft || player.noright) {
@@ -564,9 +901,14 @@ world.draw = function(ctx) {
 	ctx.fillText("noright " + player.noright, 70, 110);
 	ctx.fillText("player.x " + player.x, 70, 120);
 	ctx.fillText("player.y " + player.y, 70, 130);
+	ctx.strokeStyle = "orange";
+    //ADD VISUAL REPRESENTATIONS HERE
+    ctx.lineWidth = 9;
+    ctx.beginPath();
     ctx.moveTo(lights[0].origin.x, lights[0].origin.y);
     ctx.lineTo(lights[0].lp[0].x, lights[0].lp[0].y);
     ctx.stroke();
+    ctx.lineWidth = 25;
     ctx.beginPath();
     ctx.moveTo(lights[0].origin.x, lights[0].origin.y);
     ctx.lineTo(lights[0].lp[1].x, lights[0].lp[1].y);
@@ -575,15 +917,71 @@ world.draw = function(ctx) {
     ctx.moveTo(lights[0].origin.x, lights[0].origin.y);
     ctx.lineTo(lights[0].lp[2].x, lights[0].lp[2].y);
     ctx.stroke();
+    ctx.lineWidth = 9;
     ctx.beginPath();
     ctx.moveTo(lights[0].origin.x, lights[0].origin.y);
     ctx.lineTo(lights[0].lp[3].x, lights[0].lp[3].y);
     ctx.stroke();
+    ctx.beginPath();
+    ctx.moveTo(lights[1].origin.x, lights[1].origin.y);
+    ctx.lineTo(lights[1].lp[0].x, lights[1].lp[0].y);
+    ctx.stroke();
+    ctx.lineWidth = 25;
+    ctx.beginPath();
+    ctx.moveTo(lights[1].origin.x, lights[1].origin.y);
+    ctx.lineTo(lights[1].lp[1].x, lights[1].lp[1].y);
+    ctx.stroke();
+    ctx.beginPath();
+    ctx.moveTo(lights[1].origin.x, lights[1].origin.y);
+    ctx.lineTo(lights[1].lp[2].x, lights[1].lp[2].y);
+    ctx.stroke();
+    ctx.lineWidth = 9;
+    ctx.beginPath();
+    ctx.moveTo(lights[1].origin.x, lights[1].origin.y);
+    ctx.lineTo(lights[1].lp[3].x, lights[1].lp[3].y);
+    ctx.stroke();
+    ctx.beginPath();
+    ctx.moveTo(lights[2].origin.x, lights[2].origin.y);
+    ctx.lineTo(lights[2].lp[0].x, lights[2].lp[0].y);
+    ctx.stroke();
+    ctx.lineWidth = 25;
+    ctx.beginPath();
+    ctx.moveTo(lights[2].origin.x, lights[2].origin.y);
+    ctx.lineTo(lights[2].lp[1].x, lights[2].lp[1].y);
+    ctx.stroke();
+    ctx.beginPath();
+    ctx.moveTo(lights[2].origin.x, lights[2].origin.y);
+    ctx.lineTo(lights[2].lp[2].x, lights[2].lp[2].y);
+    ctx.stroke();
+    ctx.lineWidth = 9;
+    ctx.beginPath();
+    ctx.moveTo(lights[2].origin.x, lights[2].origin.y);
+    ctx.lineTo(lights[2].lp[3].x, lights[2].lp[3].y);
+    ctx.stroke();
+    ctx.beginPath();
+    ctx.moveTo(lights[3].origin.x, lights[3].origin.y);
+    ctx.lineTo(lights[3].lp[0].x, lights[3].lp[0].y);
+    ctx.stroke();
+    ctx.lineWidth = 25;
+    ctx.beginPath();
+    ctx.moveTo(lights[3].origin.x, lights[3].origin.y);
+    ctx.lineTo(lights[3].lp[1].x, lights[3].lp[1].y);
+    ctx.stroke();
+    ctx.beginPath();
+    ctx.moveTo(lights[3].origin.x, lights[3].origin.y);
+    ctx.lineTo(lights[3].lp[2].x, lights[3].lp[2].y);
+    ctx.stroke();
+    ctx.lineWidth = 9;
+    ctx.beginPath();
+    ctx.moveTo(lights[3].origin.x, lights[3].origin.y);
+    ctx.lineTo(lights[3].lp[3].x, lights[3].lp[3].y);
+    ctx.stroke();
+    
 };
 
 // CONTROL CHECKS
 player.up = function(speed) {
-	var after = this.y - speed;
+	var after = this.y - 3;
 	if (upcollide(after, boxes[0]) || upcollide(after, boxes[1]) || wallcollideup(after)) {
 		this.noup = true;
 	} else {
@@ -596,7 +994,7 @@ player.up = function(speed) {
 	}
 };
 player.down = function(speed) {
-	var after = this.y + speed;
+	var after = this.y + 3;
 	if (downcollide(after, boxes[0]) || downcollide(after, boxes[1]) || wallcollidedown(after)) {
 		this.nodown = true;
 	} else {
@@ -609,7 +1007,7 @@ player.down = function(speed) {
 	}
 };
 player.left = function(speed) {
-	var after = this.x - speed;
+	var after = this.x - 3;
 	if (leftcollide(after, boxes[0]) || leftcollide(after, boxes[1]) || wallcollideleft(after)) {
 		this.noleft = true;
 	} else {
@@ -622,7 +1020,7 @@ player.left = function(speed) {
 	}
 };
 player.right = function(speed) {
-	var after = this.x + speed;
+	var after = this.x + 3;
 	if (rightcollide(after, boxes[0]) || rightcollide(after, boxes[1]) || wallcollideright(after)) {
 		this.noright = true;
 	} else {
@@ -637,7 +1035,7 @@ player.right = function(speed) {
 
 //BOX COLLIDE CHECKS
 var upcollide = function(after, obj) {
-	if (after > obj.y && ((after < (obj.y + obj.height + 1) && !player.collisionvert(obj)))) {
+	if (after > obj.y && ((after < (obj.y + obj.height - 2) && !player.collisionvert(obj)))) {
 		return true;
 	} else {
 		return false;
@@ -645,7 +1043,7 @@ var upcollide = function(after, obj) {
 };
 
 var downcollide = function(after, obj) {
-	if (((after + player.height) < (obj.y + obj.height)) && ((((after + player.height) > (obj.y - 1) && !player.collisionvert(obj))))) {
+	if (((after + player.height) < (obj.y + obj.height)) && ((((after + player.height) > (obj.y + 2) && !player.collisionvert(obj))))) {
 		return true;
 	} else {
 		return false;
@@ -653,7 +1051,7 @@ var downcollide = function(after, obj) {
 };
 
 var leftcollide = function(after, obj) {
-	if ((after > obj.x && ((after < (obj.x + obj.width + 1) && !player.collisionhorz(obj))))) {
+	if ((after > obj.x && ((after < (obj.x + obj.width - 2) && !player.collisionhorz(obj))))) {
 		return true;
 	} else {
 		return false;
@@ -661,7 +1059,7 @@ var leftcollide = function(after, obj) {
 };
 
 var rightcollide = function(after, obj) {
-	if (((after + player.width) < (obj.x + obj.width)) && ((((after + player.width) > (obj.x - 1) && !player.collisionhorz(obj))))) {
+	if (((after + player.width) < (obj.x + obj.width)) && ((((after + player.width) > (obj.x + 2) && !player.collisionhorz(obj))))) {
 		return true;
 	} else {
 		return false;
@@ -679,7 +1077,7 @@ var wallcollideup = function(after) {
 };
 var wallcollidedown = function(after) {
 	for (var i = 0; i < walls.length; i++) {
-		if ((after + 68) < (walls[i].bot) && (after + 68) > (walls[i].top) && player.wallcollisionvert(i)) {
+		if ((after + player.width - 2) < (walls[i].bot) && (after + player.width - 2) > (walls[i].top) && player.wallcollisionvert(i)) {
 			return true;
 		}
 	}
@@ -695,7 +1093,7 @@ var wallcollideleft = function(after) {
 };
 var wallcollideright = function(after) {
 	for (var i = 0; i < walls.length; i++) {
-		if ((after + 68) < (walls[i].right) && (after + 68) > (walls[i].left) && player.wallcollisionhorz(i)) {
+		if ((after + player.width - 2) < (walls[i].right) && (after + player.width - 2) > (walls[i].left) && player.wallcollisionhorz(i)) {
 			return true;
 		}
 	}
@@ -720,14 +1118,14 @@ player.collisionhorz = function(sprite) {
 
 //WALL SLIDE OFF CHECKS
 player.wallcollisionhorz = function(i) {
-	if (this.y > walls[i].bot || this.y + 67 < walls[i].top) {
+	if (this.y > walls[i].bot - 3 || this.y + this.height < walls[i].top + 3) {
 		return false;
 	} else {
 		return true;
 	}
 };
 player.wallcollisionvert = function(i) {
-	if (this.x + 67 < walls[i].left || this.x > walls[i].right) {
+	if (this.x + this.width < walls[i].left + 3 || this.x > walls[i].right - 3) {
 		return false;
 	} else {
 		return true;
@@ -775,13 +1173,14 @@ function intersect(l0p0, l0p1, l1p0, l1p1) {
 }
 
 var pcollisions = new Array();
-var bcollisions = new Array();
+
 startGame();
 
 world.update = function(d){
+	//world.draw(ctx);
     //Simulate checking against 500 rectangles    
     for (var i = 0; i < 4 * 500; i++) {
-        //collisions
+        //player collisions HERE
         //if (pcollisions[i] == undefined) {continue;}
         pcollisions[0] = intersect(player.tl, player.br, lights[0].origin, lights[0].lp[0]);
         pcollisions[1] = intersect(player.tr, player.bl, lights[0].origin, lights[0].lp[0]);
@@ -791,15 +1190,23 @@ world.update = function(d){
         pcollisions[5] = intersect(player.tr, player.bl, lights[0].origin, lights[0].lp[2]);
         pcollisions[6] = intersect(player.tl, player.br, lights[0].origin, lights[0].lp[3]);
         pcollisions[7] = intersect(player.tr, player.bl, lights[0].origin, lights[0].lp[3]);
-        //bcollisions[0] = intersect(bear.tl, bear.tr, lights[0].origin, lights[0].lp[0]);
-        //bcollisions[1] = intersect(bear.tl, bear.tr, lights[0].origin, lights[0].lp[1]);
-        //bcollisions[2] = intersect(bear.tl, bear.tr, lights[0].origin, lights[0].lp[2]);
-        //bcollisions[3] = intersect(bear.tl, bear.tr, lights[0].origin, lights[0].lp[3]);
+        pcollisions[8] = intersect(player.tl, player.br, lights[1].origin, lights[1].lp[0]);
+        pcollisions[9] = intersect(player.tr, player.bl, lights[1].origin, lights[1].lp[0]);
+        pcollisions[10] = intersect(player.tl, player.br, lights[1].origin, lights[1].lp[1]);
+        pcollisions[11] = intersect(player.tr, player.bl, lights[1].origin, lights[1].lp[1]);
+        pcollisions[12] = intersect(player.tl, player.br, lights[1].origin, lights[1].lp[2]);
+        pcollisions[13] = intersect(player.tr, player.bl, lights[1].origin, lights[1].lp[2]);
+        pcollisions[14] = intersect(player.tl, player.br, lights[1].origin, lights[1].lp[3]);
+        pcollisions[15] = intersect(player.tr, player.bl, lights[1].origin, lights[1].lp[3]);
     }
-    for (var i = 0; i < pcollisions.length; i++){
-        if (pcollisions[i].occurred) {
-            world.addChild(alert);
-            break;
+    var lose = false;
+    if (!lose) {
+        for (var i = 0; i < pcollisions.length; i++) {
+            if (pcollisions[i].occurred) {
+                world.addChild(alert);
+                lose = true;
+                break;
+            }
         }
     }
     this.updateChildren(d);
