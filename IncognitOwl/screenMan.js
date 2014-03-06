@@ -162,9 +162,6 @@ pauseMenu.init = function(){
     resumeGame.drawBG = true;
     resumeGame.bgColor = "#8D8D8D";
     this.gui.addChild(resumeGame);
-    resumeGame.func = function(){
-        screenMan.remove(pauseMenu);
-    };
     
     var returnToMenu = new TextBox("Space to Return to Main Menu");
     returnToMenu.y = 50;
@@ -179,6 +176,48 @@ pauseMenu.init = function(){
         screenMan.remove(pauseMenu);
         screenMan.remove(gameScreen);
     };
+};
+
+var scriptScreen = new Screen(false, true);
+
+scriptScreen.init = function(){
+	
+	this.width = canvas.width;
+    this.height = canvas.height;
+    
+    this.gui.x = canvas.width/2 + -world.x;
+    this.gui.y = canvas.height/2 + -world.y;
+    
+	var text = new TextBox(tutorialText[0]);
+	test.x = 0 + -world.x;
+	test.y = 480 + -world.y;
+	test.minWidth = 840;
+	test.fontSize = 24;
+	test.drawBG = true;
+	test.bgColor = "white";
+	test.borderColor = "black";
+	test.border = 4;
+	test.padTop = 55;
+	test.padBottom = 47;
+	test.padLeft = 30;
+    scriptScreen.stage.addChild(test);
+    
+	var jax = new Sprite();
+	jax.x = 70 + -world.x;
+	jax.y = 370 + -world.y;
+	jax.height = 150;
+	jax.width = 200;
+	jax.image = Textures.load("https://raw.github.com/moschwar/CMPS20/master/IncognitOwl/Resources/Jax_text.png");
+	scriptScreen.gui.addChild(jax);
+
+	var athene = new Sprite();
+	athene.x = 580 + -world.x;
+	athene.y = 350 + -world.y;
+	athene.height = 150;
+	athene.width = 170;
+	athene.image = Textures.load("https://raw.github.com/moschwar/CMPS20/master/IncognitOwl/Resources/Titan_text_update-1.png");
+	scriptScreen.stage.addChild(athene);
+
 };
 
 var gameScreen = new Screen(false, true);

@@ -368,11 +368,7 @@ cursor.update = function() {
 			world.addChild(end1);
 			world.addChild(end2);
 			world.addChild(end3);
-			if (!((boxes[0].x == 70 * 3 && boxes[0].y == 70 * 5) || (boxes[1].x == 70 * 3 && boxes[1].y == 70 * 5))) {
-				world.addChild(light);
-			} else {
-				light.x = 0;
-			}
+			world.addChild(lights[0]);
 			if (!((boxes[0].x == 70 * 8 && boxes[0].y == 70 * 6) || (boxes[1].x == 70 * 8 && boxes[1].y == 70 * 6))) {
 				guard.vision = 1;
 			} else {
@@ -542,7 +538,7 @@ player.update = function(d) {
         trap--;
     }
     if(player.y < 550) {
-    	textTwo();
+    	//textTwo();
     }
 	//This just makes it so the position values are always whole numbers
 	//which makes the pixel sprite look better
@@ -783,7 +779,6 @@ var bcollisions = new Array();
 startGame();
 
 world.update = function(d){
-    lights[0].update(d);
     //Simulate checking against 500 rectangles    
     for (var i = 0; i < 4 * 500; i++) {
         //collisions

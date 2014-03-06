@@ -1,4 +1,3 @@
-
 var tutorialText = new Array();
 tutorialText[0] = "Tyton: Alright Lieutenant, let's put your training to the test one last\ntime before you enter the battlefield.";
 tutorialText[1] = "We've constructed a simulation course to ensure you're in top shape\nfor the missions that lie ahead.";
@@ -64,58 +63,31 @@ tutorialText[59] = "Tallon: (Heh, I’ll have my Purple Wing in no time.)\n";
 
 function textOne() {
 	gInput.addBool(32, "space");
-	
-	var test = new TextBox(tutorialText[0]);
-	test.x = 0 + -world.x;
-	test.y = 480 + -world.y;
-	test.minWidth = 840;
-	test.fontSize = 24;
-	test.drawBG = true;
-	test.bgColor = "white";
-	test.borderColor = "black";
-	test.border = 4;
-	test.padTop = 55;
-	test.padBottom = 47;
-	test.padLeft = 30;
-
-	var jax = new Sprite();
-	jax.x = 0 + -world.x;
-	jax.y = 300 + -world.y;
-	jax.height = 300;
-	jax.width = 400;
-	jax.image = Textures.load("http://static3.wikia.nocookie.net/__cb20090802122745/advancewars/images/0/08/Will.png");
-	world.addChild(jax);
-
-	var athene = new Sprite();
-	athene.x = 470 + -world.x;
-	athene.y = 300 + -world.y;
-	athene.height = 300;
-	athene.width = 400;
-	athene.image = Textures.load("http://static3.wikia.nocookie.net/__cb20090802122745/advancewars/images/0/08/Will.png");
-	world.addChild(athene);
-
-	world.addChild(test);
-
+    
+    screenMan.push(scriptScreen);
 	var i = 0;
 	var pressed = true;
 
 	world.update = function(d) {
 		while (gInput.space && pressed == true && i < 7) {
-			pressed = false;
-			i++;
-			test.text = tutorialText[i];
-			world.addChild(test);
-			setTimeout(function() {
-				pressed = true;
-			}, 200);
+			if (i == 7) {
+				screenMan.remove(scriptScreen);
+			} else {
+				pressed = false;
+				i++;
+				test.text = tutorialText[i];
+				world.addChild(test);
+				setTimeout(function() {
+					pressed = true;
+				}, 200);
+			}
 		}
-
 	};
 };
 
 function textTwo() {
 	gInput.addBool(32, "space");
-	
+
 	var test = new TextBox(tutorialText[0]);
 	test.x = 0 + -world.x;
 	test.y = 480 + -world.y;
