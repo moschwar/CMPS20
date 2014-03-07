@@ -20,7 +20,11 @@ var astar = {
             return node.f; 
         });
     },
+<<<<<<< HEAD
     search: function(grid, start, end, diagonal, heuristic) {
+=======
+    search: function(grid, start, end, diagonal, heuristic) {  heuristic heuristic heuristic
+>>>>>>> Bjarv
         astar.init(grid);
         heuristic = heuristic || astar.manhattan;
         diagonal = !!diagonal;
@@ -31,13 +35,21 @@ var astar = {
  
         while(openHeap.size() > 0) {
  
+<<<<<<< HEAD
             // Grab the lowest f(x) to process next.  Heap keeps this sorted for us.
+=======
+            // Grab the lowest f(x) to process next.  Heap keeps this sorted
+>>>>>>> Bjarv
             var currentNode = openHeap.pop();
  
             // End case -- result has been found, return the traced path.
             if(currentNode === end) {
                 var curr = currentNode;
+<<<<<<< HEAD
                 var ret = [];
+=======
+                var ret = []; 
+>>>>>>> Bjarv
                 while(curr.parent) {
                     ret.push(curr);
                     curr = curr.parent;
@@ -60,7 +72,10 @@ var astar = {
                 }
  
                 // The g score is the shortest distance from start to current node.
+<<<<<<< HEAD
                 // We need to check if the path we have arrived at this neighbor is the shortest one we have seen yet.
+=======
+>>>>>>> Bjarv
                 var gScore = currentNode.g + neighbor.cost;
                 var beenVisited = neighbor.visited;
  
@@ -74,11 +89,18 @@ var astar = {
                     neighbor.f = neighbor.g + neighbor.h;
  
                     if (!beenVisited) {
+<<<<<<< HEAD
                         // Pushing to heap will put it in proper place based on the 'f' value.
                         openHeap.push(neighbor);
                     }
                     else {
                         // Already seen the node, but since it has been rescored we need to reorder it in the heap
+=======
+
+                        openHeap.push(neighbor);
+                    }
+                    else {
+>>>>>>> Bjarv
                         openHeap.rescoreElement(neighbor);
                     }
                 }
@@ -89,8 +111,12 @@ var astar = {
         return [];
     },
     manhattan: function(pos0, pos1) {
+<<<<<<< HEAD
         // See list of heuristics: http://theory.stanford.edu/~amitp/GameProgramming/Heuristics.html
  
+=======
+   
+>>>>>>> Bjarv
         var d1 = Math.abs (pos1.x - pos0.x);
         var d2 = Math.abs (pos1.y - pos0.y);
         return d1 + d2;
