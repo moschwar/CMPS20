@@ -103,7 +103,7 @@ world.addChild(screenMan);
 //Create a main menu screen
 var mainMenu = new Screen(false, false);
 //Optionally set a background for the screen
-mainMenu.image = Textures.load("Resources/menu.png");
+mainMenu.image = Textures.load("https://raw.github.com/moschwar/CMPS20/85733bebcd9156b6407a82b347c2b07049d7ab48/IncognitOwl/Resources/temporary_menu.png");
 screenMan.push(mainMenu);
 
 //Override the empty init function to set some properties
@@ -187,50 +187,11 @@ scriptScreen.init = function(){
     
     this.gui.x = canvas.width/2 + -world.x;
     this.gui.y = canvas.height/2 + -world.y;
-    
-	/* var test = new TextBox(tutorialText[0]);
-	test.x = 0 + -world.x;
-	test.y = 480 + -world.y;
-	test.minWidth = 840;
-	test.fontSize = 24;
-	test.drawBG = true;
-	test.bgColor = "white";
-	test.borderColor = "black";
-	test.border = 4;
-	test.padTop = 55;
-	test.padBottom = 47;
-	test.padLeft = 30;
-    this.stage.addChild(test); */
-    
-<<<<<<< HEAD
-=======
-	var jax = new Sprite();
-	jax.x = 70 + -world.x;
-	jax.y = 370 + -world.y;
-	jax.height = 150;
-	jax.width = 200;
-	jax.image = Textures.load("Resources/Jax_text.png");
-	scriptScreen.gui.addChild(jax);
->>>>>>> 733027677b4ba3826a8343464396a3d0ce4f26de
-
-
-	/* var athene = new Sprite();
-	athene.x = 580 + -world.x;
-	athene.y = 350 + -world.y;
-	athene.height = 150;
-	athene.width = 170;
-<<<<<<< HEAD
-	athene.image = Textures.load("https://raw.github.com/moschwar/CMPS20/master/IncognitOwl/Resources/Titan_text_update-1.png");
-	this.stage.addChild(athene); */
-=======
-	athene.image = Textures.load("Resources/Titan_text_update-1.png");
-	scriptScreen.stage.addChild(athene);
->>>>>>> 733027677b4ba3826a8343464396a3d0ce4f26de
 
 };
 
 var gameScreen = new Screen(false, true);
-gameScreen.image = Textures.load("Resources/TutorialLevelUpdate-4.png");
+gameScreen.image = Textures.load("https://raw.github.com/moschwar/CMPS20/master/IncognitOwl/Resources/TutorialLevelUpdate-4.png");
 
 //Override the empty init function to set some properties
 gameScreen.init = function(){

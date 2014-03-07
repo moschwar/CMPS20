@@ -62,11 +62,30 @@ tutorialText[58] = "Tyton: Well done, soldier. Now get some rest. Tomorrow’s a
 tutorialText[59] = "Tallon: (Heh, I’ll have my Purple Wing in no time.)\n";
 
 function textOne() {
-	//gInput.addBool(32, "space");
-
-	/* var test = new TextBox(tutorialText[0]);
-	test.y = 450;
-	test.minWidth = 800;
+	//Stop the game
+    /* CHANGE LOCATION OF PLAYER DECLARATION FOR THIS TO WORK
+    player.alpha = 0 ; 
+	traps = 0;
+	player.speed = 0;
+	player.moveRate = 0; */
+	
+    //Add text overlay
+    var jax = new Sprite();
+    jax.x = canvas.width/2 + -world.x - 300;
+    jax.y = canvas.height/2 + -world.y + 80;
+    jax.image = Textures.load("https://raw.github.com/moschwar/CMPS20/master/IncognitOwl/Resources/Jax_text.png");
+    scriptScreen.stage.addChild(jax);
+    
+    var tyton = new Sprite();
+    tyton.x = canvas.width/2 + -world.x + 200;
+    tyton.y = canvas.height/2 + -world.y + 80;
+    tyton.image = Textures.load("https://raw.github.com/moschwar/CMPS20/master/IncognitOwl/Resources/Titan_text_update-1.png");
+    scriptScreen.stage.addChild(tyton);
+    
+    var test = new TextBox(tutorialText[0]);
+	test.x = 0 + -world.x;
+	test.y = 480 + -world.y;
+	test.minWidth = 840;
 	test.fontSize = 24;
 	test.drawBG = true;
 	test.bgColor = "white";
@@ -74,25 +93,15 @@ function textOne() {
 	test.border = 4;
 	test.padTop = 55;
 	test.padBottom = 47;
-	test.padLeft = 30; */
-
-    var jax = new Sprite();
-    jax.x = canvas.width/2 - +world.x;
-    jax.y = canvas.height/2 - +world.y;
-    jax.image = Textures.load("https://raw.github.com/moschwar/CMPS20/master/IncognitOwl/Resources/Jax_text.png");
-    scriptScreen.stage.addChild(jax);
-    
-    var tyton = new Sprite();
-    tyton.x = canvas.width/2 - +world.x + 200;
-    tyton.y = canvas.height/2 - +world.y + 200;
-    tyton.image = Textures.load("https://raw.github.com/moschwar/CMPS20/master/IncognitOwl/Resources/Titan_text_update-1.png");
-    scriptScreen.stage.addChild(tyton);
+	test.padLeft = 30;
+	scriptScreen.stage.addChild(test);
+	
     screenMan.push(scriptScreen);
 
-	//var i = 0;
-	//var pressed = true;
+	var i = 0;
+	var pressed = true;
 
-	/* world.update = function(d) {
+	/* test.update = function(d) {
 		while (gInput.space && pressed == true) {
 			pressed = false;
 			i++;
@@ -102,6 +111,5 @@ function textOne() {
 				pressed = true;
 			}, 200);
 		}
-
-	} */
+	}; */
 };
