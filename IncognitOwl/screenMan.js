@@ -1,7 +1,6 @@
 clearColor = [0, 0, 0, 0];
 use2D = true;
 initGame("canvas");
-
 //Create a screen class
 function Screen(alwaysUpdate, alwaysDraw) {
     //Call the Sprite constructor to copy any object properties
@@ -116,7 +115,8 @@ mainMenu.init = function(){
     this.gui.x = canvas.width/2;
     this.gui.y = canvas.height/2;
     
-    //Add some sprites to the main menu    
+    //Add some sprites to the main menu
+        
     var newGame = new TextButton("New Game");
     newGame.center = true;
     newGame.label.dropShadow = true;
@@ -181,14 +181,14 @@ pauseMenu.init = function(){
 var scriptScreen = new Screen(false, true);
 
 scriptScreen.init = function(){
-	
-	this.width = canvas.width;
+    
+    this.width = canvas.width;
     this.height = canvas.height;
     
     this.gui.x = canvas.width/2 + -world.x;
     this.gui.y = canvas.height/2 + -world.y;
     
-	var text = new TextBox(tutorialText[0]);
+	/* var test = new TextBox(tutorialText[0]);
 	test.x = 0 + -world.x;
 	test.y = 480 + -world.y;
 	test.minWidth = 840;
@@ -200,23 +200,17 @@ scriptScreen.init = function(){
 	test.padTop = 55;
 	test.padBottom = 47;
 	test.padLeft = 30;
-    scriptScreen.stage.addChild(test);
+    this.stage.addChild(test); */
     
-	var jax = new Sprite();
-	jax.x = 70 + -world.x;
-	jax.y = 370 + -world.y;
-	jax.height = 150;
-	jax.width = 200;
-	jax.image = Textures.load("https://raw.github.com/moschwar/CMPS20/master/IncognitOwl/Resources/Jax_text.png");
-	scriptScreen.gui.addChild(jax);
 
-	var athene = new Sprite();
+
+	/* var athene = new Sprite();
 	athene.x = 580 + -world.x;
 	athene.y = 350 + -world.y;
 	athene.height = 150;
 	athene.width = 170;
 	athene.image = Textures.load("https://raw.github.com/moschwar/CMPS20/master/IncognitOwl/Resources/Titan_text_update-1.png");
-	scriptScreen.stage.addChild(athene);
+	this.stage.addChild(athene); */
 
 };
 

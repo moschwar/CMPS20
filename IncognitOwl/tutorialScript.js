@@ -62,36 +62,11 @@ tutorialText[58] = "Tyton: Well done, soldier. Now get some rest. Tomorrow’s a
 tutorialText[59] = "Tallon: (Heh, I’ll have my Purple Wing in no time.)\n";
 
 function textOne() {
-	gInput.addBool(32, "space");
-    
-    screenMan.push(scriptScreen);
-	var i = 0;
-	var pressed = true;
+	//gInput.addBool(32, "space");
 
-	world.update = function(d) {
-		while (gInput.space && pressed == true && i < 7) {
-			if (i == 7) {
-				screenMan.remove(scriptScreen);
-			} else {
-				pressed = false;
-				i++;
-				test.text = tutorialText[i];
-				world.addChild(test);
-				setTimeout(function() {
-					pressed = true;
-				}, 200);
-			}
-		}
-	};
-};
-
-function textTwo() {
-	gInput.addBool(32, "space");
-
-	var test = new TextBox(tutorialText[0]);
-	test.x = 0 + -world.x;
-	test.y = 480 + -world.y;
-	test.minWidth = 840;
+	/* var test = new TextBox(tutorialText[0]);
+	test.y = 450;
+	test.minWidth = 800;
 	test.fontSize = 24;
 	test.drawBG = true;
 	test.bgColor = "white";
@@ -99,30 +74,25 @@ function textTwo() {
 	test.border = 4;
 	test.padTop = 55;
 	test.padBottom = 47;
-	test.padLeft = 30;
+	test.padLeft = 30; */
 
-	var jax = new Sprite();
-	jax.x = 0 + -world.x;
-	jax.y = 300 + -world.y;
-	jax.height = 300;
-	jax.width = 400;
-	jax.image = Textures.load("http://static3.wikia.nocookie.net/__cb20090802122745/advancewars/images/0/08/Will.png");
-	world.addChild(jax);
+    var jax = new Sprite();
+    jax.x = canvas.width/2 - +world.x;
+    jax.y = canvas.height/2 - +world.y;
+    jax.image = Textures.load("https://raw.github.com/moschwar/CMPS20/master/IncognitOwl/Resources/Jax_text.png");
+    scriptScreen.stage.addChild(jax);
+    
+    var tyton = new Sprite();
+    tyton.x = canvas.width/2 - +world.x + 200;
+    tyton.y = canvas.height/2 - +world.y + 200;
+    tyton.image = Textures.load("https://raw.github.com/moschwar/CMPS20/master/IncognitOwl/Resources/Titan_text_update-1.png");
+    scriptScreen.stage.addChild(tyton);
+    screenMan.push(scriptScreen);
 
-	var athene = new Sprite();
-	athene.x = 470 + -world.x;
-	athene.y = 300 + -world.y;
-	athene.height = 300;
-	athene.width = 400;
-	athene.image = Textures.load("http://static3.wikia.nocookie.net/__cb20090802122745/advancewars/images/0/08/Will.png");
-	world.addChild(athene);
+	//var i = 0;
+	//var pressed = true;
 
-	world.addChild(test);
-
-	var i = 8;
-	var pressed = true;
-
-	world.update = function(d) {
+	/* world.update = function(d) {
 		while (gInput.space && pressed == true) {
 			pressed = false;
 			i++;
@@ -133,5 +103,5 @@ function textTwo() {
 			}, 200);
 		}
 
-	};
+	} */
 };
