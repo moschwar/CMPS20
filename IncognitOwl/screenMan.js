@@ -104,7 +104,7 @@ world.addChild(screenMan);
 //Create a main menu screen
 var mainMenu = new Screen(false, false);
 //Optionally set a background for the screen
-mainMenu.image = Textures.load("https://raw.github.com/moschwar/CMPS20/85733bebcd9156b6407a82b347c2b07049d7ab48/IncognitOwl/Resources/temporary_menu.png");
+mainMenu.image = Textures.load("https://raw.github.com/moschwar/CMPS20/master/IncognitOwl/Resources/menu.png");
 screenMan.push(mainMenu);
 
 //Override the empty init function to set some properties
