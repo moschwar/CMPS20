@@ -104,7 +104,7 @@ world.addChild(screenMan);
 //Create a main menu screen
 var mainMenu = new Screen(false, false);
 //Optionally set a background for the screen
-mainMenu.image = Textures.load("https://raw.github.com/moschwar/CMPS20/master/IncognitOwl/Resources/menu.png");
+mainMenu.image = Textures.load("Resources/menu.png");
 screenMan.push(mainMenu);
 
 //Override the empty init function to set some properties
@@ -207,7 +207,7 @@ scriptScreen.init = function(){
 	jax.y = 370 + -world.y;
 	jax.height = 150;
 	jax.width = 200;
-	jax.image = Textures.load("https://raw.github.com/moschwar/CMPS20/master/IncognitOwl/Resources/Jax_text.png");
+	jax.image = Textures.load("Resources/Jax_text.png");
 	scriptScreen.gui.addChild(jax);
 
 	var athene = new Sprite();
@@ -215,13 +215,13 @@ scriptScreen.init = function(){
 	athene.y = 350 + -world.y;
 	athene.height = 150;
 	athene.width = 170;
-	athene.image = Textures.load("https://raw.github.com/moschwar/CMPS20/master/IncognitOwl/Resources/Titan_text_update-1.png");
+	athene.image = Textures.load("Resources/Titan_text_update-1.png");
 	scriptScreen.stage.addChild(athene);
 
 };
 
 var gameScreen = new Screen(false, true);
-gameScreen.image = Textures.load("https://raw.github.com/moschwar/CMPS20/master/IncognitOwl/Resources/TutorialLevelUpdate-4.png");
+gameScreen.image = Textures.load("Resources/TutorialLevelUpdate-4.png");
 
 //Override the empty init function to set some properties
 gameScreen.init = function(){
