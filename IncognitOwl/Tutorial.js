@@ -126,6 +126,9 @@ lights[1] = new Light(70 * 1.7, 70 * 10.4, 1, "right");
 lights[2] = new Light(70 * 11.7, 70 * 1.4, 2, "right");
 lights[3] = new Light(70 * 15.3, 70 * 1.4, 2, "left");
 
+var u = 70;
+var ll = 2.3;
+
 function findPoints(point) {
     var points = new Object();
     points.x0 = point.x0;
@@ -141,117 +144,117 @@ function findPoints(point) {
     points.origin = point.origin;
     if (points.rotation == 0) {
         if (points.direc == "up") {
-            points.x0 = points.origin.x + l90.mc0 * -70 * 2.3;
-            points.y0 = points.origin.y + l90.ms0 * -70 * 2.3;
-            points.x1 = points.origin.x + l90.mc1 * -70 * 2.3;
-            points.y1 = points.origin.y + l90.ms1 * -70 * 2.3;
-            points.x2 = points.origin.x + l90.mc2 * -70 * 2.3;
-            points.y2 = points.origin.y + l90.ms2 * -70 * 2.3;
-            //points.x3 = points.origin.x + l90.mc3 * -70 * 2.3;
-            //points.y3 = points.origin.y + l90.ms3 * -70 * 2.3;
+            points.x0 = points.origin.x + l90.mc0 * -u * ll;
+            points.y0 = points.origin.y + l90.ms0 * -u * ll;
+            points.x1 = points.origin.x + l90.mc1 * -u * ll;
+            points.y1 = points.origin.y + l90.ms1 * -u * ll;
+            points.x2 = points.origin.x + l90.mc2 * -u * ll;
+            points.y2 = points.origin.y + l90.ms2 * -u * ll;
+            //points.x3 = points.origin.x + l90.mc3 * -70 * ll;
+            //points.y3 = points.origin.y + l90.ms3 * -70 * ll;
         } else if (points.direc == "down") {
-            points.x0 = points.origin.x + l90.mc0 * 70 * 2.3;
-            points.y0 = points.origin.y + l90.ms0 * 70 * 2.3;
-            points.x1 = points.origin.x + l90.mc1 * 70 * 2.3;
-            points.y1 = points.origin.y + l90.ms1 * 70 * 2.3;
-            points.x2 = points.origin.x + l90.mc2 * 70 * 2.3;
-            points.y2 = points.origin.y + l90.ms2 * 70 * 2.3;
-            //points.x3 = points.origin.x + l90.mc3 * 70 * 2.3;
-            //points.y3 = points.origin.y + l90.ms3 * 70 * 2.3;
+            points.x0 = points.origin.x + l90.mc0 * u * ll;
+            points.y0 = points.origin.y + l90.ms0 * u * ll;
+            points.x1 = points.origin.x + l90.mc1 * u * ll;
+            points.y1 = points.origin.y + l90.ms1 * u * ll;
+            points.x2 = points.origin.x + l90.mc2 * u * ll;
+            points.y2 = points.origin.y + l90.ms2 * u * ll;
+            //points.x3 = points.origin.x + l90.mc3 * 70 * ll;
+            //points.y3 = points.origin.y + l90.ms3 * 70 * ll;
         } else if (points.direc == "right") {
-            points.x0 = points.origin.x + l90.ms0 * 70 * 2.3;
-            points.y0 = points.origin.y + l90.mc0 * 70 * 2.3;
-            points.x1 = points.origin.x + l90.ms1 * 70 * 2.3;
-            points.y1 = points.origin.y + l90.mc1 * 70 * 2.3;
-            points.x2 = points.origin.x + l90.ms2 * 70 * 2.3;
-            points.y2 = points.origin.y + l90.mc2 * 70 * 2.3;
-            //points.x3 = points.origin.x + l90.ms3 * 70 * 2.3;
-            //points.y3 = points.origin.y + l90.mc3 * 70 * 2.3;
+            points.x0 = points.origin.x + l90.ms0 * u * ll;
+            points.y0 = points.origin.y + l90.mc0 * u * ll;
+            points.x1 = points.origin.x + l90.ms1 * u * ll;
+            points.y1 = points.origin.y + l90.mc1 * u * ll;
+            points.x2 = points.origin.x + l90.ms2 * u * ll;
+            points.y2 = points.origin.y + l90.mc2 * u * ll;
+            //points.x3 = points.origin.x + l90.ms3 * 70 * ll;
+            //points.y3 = points.origin.y + l90.mc3 * 70 * ll;
         } else if (points.direc == "left") {
-            points.x0 = points.origin.x + l90.ms0 * -70 * 2.3;
-            points.y0 = points.origin.y + l90.mc0 * -70 * 2.3;
-            points.x1 = points.origin.x + l90.ms1 * -70 * 2.3;
-            points.y1 = points.origin.y + l90.mc1 * -70 * 2.3;
-            points.x2 = points.origin.x + l90.ms2 * -70 * 2.3;
-            points.y2 = points.origin.y + l90.mc2 * -70 * 2.3;
-            //points.x3 = points.origin.x + l90.ms3 * -70 * 2.3;
-            //points.y3 = points.origin.y + l90.mc3 * -70 * 2.3;
+            points.x0 = points.origin.x + l90.ms0 * -u * ll;
+            points.y0 = points.origin.y + l90.mc0 * -u * ll;
+            points.x1 = points.origin.x + l90.ms1 * -u * ll;
+            points.y1 = points.origin.y + l90.mc1 * -u * ll;
+            points.x2 = points.origin.x + l90.ms2 * -u * ll;
+            points.y2 = points.origin.y + l90.mc2 * -u * ll;
+            //points.x3 = points.origin.x + l90.ms3 * -70 * ll;
+            //points.y3 = points.origin.y + l90.mc3 * -70 * ll;
         }
     } else if (points.rotation == 1) {
         if (points.direc == "up") {
-            points.x0 = points.origin.x + l180.mc0 * -70 * 2.3;
-            points.y0 = points.origin.y + l180.ms0 * -70 * 2.3;
-            points.x1 = points.origin.x + l180.mc1 * -70 * 2.3;
-            points.y1 = points.origin.y + l180.ms1 * -70 * 2.3;
-            points.x2 = points.origin.x + l180.mc2 * -70 * 2.3;
-            points.y2 = points.origin.y + l180.ms2 * -70 * 2.3;
-            //points.x3 = points.origin.x + l180.mc3 * -70 * 2.3;
-            //points.y3 = points.origin.y + l180.ms3 * -70 * 2.3;
+            points.x0 = points.origin.x + l180.mc0 * -u * ll;
+            points.y0 = points.origin.y + l180.ms0 * -u * ll;
+            points.x1 = points.origin.x + l180.mc1 * -u * ll;
+            points.y1 = points.origin.y + l180.ms1 * -u * ll;
+            points.x2 = points.origin.x + l180.mc2 * -u * ll;
+            points.y2 = points.origin.y + l180.ms2 * -u * ll;
+            //points.x3 = points.origin.x + l180.mc3 * -70 * ll;
+            //points.y3 = points.origin.y + l180.ms3 * -70 * ll;
         } else if (points.direc == "down") {
-            points.x0 = points.origin.x + l180.mc0 * 70 * 2.3;
-            points.y0 = points.origin.y + l180.ms0 * 70 * 2.3;
-            points.x1 = points.origin.x + l180.mc1 * 70 * 2.3;
-            points.y1 = points.origin.y + l180.ms1 * 70 * 2.3;
-            points.x2 = points.origin.x + l180.mc2 * 70 * 2.3;
-            points.y2 = points.origin.y + l180.ms2 * 70 * 2.3;
-            //points.x3 = points.origin.x + l180.mc3 * 70 * 2.3;
-            //points.y3 = points.origin.y + l180.ms3 * 70 * 2.3;
+            points.x0 = points.origin.x + l180.mc0 * u * ll;
+            points.y0 = points.origin.y + l180.ms0 * u * ll;
+            points.x1 = points.origin.x + l180.mc1 * u * ll;
+            points.y1 = points.origin.y + l180.ms1 * u * ll;
+            points.x2 = points.origin.x + l180.mc2 * u * ll;
+            points.y2 = points.origin.y + l180.ms2 * u * ll;
+            //points.x3 = points.origin.x + l180.mc3 * 70 * ll;
+            //points.y3 = points.origin.y + l180.ms3 * 70 * ll;
         } else if (points.direc == "right") {
-            points.x0 = points.origin.x + l180.ms0 * 70 * 2.3;
-            points.y0 = points.origin.y + l180.mc0 * 70 * 2.3;
-            points.x1 = points.origin.x + l180.ms1 * 70 * 2.3;
-            points.y1 = points.origin.y + l180.mc1 * 70 * 2.3;
-            points.x2 = points.origin.x + l180.ms2 * 70 * 2.3;
-            points.y2 = points.origin.y + l180.mc2 * 70 * 2.3;
-            //points.x3 = points.origin.x + l180.ms3 * 70 * 2.3;
-            //points.y3 = points.origin.y + l180.mc3 * 70 * 2.3;
+            points.x0 = points.origin.x + l180.ms0 * u * ll;
+            points.y0 = points.origin.y + l180.mc0 * u * ll;
+            points.x1 = points.origin.x + l180.ms1 * u * ll;
+            points.y1 = points.origin.y + l180.mc1 * u * ll;
+            points.x2 = points.origin.x + l180.ms2 * u * ll;
+            points.y2 = points.origin.y + l180.mc2 * u * ll;
+            //points.x3 = points.origin.x + l180.ms3 * 70 * ll;
+            //points.y3 = points.origin.y + l180.mc3 * 70 * ll;
         } else if (points.direc == "left") {
-            points.x0 = points.origin.x + l180.ms0 * -70 * 2.3;
-            points.y0 = points.origin.y + l180.mc0 * -70 * 2.3;
-            points.x1 = points.origin.x + l180.ms1 * -70 * 2.3;
-            points.y1 = points.origin.y + l180.mc1 * -70 * 2.3;
-            points.x2 = points.origin.x + l180.ms2 * -70 * 2.3;
-            points.y2 = points.origin.y + l180.mc2 * -70 * 2.3;
-            //points.x3 = points.origin.x + l180.ms3 * -70 * 2.3;
-            //points.y3 = points.origin.y + l180.mc3 * -70 * 2.3;
+            points.x0 = points.origin.x + l180.ms0 * -u * ll;
+            points.y0 = points.origin.y + l180.mc0 * -u * ll;
+            points.x1 = points.origin.x + l180.ms1 * -u * ll;
+            points.y1 = points.origin.y + l180.mc1 * -u * ll;
+            points.x2 = points.origin.x + l180.ms2 * -u * ll;
+            points.y2 = points.origin.y + l180.mc2 * -u * ll;
+            //points.x3 = points.origin.x + l180.ms3 * -70 * ll;
+            //points.y3 = points.origin.y + l180.mc3 * -70 * ll;
         }
     } else if (points.rotation == 2) {
         if (points.direc == "up") {
-            points.x0 = points.origin.x + l360.mc0 * -70 * 2.3;
-            points.y0 = points.origin.y + l360.ms0 * -70 * 2.3;
-            points.x1 = points.origin.x + l360.mc1 * -70 * 2.3;
-            points.y1 = points.origin.y + l360.ms1 * -70 * 2.3;
-            points.x2 = points.origin.x + l360.mc2 * -70 * 2.3;
-            points.y2 = points.origin.y + l360.ms2 * -70 * 2.3;
-            //points.x3 = points.origin.x + l360.mc3 * -70 * 2.3;
-            //points.y3 = points.origin.y + l360.ms3 * -70 * 2.3;
+            points.x0 = points.origin.x + l360.mc0 * -u * ll;
+            points.y0 = points.origin.y + l360.ms0 * -u * ll;
+            points.x1 = points.origin.x + l360.mc1 * -u * ll;
+            points.y1 = points.origin.y + l360.ms1 * -u * ll;
+            points.x2 = points.origin.x + l360.mc2 * -u * ll;
+            points.y2 = points.origin.y + l360.ms2 * -u * ll;
+            //points.x3 = points.origin.x + l360.mc3 * -70 * ll;
+            //points.y3 = points.origin.y + l360.ms3 * -70 * ll;
         } else if (points.direc == "down") {
-            points.x0 = points.origin.x + l360.mc0 * 70 * 2.3;
-            points.y0 = points.origin.y + l360.ms0 * 70 * 2.3;
-            points.x1 = points.origin.x + l360.mc1 * 70 * 2.3;
-            points.y1 = points.origin.y + l360.ms1 * 70 * 2.3;
-            points.x2 = points.origin.x + l360.mc2 * 70 * 2.3;
-            points.y2 = points.origin.y + l360.ms2 * 70 * 2.3;
-            //points.x3 = points.origin.x + l360.mc3 * 70 * 2.3;
-            //points.y3 = points.origin.y + l360.ms3 * 70 * 2.3;
+            points.x0 = points.origin.x + l360.mc0 * u * ll;
+            points.y0 = points.origin.y + l360.ms0 * u * ll;
+            points.x1 = points.origin.x + l360.mc1 * u * ll;
+            points.y1 = points.origin.y + l360.ms1 * u * ll;
+            points.x2 = points.origin.x + l360.mc2 * u * ll;
+            points.y2 = points.origin.y + l360.ms2 * u * ll;
+            //points.x3 = points.origin.x + l360.mc3 * 70 * ll;
+            //points.y3 = points.origin.y + l360.ms3 * 70 * ll;
         } else if (points.direc == "right") {
-            points.x0 = points.origin.x + l360.ms0 * 70 * 2.3;
-            points.y0 = points.origin.y + l360.mc0 * 70 * 2.3;
-            points.x1 = points.origin.x + l360.ms1 * 70 * 2.3;
-            points.y1 = points.origin.y + l360.mc1 * 70 * 2.3;
-            points.x2 = points.origin.x + l360.ms2 * 70 * 2.3;
-            points.y2 = points.origin.y + l360.mc2 * 70 * 2.3;
-            //points.x3 = points.origin.x + l360.ms3 * 70 * 2.3;
-            //points.y3 = points.origin.y + l360.mc3 * 70 * 2.3;
+            points.x0 = points.origin.x + l360.ms0 * u * ll;
+            points.y0 = points.origin.y + l360.mc0 * u * ll;
+            points.x1 = points.origin.x + l360.ms1 * u * ll;
+            points.y1 = points.origin.y + l360.mc1 * u * ll;
+            points.x2 = points.origin.x + l360.ms2 * u * ll;
+            points.y2 = points.origin.y + l360.mc2 * u * ll;
+            //points.x3 = points.origin.x + l360.ms3 * 70 * ll;
+            //points.y3 = points.origin.y + l360.mc3 * 70 * ll;
         } else if (points.direc == "left") {
-            points.x0 = points.origin.x + l360.ms0 * -70 * 2.3;
-            points.y0 = points.origin.y + l360.mc0 * -70 * 2.3;
-            points.x1 = points.origin.x + l360.ms1 * -70 * 2.3;
-            points.y1 = points.origin.y + l360.mc1 * -70 * 2.3;
-            points.x2 = points.origin.x + l360.ms2 * -70 * 2.3;
-            points.y2 = points.origin.y + l360.mc2 * -70 * 2.3;
-            //points.x3 = points.origin.x + l360.ms3 * -70 * 2.3;
-            //points.y3 = points.origin.y + l360.mc3 * -70 * 2.3;
+            points.x0 = points.origin.x + l360.ms0 * -u * ll;
+            points.y0 = points.origin.y + l360.mc0 * -u * ll;
+            points.x1 = points.origin.x + l360.ms1 * -u * ll;
+            points.y1 = points.origin.y + l360.mc1 * -u * ll;
+            points.x2 = points.origin.x + l360.ms2 * -u * ll;
+            points.y2 = points.origin.y + l360.mc2 * -u * ll;
+            //points.x3 = points.origin.x + l360.ms3 * -70 * ll;
+            //points.y3 = points.origin.y + l360.mc3 * -70 * ll;
         }
     }
 
@@ -529,10 +532,10 @@ walls.r = function(x, y1, y2) {
 };
 
 //MAKE SURE TO SET WALLS LENGTH
-walls[0] = walls.l(2, 5, 14);
+walls[0] = walls.l(2, 5, 15);
 walls[1] = walls.u(2, 5, 12);
-walls[2] = walls.r(4, 8, 14);
-walls[3] = walls.d(2, 14, 4);
+walls[2] = walls.r(4, 8, 15);
+walls[3] = walls.d(2, 15, 4);
 walls[4] = walls.d(4, 8, 15);
 walls[5] = walls.r(7, 6, 7);
 walls[6] = walls.u(7, 7, 8);
@@ -741,7 +744,7 @@ player.image = Textures.load("Resources/Jax_walk_FULL.png");
 player.width = 62;
 player.height = 62;
 player.x = 70 * 2.7;
-player.y = 70 * 12.7;
+player.y = 70 * 13.7;
 player.tl = new Vector(player.x, player.y); //top left
 player.tr = new Vector((player.x + player.width), player.y); //top right
 player.bl = new Vector(player.x, (player.y + player.height)); //bottom left
