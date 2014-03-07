@@ -8,7 +8,7 @@ clearColor = [0, .5, .5, .5];
 var can = document.getElementById('canvas');
 var ctx = canvas.getContext("2d");
 world.x = -70 * 1;
-world.y = -70 * 5;
+world.y = -70 * 6;
 
 l90 = new Object();
 l90.reverse = false;
@@ -685,7 +685,7 @@ cursor.update = function() {
 			boxes[1].placed = true;
 			this.remove();
 			world.x = -70 * 1;
-			world.y = -70 * 5;
+			world.y = -70 * 6;
 			world.addChild(player);
 			world.addChild(guard);
 			//textOne();
