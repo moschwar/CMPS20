@@ -18,8 +18,8 @@ l90.ms0 = 0;
 l90.mc0 = 0;
 l90.ms1 = 0;
 l90.mc1 = 0;
-//l90.ms2 = 0;
-//l90.mc2 = 0;
+l90.ms2 = 0;
+l90.mc2 = 0;
 //l90.ms3 = 0;
 //l90.mc3 = 0;
 l90.update = function (d) {
@@ -45,10 +45,10 @@ l90.update = function (d) {
     }
     this.ms0 = Math.sin(this.rot);
     this.mc0 = Math.cos(this.rot);
-    this.ms1 = Math.sin(this.rot + .3);
-    this.mc1 = Math.cos(this.rot + .3);
-    //this.ms2 = Math.sin(this.rot + .3);
-    //this.mc2 = Math.cos(this.rot + .3);
+    this.ms1 = Math.sin(this.rot + .15);
+    this.mc1 = Math.cos(this.rot + .15);
+    this.ms2 = Math.sin(this.rot + .3);
+    this.mc2 = Math.cos(this.rot + .3);
     //this.ms3 = Math.sin(this.rot + .3);
     //this.mc3 = Math.cos(this.rot + .3);
 };
@@ -61,8 +61,8 @@ l180.ms0 = 0;
 l180.mc0 = 0;
 l180.ms1 = 0;
 l180.mc1 = 0;
-//l180.ms2 = 0;
-//l180.mc2 = 0;
+l180.ms2 = 0;
+l180.mc2 = 0;
 //l180.ms3 = 0;
 //l180.mc3 = 0;
 l180.update = function (d) {
@@ -88,10 +88,10 @@ l180.update = function (d) {
     }
     this.ms0 = Math.sin(this.rot);
     this.mc0 = Math.cos(this.rot);
-    this.ms1 = Math.sin(this.rot + .3);
-    this.mc1 = Math.cos(this.rot + .3);
-    //this.ms2 = Math.sin(this.rot + .3);
-    //this.mc2 = Math.cos(this.rot + .3);
+    this.ms1 = Math.sin(this.rot + .15);
+    this.mc1 = Math.cos(this.rot + .15);
+    this.ms2 = Math.sin(this.rot + .3);
+    this.mc2 = Math.cos(this.rot + .3);
     //this.ms3 = Math.sin(this.rot + .3);
     //this.mc3 = Math.cos(this.rot + .3);
 };
@@ -103,18 +103,18 @@ l360.ms0 = 0;
 l360.mc0 = 0;
 l360.ms1 = 0;
 l360.mc1 = 0;
-//l360.ms2 = 0;
-//l360.mc2 = 0;
+l360.ms2 = 0;
+l360.mc2 = 0;
 //l360.ms3 = 0;
 //l360.mc3 = 0;
 l360.update = function (d) {
     this.rot += 0.03;
     this.ms0 = Math.sin(this.rot);
     this.mc0 = Math.cos(this.rot);
-    this.ms1 = Math.sin(this.rot + .3);
-    this.mc1 = Math.cos(this.rot + .3);
-    //this.ms2 = Math.sin(this.rot + .3);
-    //this.mc2 = Math.cos(this.rot + .3);
+    this.ms1 = Math.sin(this.rot + .15);
+    this.mc1 = Math.cos(this.rot + .15);
+    this.ms2 = Math.sin(this.rot + .3);
+    this.mc2 = Math.cos(this.rot + .3);
     //this.ms3 = Math.sin(this.rot + .3);
     //this.mc3 = Math.cos(this.rot + .3);
 };
@@ -135,8 +135,8 @@ function findPoints(point) {
     points.y0 = point.y0;
     points.x1 = point.x1;
     points.y1 = point.y1;
-    //points.x2 = point.x2;
-    //points.y2 = point.y2;
+    points.x2 = point.x2;
+    points.y2 = point.y2;
     //points.x3 = point.x3;
     //points.y3 = point.y3;
     points.rotation = point.rotation;
@@ -148,8 +148,8 @@ function findPoints(point) {
             points.y0 = points.origin.y + l90.ms0 * -u * ll;
             points.x1 = points.origin.x + l90.mc1 * -u * ll;
             points.y1 = points.origin.y + l90.ms1 * -u * ll;
-            //points.x2 = points.origin.x + l90.mc2 * -u * ll;
-            //points.y2 = points.origin.y + l90.ms2 * -u * ll;
+            points.x2 = points.origin.x + l90.mc2 * -u * ll;
+            points.y2 = points.origin.y + l90.ms2 * -u * ll;
             //points.x3 = points.origin.x + l90.mc3 * -70 * ll;
             //points.y3 = points.origin.y + l90.ms3 * -70 * ll;
         } else if (points.direc == "down") {
@@ -157,8 +157,8 @@ function findPoints(point) {
             points.y0 = points.origin.y + l90.ms0 * u * ll;
             points.x1 = points.origin.x + l90.mc1 * u * ll;
             points.y1 = points.origin.y + l90.ms1 * u * ll;
-            //points.x2 = points.origin.x + l90.mc2 * u * ll;
-            //points.y2 = points.origin.y + l90.ms2 * u * ll;
+            points.x2 = points.origin.x + l90.mc2 * u * ll;
+            points.y2 = points.origin.y + l90.ms2 * u * ll;
             //points.x3 = points.origin.x + l90.mc3 * 70 * ll;
             //points.y3 = points.origin.y + l90.ms3 * 70 * ll;
         } else if (points.direc == "right") {
@@ -166,8 +166,8 @@ function findPoints(point) {
             points.y0 = points.origin.y + l90.mc0 * u * ll;
             points.x1 = points.origin.x + l90.ms1 * u * ll;
             points.y1 = points.origin.y + l90.mc1 * u * ll;
-            //points.x2 = points.origin.x + l90.ms2 * u * ll;
-            //points.y2 = points.origin.y + l90.mc2 * u * ll;
+            points.x2 = points.origin.x + l90.ms2 * u * ll;
+            points.y2 = points.origin.y + l90.mc2 * u * ll;
             //points.x3 = points.origin.x + l90.ms3 * 70 * ll;
             //points.y3 = points.origin.y + l90.mc3 * 70 * ll;
         } else if (points.direc == "left") {
@@ -175,8 +175,8 @@ function findPoints(point) {
             points.y0 = points.origin.y + l90.mc0 * -u * ll;
             points.x1 = points.origin.x + l90.ms1 * -u * ll;
             points.y1 = points.origin.y + l90.mc1 * -u * ll;
-            //points.x2 = points.origin.x + l90.ms2 * -u * ll;
-            //points.y2 = points.origin.y + l90.mc2 * -u * ll;
+            points.x2 = points.origin.x + l90.ms2 * -u * ll;
+            points.y2 = points.origin.y + l90.mc2 * -u * ll;
             //points.x3 = points.origin.x + l90.ms3 * -70 * ll;
             //points.y3 = points.origin.y + l90.mc3 * -70 * ll;
         }
@@ -186,8 +186,8 @@ function findPoints(point) {
             points.y0 = points.origin.y + l180.ms0 * -u * ll;
             points.x1 = points.origin.x + l180.mc1 * -u * ll;
             points.y1 = points.origin.y + l180.ms1 * -u * ll;
-            //points.x2 = points.origin.x + l180.mc2 * -u * ll;
-            //points.y2 = points.origin.y + l180.ms2 * -u * ll;
+            points.x2 = points.origin.x + l180.mc2 * -u * ll;
+            points.y2 = points.origin.y + l180.ms2 * -u * ll;
             //points.x3 = points.origin.x + l180.mc3 * -70 * ll;
             //points.y3 = points.origin.y + l180.ms3 * -70 * ll;
         } else if (points.direc == "down") {
@@ -195,8 +195,8 @@ function findPoints(point) {
             points.y0 = points.origin.y + l180.ms0 * u * ll;
             points.x1 = points.origin.x + l180.mc1 * u * ll;
             points.y1 = points.origin.y + l180.ms1 * u * ll;
-            //points.x2 = points.origin.x + l180.mc2 * u * ll;
-            //points.y2 = points.origin.y + l180.ms2 * u * ll;
+            points.x2 = points.origin.x + l180.mc2 * u * ll;
+            points.y2 = points.origin.y + l180.ms2 * u * ll;
             //points.x3 = points.origin.x + l180.mc3 * 70 * ll;
             //points.y3 = points.origin.y + l180.ms3 * 70 * ll;
         } else if (points.direc == "right") {
@@ -204,8 +204,8 @@ function findPoints(point) {
             points.y0 = points.origin.y + l180.mc0 * u * ll;
             points.x1 = points.origin.x + l180.ms1 * u * ll;
             points.y1 = points.origin.y + l180.mc1 * u * ll;
-            //points.x2 = points.origin.x + l180.ms2 * u * ll;
-            //points.y2 = points.origin.y + l180.mc2 * u * ll;
+            points.x2 = points.origin.x + l180.ms2 * u * ll;
+            points.y2 = points.origin.y + l180.mc2 * u * ll;
             //points.x3 = points.origin.x + l180.ms3 * 70 * ll;
             //points.y3 = points.origin.y + l180.mc3 * 70 * ll;
         } else if (points.direc == "left") {
@@ -213,8 +213,8 @@ function findPoints(point) {
             points.y0 = points.origin.y + l180.mc0 * -u * ll;
             points.x1 = points.origin.x + l180.ms1 * -u * ll;
             points.y1 = points.origin.y + l180.mc1 * -u * ll;
-            //points.x2 = points.origin.x + l180.ms2 * -u * ll;
-            //points.y2 = points.origin.y + l180.mc2 * -u * ll;
+            points.x2 = points.origin.x + l180.ms2 * -u * ll;
+            points.y2 = points.origin.y + l180.mc2 * -u * ll;
             //points.x3 = points.origin.x + l180.ms3 * -70 * ll;
             //points.y3 = points.origin.y + l180.mc3 * -70 * ll;
         }
@@ -224,8 +224,8 @@ function findPoints(point) {
             points.y0 = points.origin.y + l360.ms0 * -u * ll;
             points.x1 = points.origin.x + l360.mc1 * -u * ll;
             points.y1 = points.origin.y + l360.ms1 * -u * ll;
-            //points.x2 = points.origin.x + l360.mc2 * -u * ll;
-            //points.y2 = points.origin.y + l360.ms2 * -u * ll;
+            points.x2 = points.origin.x + l360.mc2 * -u * ll;
+            points.y2 = points.origin.y + l360.ms2 * -u * ll;
             //points.x3 = points.origin.x + l360.mc3 * -70 * ll;
             //points.y3 = points.origin.y + l360.ms3 * -70 * ll;
         } else if (points.direc == "down") {
@@ -233,8 +233,8 @@ function findPoints(point) {
             points.y0 = points.origin.y + l360.ms0 * u * ll;
             points.x1 = points.origin.x + l360.mc1 * u * ll;
             points.y1 = points.origin.y + l360.ms1 * u * ll;
-            //points.x2 = points.origin.x + l360.mc2 * u * ll;
-            //points.y2 = points.origin.y + l360.ms2 * u * ll;
+            points.x2 = points.origin.x + l360.mc2 * u * ll;
+            points.y2 = points.origin.y + l360.ms2 * u * ll;
             //points.x3 = points.origin.x + l360.mc3 * 70 * ll;
             //points.y3 = points.origin.y + l360.ms3 * 70 * ll;
         } else if (points.direc == "right") {
@@ -242,8 +242,8 @@ function findPoints(point) {
             points.y0 = points.origin.y + l360.mc0 * u * ll;
             points.x1 = points.origin.x + l360.ms1 * u * ll;
             points.y1 = points.origin.y + l360.mc1 * u * ll;
-            //points.x2 = points.origin.x + l360.ms2 * u * ll;
-            //points.y2 = points.origin.y + l360.mc2 * u * ll;
+            points.x2 = points.origin.x + l360.ms2 * u * ll;
+            points.y2 = points.origin.y + l360.mc2 * u * ll;
             //points.x3 = points.origin.x + l360.ms3 * 70 * ll;
             //points.y3 = points.origin.y + l360.mc3 * 70 * ll;
         } else if (points.direc == "left") {
@@ -251,8 +251,8 @@ function findPoints(point) {
             points.y0 = points.origin.y + l360.mc0 * -u * ll;
             points.x1 = points.origin.x + l360.ms1 * -u * ll;
             points.y1 = points.origin.y + l360.mc1 * -u * ll;
-            //points.x2 = points.origin.x + l360.ms2 * -u * ll;
-            //points.y2 = points.origin.y + l360.mc2 * -u * ll;
+            points.x2 = points.origin.x + l360.ms2 * -u * ll;
+            points.y2 = points.origin.y + l360.mc2 * -u * ll;
             //points.x3 = points.origin.x + l360.ms3 * -70 * ll;
             //points.y3 = points.origin.y + l360.mc3 * -70 * ll;
         }
@@ -267,8 +267,8 @@ lights[0].update = function (d) {
     points.y0 = this.y0;
     points.x1 = this.x1;
     points.y1 = this.y1;
-    //points.x2 = this.x2;
-    //points.y2 = this.y2;
+    points.x2 = this.x2;
+    points.y2 = this.y2;
     //points.x3 = this.x3;
     //points.y3 = this.y3;
     points.rotation = this.rotation;
@@ -280,38 +280,38 @@ lights[0].update = function (d) {
     this.xy0.y = points.y0;
     this.xy1.x = points.x1;
     this.xy1.y = points.y1;
-    //this.xy2.x = points.x2;
-    //this.xy2.y = points.y2;
+    this.xy2.x = points.x2;
+    this.xy2.y = points.y2;
     //this.xy3.x = points.x3;
     //this.xy3.y = points.y3;
 
-    for (var i = 0; i < 4 * 500; i++) {
+    //for (var i = 0; i < 4 * 500; i++) {
         //MOST IMPORTANT ONES NEED HIGHER INDEXES
         this.bcollisions[0] = intersect(boxes[0].tl, boxes[0].bl, this.origin, this.xy0);
         this.bcollisions[1] = intersect(boxes[0].tl, boxes[0].bl, this.origin, this.xy1);
-        //this.bcollisions[2] = intersect(boxes[0].tl, boxes[0].bl, this.origin, this.xy2);
+        this.bcollisions[2] = intersect(boxes[0].tl, boxes[0].bl, this.origin, this.xy2);
         //this.bcollisions[3] = intersect(boxes[0].tl, boxes[0].bl, this.origin, this.xy3);
         this.bcollisions[4] = intersect(boxes[0].br, boxes[0].tr, this.origin, this.xy0);
         this.bcollisions[5] = intersect(boxes[0].br, boxes[0].tr, this.origin, this.xy1);
-        //this.bcollisions[6] = intersect(boxes[0].br, boxes[0].tr, this.origin, this.xy2);
+        this.bcollisions[6] = intersect(boxes[0].br, boxes[0].tr, this.origin, this.xy2);
         //this.bcollisions[7] = intersect(boxes[0].br, boxes[0].tr, this.origin, this.xy3);
         this.bcollisions[8] = intersect(boxes[1].tl, boxes[1].bl, this.origin, this.xy0);
         this.bcollisions[9] = intersect(boxes[1].tl, boxes[1].bl, this.origin, this.xy1);
-        //this.bcollisions[10] = intersect(boxes[1].tl, boxes[1].bl, this.origin, this.xy2);
+        this.bcollisions[10] = intersect(boxes[1].tl, boxes[1].bl, this.origin, this.xy2);
         //this.bcollisions[11] = intersect(boxes[1].tl, boxes[1].bl, this.origin, this.xy3);
         this.bcollisions[12] = intersect(boxes[1].br, boxes[1].tr, this.origin, this.xy0);
         this.bcollisions[13] = intersect(boxes[1].br, boxes[1].tr, this.origin, this.xy1);
-        //this.bcollisions[14] = intersect(boxes[1].br, boxes[1].tr, this.origin, this.xy2);
+        this.bcollisions[14] = intersect(boxes[1].br, boxes[1].tr, this.origin, this.xy2);
         //this.bcollisions[15] = intersect(boxes[1].br, boxes[1].tr, this.origin, this.xy3);
         this.bcollisions[16] = intersect(boxes[0].tl, boxes[0].tr, this.origin, this.xy0);
         this.bcollisions[17] = intersect(boxes[0].tl, boxes[0].tr, this.origin, this.xy1);
-        //this.bcollisions[18] = intersect(boxes[0].tl, boxes[0].tr, this.origin, this.xy2);
+        this.bcollisions[18] = intersect(boxes[0].tl, boxes[0].tr, this.origin, this.xy2);
         //this.bcollisions[19] = intersect(boxes[0].tl, boxes[0].tr, this.origin, this.xy3);
         this.bcollisions[20] = intersect(boxes[1].tl, boxes[1].tr, this.origin, this.xy0);
         this.bcollisions[21] = intersect(boxes[1].tl, boxes[1].tr, this.origin, this.xy1);
-       // this.bcollisions[22] = intersect(boxes[1].tl, boxes[1].tr, this.origin, this.xy2);
+        this.bcollisions[22] = intersect(boxes[1].tl, boxes[1].tr, this.origin, this.xy2);
         //this.bcollisions[23] = intersect(boxes[1].tl, boxes[1].tr, this.origin, this.xy3);
-    }
+    //}
     for (var i = 0; i < this.bcollisions.length; i++) {
         if (!(this.bcollisions[i] == undefined) && this.bcollisions[i].occurred) {
             if (i % 4 == 0) {
@@ -320,9 +320,9 @@ lights[0].update = function (d) {
             } else if (i % 4 == 1) {
                 this.lp[1].x = this.bcollisions[i].point.x;
                 this.lp[1].y = this.bcollisions[i].point.y;
-            //} else if (i % 4 == 2) {
-                //this.lp[2].x = this.bcollisions[i].point.x;
-                //this.lp[2].y = this.bcollisions[i].point.y;
+            } else if (i % 4 == 2) {
+                this.lp[2].x = this.bcollisions[i].point.x;
+                this.lp[2].y = this.bcollisions[i].point.y;
             } //else if (i % 4 == 3) {
                 //this.lp[3].x = this.bcollisions[i].point.x;
                 //this.lp[3].y = this.bcollisions[i].point.y;
@@ -335,9 +335,9 @@ lights[0].update = function (d) {
             } else if (i == 1) {
                 this.lp[1].x = points.x1;
                 this.lp[1].y = points.y1;
-            //} else if (i == 2) {
-                //this.lp[2].x = points.x2;
-                //this.lp[2].y = points.y2;
+            } else if (i == 2) {
+                this.lp[2].x = points.x2;
+                this.lp[2].y = points.y2;
             } //else if (i == 3) {
                 //this.lp[3].x = points.x3;
                 //this.lp[3].y = points.y3;
@@ -352,8 +352,8 @@ lights[1].update = function (d) {
     points.y0 = this.y0;
     points.x1 = this.x1;
     points.y1 = this.y1;
-   // points.x2 = this.x2;
-    //points.y2 = this.y2;
+    points.x2 = this.x2;
+    points.y2 = this.y2;
     //points.x3 = this.x3;
     //points.y3 = this.y3;
     points.rotation = this.rotation;
@@ -365,8 +365,8 @@ lights[1].update = function (d) {
     this.lp[0].y = points.y0;
     this.lp[1].x = points.x1;
     this.lp[1].y = points.y1;
-    //this.lp[2].x = points.x2;
-    //this.lp[2].y = points.y2;
+    this.lp[2].x = points.x2;
+    this.lp[2].y = points.y2;
     //this.lp[3].x = points.x3;
     //this.lp[3].y = points.y3;
 };
@@ -377,8 +377,8 @@ lights[2].update = function (d) {
     points.y0 = this.y0;
     points.x1 = this.x1;
     points.y1 = this.y1;
-    //points.x2 = this.x2;
-    //points.y2 = this.y2;
+    points.x2 = this.x2;
+    points.y2 = this.y2;
     //points.x3 = this.x3;
     //points.y3 = this.y3;
     points.rotation = this.rotation;
@@ -390,8 +390,8 @@ lights[2].update = function (d) {
     this.lp[0].y = points.y0;
     this.lp[1].x = points.x1;
     this.lp[1].y = points.y1;
-    //this.lp[2].x = points.x2;
-    //this.lp[2].y = points.y2;
+    this.lp[2].x = points.x2;
+    this.lp[2].y = points.y2;
     //this.lp[3].x = points.x3;
     //this.lp[3].y = points.y3;
 };
@@ -402,8 +402,8 @@ lights[3].update = function (d) {
     points.y0 = this.y0;
     points.x1 = this.x1;
     points.y1 = this.y1;
-    //points.x2 = this.x2;
-    //points.y2 = this.y2;
+    points.x2 = this.x2;
+    points.y2 = this.y2;
     //points.x3 = this.x3;
     //points.y3 = this.y3;
     points.rotation = this.rotation;
@@ -415,8 +415,8 @@ lights[3].update = function (d) {
     this.lp[0].y = points.y0;
     this.lp[1].x = points.x1;
     this.lp[1].y = points.y1;
-    //this.lp[2].x = points.x2;
-    //this.lp[2].y = points.y2;
+    this.lp[2].x = points.x2;
+    this.lp[2].y = points.y2;
     //this.lp[3].x = points.x3;
     //this.lp[3].y = points.y3;
 };
@@ -432,13 +432,13 @@ function Light(x, y, rotation, direc) {
     light.y0 = 0;
     light.x1 = 0;
     light.y1 = 0;
-    //light.x2 = 0;
-    //light.y2 = 0;
+    light.x2 = 0;
+    light.y2 = 0;
     //light.x3 = 0;
     //light.y3 = 0;
     light.xy0 = new Vector(light.x0, light.y0);
     light.xy1 = new Vector(light.x1, light.y1);
-    //light.xy2 = new Vector(light.x2, light.y2);
+    light.xy2 = new Vector(light.x2, light.y2);
     //light.xy3 = new Vector(light.x3, light.y3);
     light.direc = direc;
     for (var i = 0; i < light.lp.length; i++) {
@@ -933,7 +933,7 @@ world.draw = function(ctx) {
     ctx.moveTo(lights[0].origin.x, lights[0].origin.y);
     ctx.lineTo(lights[0].lp[0].x, lights[0].lp[0].y);
     ctx.stroke();
-    //ctx.lineWidth = bigW;
+    ctx.lineWidth = bigW;
     ctx.beginPath();
     ctx.moveTo(lights[0].origin.x, lights[0].origin.y);
     ctx.lineTo(lights[0].lp[1].x, lights[0].lp[1].y);
@@ -953,16 +953,16 @@ world.draw = function(ctx) {
     ctx.moveTo(lights[1].origin.x, lights[1].origin.y);
     ctx.lineTo(lights[1].lp[0].x, lights[1].lp[0].y);
     ctx.stroke();
-    //ctx.lineWidth = bigW;
+    ctx.lineWidth = bigW;
     ctx.beginPath();
     ctx.moveTo(lights[1].origin.x, lights[1].origin.y);
     ctx.lineTo(lights[1].lp[1].x, lights[1].lp[1].y);
     ctx.stroke();
     ctx.lineWidth = smallW;
-    /*ctx.beginPath();
+    ctx.beginPath();
     ctx.moveTo(lights[1].origin.x, lights[1].origin.y);
     ctx.lineTo(lights[1].lp[2].x, lights[1].lp[2].y);
-    ctx.stroke();*/
+    ctx.stroke();
     /*ctx.lineWidth = smallW;
     ctx.beginPath();
     ctx.moveTo(lights[1].origin.x, lights[1].origin.y);
@@ -972,16 +972,16 @@ world.draw = function(ctx) {
     ctx.moveTo(lights[2].origin.x, lights[2].origin.y);
     ctx.lineTo(lights[2].lp[0].x, lights[2].lp[0].y);
     ctx.stroke();
-    //ctx.lineWidth = bigW;
+    ctx.lineWidth = bigW;
     ctx.beginPath();
     ctx.moveTo(lights[2].origin.x, lights[2].origin.y);
     ctx.lineTo(lights[2].lp[1].x, lights[2].lp[1].y);
     ctx.stroke();
     ctx.lineWidth = smallW;
-    /*ctx.beginPath();
+    ctx.beginPath();
     ctx.moveTo(lights[2].origin.x, lights[2].origin.y);
     ctx.lineTo(lights[2].lp[2].x, lights[2].lp[2].y);
-    ctx.stroke();*/
+    ctx.stroke();
     /*ctx.lineWidth = smallW;
     ctx.beginPath();
     ctx.moveTo(lights[2].origin.x, lights[2].origin.y);
@@ -992,16 +992,16 @@ world.draw = function(ctx) {
     ctx.moveTo(lights[3].origin.x, lights[3].origin.y);
     ctx.lineTo(lights[3].lp[0].x, lights[3].lp[0].y);
     ctx.stroke();
-    //ctx.lineWidth = bigW;
+    ctx.lineWidth = bigW;
     ctx.beginPath();
     ctx.moveTo(lights[3].origin.x, lights[3].origin.y);
     ctx.lineTo(lights[3].lp[1].x, lights[3].lp[1].y);
     ctx.stroke();
     ctx.lineWidth = smallW;
-    /*ctx.beginPath();
+    ctx.beginPath();
     ctx.moveTo(lights[3].origin.x, lights[3].origin.y);
     ctx.lineTo(lights[3].lp[2].x, lights[3].lp[2].y);
-    ctx.stroke();*/
+    ctx.stroke();
     /*ctx.lineWidth = smallW;
     ctx.beginPath();
     ctx.moveTo(lights[3].origin.x, lights[3].origin.y);
@@ -1213,26 +1213,26 @@ startGame();
 world.update = function(d){
 	//world.draw(ctx);
     //Simulate checking against 500 rectangles    
-    for (var i = 0; i < 4 * 500; i++) {
+    //for (var i = 0; i < 4 * 500; i++) {
         //player collisions HERE
         //if (pcollisions[i] == undefined) {continue;}
         pcollisions[0] = intersect(player.tl, player.br, lights[0].origin, lights[0].lp[0]);
         pcollisions[1] = intersect(player.tr, player.bl, lights[0].origin, lights[0].lp[0]);
         pcollisions[2] = intersect(player.tl, player.br, lights[0].origin, lights[0].lp[1]);
         pcollisions[3] = intersect(player.tr, player.bl, lights[0].origin, lights[0].lp[1]);
-        //pcollisions[4] = intersect(player.tl, player.br, lights[0].origin, lights[0].lp[2]);
-        //pcollisions[5] = intersect(player.tr, player.bl, lights[0].origin, lights[0].lp[2]);
+        pcollisions[4] = intersect(player.tl, player.br, lights[0].origin, lights[0].lp[2]);
+        pcollisions[5] = intersect(player.tr, player.bl, lights[0].origin, lights[0].lp[2]);
         //pcollisions[6] = intersect(player.tl, player.br, lights[0].origin, lights[0].lp[3]);
         //pcollisions[7] = intersect(player.tr, player.bl, lights[0].origin, lights[0].lp[3]);
         pcollisions[8] = intersect(player.tl, player.br, lights[1].origin, lights[1].lp[0]);
         pcollisions[9] = intersect(player.tr, player.bl, lights[1].origin, lights[1].lp[0]);
         pcollisions[10] = intersect(player.tl, player.br, lights[1].origin, lights[1].lp[1]);
         pcollisions[11] = intersect(player.tr, player.bl, lights[1].origin, lights[1].lp[1]);
-        //pcollisions[12] = intersect(player.tl, player.br, lights[1].origin, lights[1].lp[2]);
-        //pcollisions[13] = intersect(player.tr, player.bl, lights[1].origin, lights[1].lp[2]);
+        pcollisions[12] = intersect(player.tl, player.br, lights[1].origin, lights[1].lp[2]);
+        pcollisions[13] = intersect(player.tr, player.bl, lights[1].origin, lights[1].lp[2]);
         //pcollisions[14] = intersect(player.tl, player.br, lights[1].origin, lights[1].lp[3]);
         //pcollisions[15] = intersect(player.tr, player.bl, lights[1].origin, lights[1].lp[3]);
-    }
+    //}
     var lose = false;
     if (!lose) {
         for (var i = 0; i < pcollisions.length; i++) {
