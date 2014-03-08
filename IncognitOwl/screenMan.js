@@ -103,7 +103,7 @@ world.addChild(screenMan);
 //Create a main menu screen
 var mainMenu = new Screen(false, false);
 //Optionally set a background for the screen
-mainMenu.image = Textures.load("https://raw.github.com/moschwar/CMPS20/85733bebcd9156b6407a82b347c2b07049d7ab48/IncognitOwl/Resources/temporary_menu.png");
+mainMenu.image = Textures.load("Resources/menu.png");
 screenMan.push(mainMenu);
 
 //Override the empty init function to set some properties
@@ -178,6 +178,31 @@ pauseMenu.init = function(){
     };
 };
 
+var gameOver = new Screen(false, true);
+//Override the empty init function to set some properties
+gameOver.init = function(){
+    //Since we set a background we want the screen to fill  the canvas
+    this.width = canvas.width;
+    this.height = canvas.height;
+    
+    this.gui.x = canvas.width/2 + -world.x;
+    this.gui.y = canvas.height/2 + -world.y;
+    
+    var returnToMenu = new TextBox("Space to Return to Main Menu");
+    returnToMenu.y = 50;
+    returnToMenu.center = true;
+    returnToMenu.fontSize = 24;
+    returnToMenu.drawBG = true;
+    returnToMenu.bgColor = "#8D8D8D";
+    returnToMenu.border = 0;
+    returnToMenu.borderColor = "purple";
+    this.gui.addChild(returnToMenu);
+    returnToMenu.func = function(){
+        screenMan.remove(gameOver);
+        screenMan.remove(gameScreen);
+    };
+};
+
 var scriptScreen = new Screen(false, true);
 
 scriptScreen.init = function(){
@@ -191,17 +216,15 @@ scriptScreen.init = function(){
 };
 
 var gameScreen = new Screen(false, true);
-gameScreen.image = Textures.load("https://raw.github.com/moschwar/CMPS20/master/IncognitOwl/Resources/TutorialLevelUpdate-4.png");
+gameScreen.image = Textures.load("https://raw.github.com/moschwar/CMPS20/master/IncognitOwl/Resources/TutorialLevelUpdate-5.png");
 
 //Override the empty init function to set some properties
 gameScreen.init = function(){
     //Since we set a background we want the screen to fill  the canvas
     this.width = 1194;
-    this.height = 1050;
+    this.height = 1120;
     start();
 };
-
-
 
 gInput.addFunc(27, function(){
     if(screenMan.screens.find(gameScreen) && !screenMan.screens.find(pauseMenu)){
@@ -216,5 +239,8 @@ gInput.addFunc(27, function(){
 gInput.addFunc(32, function(){
     if(screenMan.screens.find(pauseMenu)){
         location.reload();
+    }
+    if(screenMan.screens.find(gameOver)){
+    	location.reload();
     }
 });
