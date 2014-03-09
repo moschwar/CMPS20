@@ -117,7 +117,7 @@ mainMenu.init = function(){
     
     //Add some sprites to the main menu
         
-    var newGame = new TextButton("New Game");
+    /* var newGame = new TextButton("New Game");
     newGame.center = true;
     newGame.label.dropShadow = true;
     newGame.label.fontSize = 30;
@@ -127,15 +127,57 @@ mainMenu.init = function(){
     newGame.func = function(){
         screenMan.remove(mainMenu);
         screenMan.push(gameScreen);
+    }; */
+    
+    var levelSel = new TextButton("Level Select");
+    levelSel.y = 50;
+    levelSel.center = true;
+    levelSel.label.dropShadow = true;
+    levelSel.label.fontSize = 30;
+    levelSel.setLabelColors("#aaaaaa", "#ffffff", "#ff0000");
+    this.gui.addChild(levelSel);
+    
+    levelSel.func = function(){
+        screenMan.remove(mainMenu);
+        screenMan.push(levelSelect);
+    };
+};
+
+var levelSelect = new Screen(false, true);
+levelSelect.image = Textures.load("Resources/menu.png");
+
+levelSelect.init = function(){
+	this.width = canvas.width;
+    this.height = canvas.height;
+    
+    this.gui.x = canvas.width/2;
+    this.gui.y = canvas.height/2;
+    
+	var Tutorial = new TextButton("Tutorial");
+    Tutorial.center = true;
+    Tutorial.label.dropShadow = true;
+    Tutorial.label.fontSize = 30;
+    Tutorial.setLabelColors("#aaaaaa", "#ffffff", "#ff0000");
+    this.gui.addChild(Tutorial);
+    
+    Tutorial.func = function(){
+        screenMan.remove(mainMenu);
+        screenMan.push(gameScreen);
     };
     
-    var resumeGame = new TextButton("Level Select");
-    resumeGame.y = 50;
-    resumeGame.center = true;
-    resumeGame.label.dropShadow = true;
-    resumeGame.label.fontSize = 30;
-    resumeGame.setLabelColors("#aaaaaa", "#ffffff", "#ff0000");
-    this.gui.addChild(resumeGame);
+    var levelOne = new TextButton("Level 1");
+    levelOne.y = 50;
+    levelOne.center = true;
+    levelOne.label.dropShadow = true;
+    levelOne.label.fontSize = 30;
+    levelOne.setLabelColors("#aaaaaa", "#ffffff", "#ff0000");
+    this.gui.addChild(levelOne);
+    
+    levelOne.func = function(){
+        screenMan.remove(mainMenu);
+        screenMan.push(gameScreen2);
+    };
+    
 };
 
 var pauseMenu = new Screen(false, true);
@@ -223,7 +265,7 @@ scriptScreen.init = function(){
 };
 
 var gameScreen = new Screen(false, true);
-gameScreen.image = Textures.load("https://raw.github.com/moschwar/CMPS20/master/IncognitOwl/Resources/TutorialLevelUpdate-5.png");
+gameScreen.image = Textures.load("Resources/TutorialLevelUpdate-5.png");
 
 //Override the empty init function to set some properties
 gameScreen.init = function(){
@@ -232,6 +274,18 @@ gameScreen.init = function(){
     this.height = 1120;
     start();
 };
+
+var gameScreen2 = new Screen(false, true);
+gameScreen2.image = Textures.load("Resources/level1.png");
+
+//Override the empty init function to set some properties
+gameScreen2.init = function(){
+    //Since we set a background we want the screen to fill  the canvas
+    this.width = 1190;
+    this.height = 2240;
+    start2();
+};
+
 
 gInput.addFunc(27, function(){
     if(screenMan.screens.find(gameScreen) && !screenMan.screens.find(pauseMenu)){

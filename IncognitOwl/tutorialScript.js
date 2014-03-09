@@ -522,10 +522,12 @@ function textEight() {
 			}, 200);
 			if (i === 61) {
 				scriptEight = true;
-	            scriptScreen.stage.removeChild(jax);
+	            /*scriptScreen.stage.removeChild(jax);
 		        scriptScreen.stage.removeChild(tyton);
 			    scriptScreen.stage.removeChild(test);
 				screenMan.remove(scriptScreen);
+				screenMan.remove(gameScreen); */
+				location.reload();
 			}
 		}
 	};

@@ -466,13 +466,6 @@ function start() {
 	trap.height = 35;
 	trap.image = Textures.load("Resources/snap_trap-png.png");
 
-	var win = new Sprite();
-	win.image = Textures.load("http://static2.wikia.nocookie.net/__cb20100728113416/mafiawars/images/7/7e/Boss_title_youwin.png");
-	win.width = 70 * 4;
-	win.height = 70 * 1;
-	win.x = 70 * 11;
-	win.y = 70 * 2;
-
 	var alert = new Sprite();
 	alert.image = Textures.load("http://www.universalcargo.com/Portals/57382/images/shipping%20alert.png");
 	alert.width = 70 * 2;
@@ -617,7 +610,7 @@ function start() {
 		}
 		return false;
 	};
-	
+
 	cursor.isBox = function() {
 		if (this.x == boxes[0].x) {
 			if (this.y == boxes[0].y) {
@@ -648,10 +641,10 @@ function start() {
 				}, 200);
 			} else if (gInput.down) {
 				this.moving = true;
-				if (this.y != 910) {
+				if (this.y != bg.height - 70) {
 					this.y += this.speed;
 				}
-				if (world.y > -308 && this.y > ycenter + 70) {
+				if (world.y > -378 && this.y > ycenter + 70) {
 					world.y -= this.speed;
 				}
 				setTimeout(function() {
@@ -728,6 +721,73 @@ function start() {
 	guard.frameRate = 0;
 	guard.moveRate = 0;
 
+	var guard2 = new Sprite();
+	guard2.image = Textures.load("Resources/bat_full.png");
+	guard2.width = 67;
+	guard2.height = 67;
+	guard2.x = 70 * 13;
+	guard2.y = 70 * 5;
+	guard2.alerted = false;
+	guard2.frameWidth = 63;
+	guard2.frameHeight = 49;
+	guard2.frameCount = 20;
+	guard2.frameRate = 7;
+	guard2.moveRate = 7;
+	guard2.speed = 2;
+	guard2.addAnimations(["down", "up", "right", "left"], [5, 5, 5, 5]);
+
+	var availSpace = 0;
+
+	guard2.update = function(d) {
+
+        if(trap.collision(guard2)){
+        	guard2.x = 0;
+        	guard2.y = 0;
+        	world.removeChild(guard2);
+        	trap.alpha = 0;
+        }
+		availSpace += guard2.speed;
+
+		if (availSpace <= 70) {
+			guard2.animation = "left";
+			//guard2.frameRate = guard2.moveRate;
+			guard2.x -= guard2.speed;
+		}
+		if (availSpace >= 70) {
+			guard2.x += 0;
+			guard2.animation = "down";
+			//guard2.frameRate = guard2.moveRate;
+			guard2.y += guard2.speed;
+		}
+
+		if (availSpace >= 210) {
+			guard2.y -= guard2.speed;
+			guard2.animation = "right";
+			//guard2.frameRate = guard2.moveRate;
+			guard2.x += guard2.speed;
+		}
+
+		if (availSpace >= 350) {
+			guard2.x -= guard2.speed;
+			guard2.animation = "up";
+			//guard2.frameRate = guard2.moveRate;
+			guard2.y -= guard2.speed;
+		}
+
+		if (availSpace >= 490) {
+			guard2.y += guard2.speed;
+			guard2.animation = "left";
+			//guard2.frameRate = guard2.moveRate;
+			guard2.x -= guard2.speed;
+		}
+		if (availSpace >= 560) {
+			guard2.x += guard2.speed;
+			//guard2.frameRate = guard2.moveRate;
+			availSpace = 0;
+		}
+
+	};
+	
 	function short_collision(px, py) {
 		if (px > 70 * 8 - 35 && px < 70 * 9 - 30 && py > 70 * 5 - 35 && py < 70 * 6) {
 			return true;
@@ -790,6 +850,9 @@ function start() {
 	player.update = function(d) {
 		//If the character misn't moving, set the frameRate to 0
 		//If the character had an idle animation we wouldn't need to do this
+		if(player.collision(guard2)){
+			screenMan.push(gameOver);
+		}
 		player.tl = new Vector(player.x, player.y);
 		//top left
 		player.tr = new Vector((player.x + player.width), player.y);
@@ -866,7 +929,6 @@ function start() {
 				guard.alerted = true;
 			}
 			if (player.collision(end1) || player.collision(end2) || player.collision(end3)) {
-				world.addChild(win);
 				guard.alerted = true;
 
 			}
@@ -891,9 +953,9 @@ function start() {
 			trap.x = player.x + 17.5;
 			trap.y = player.y + 17.5;
 			world.addChild(trap);
-			trap--;
+			traps--;
 		}
-		
+
 		if (screenMan.screens.find(gameOver)) {
 			traps = 0;
 			player.speed = 0;
@@ -1173,6 +1235,13 @@ function start() {
 			return false;
 		}
 	};
+    trap.collision = function(sprite) {
+		if (this.x < sprite.x + sprite.width && this.x + this.width > sprite.x && this.y < sprite.y + sprite.height && this.y + this.height > sprite.y) {
+			return true;
+		} else {
+			return false;
+		}
+	};
 
 	function intersect(l0p0, l0p1, l1p0, l1p1) {
 		var coll = new Object();
@@ -1222,6 +1291,7 @@ function start() {
 
 			world.addChild(player);
 			world.addChild(guard);
+			world.addChild(guard2);
 			world.addChild(end1);
 			world.addChild(end2);
 			world.addChild(end3);
@@ -1272,7 +1342,7 @@ function start() {
 		if (scriptSix) {
 			setTimeout(function() {
 				traps = 1;
-			}, 300);
+			}, 500);
 		}
 		if (player.y < 261 && player.y > 12 && !sevenDone) {
 			player.speed = 0;
@@ -1290,24 +1360,24 @@ function start() {
 		}
 		//Simulate checking against 500 rectangles
 		//for (var i = 0; i < 4 * 500; i++) {
-			//player collisions HERE
-			//if (pcollisions[i] == undefined) {continue;}
-			pcollisions[0] = intersect(player.tl, player.br, lights[0].origin, lights[0].lp[0]);
-			pcollisions[1] = intersect(player.tr, player.bl, lights[0].origin, lights[0].lp[0]);
-			pcollisions[2] = intersect(player.tl, player.br, lights[0].origin, lights[0].lp[1]);
-			pcollisions[3] = intersect(player.tr, player.bl, lights[0].origin, lights[0].lp[1]);
-			pcollisions[4] = intersect(player.tl, player.br, lights[0].origin, lights[0].lp[2]);
-			pcollisions[5] = intersect(player.tr, player.bl, lights[0].origin, lights[0].lp[2]);
-			//pcollisions[6] = intersect(player.tl, player.br, lights[0].origin, lights[0].lp[3]);
-			//pcollisions[7] = intersect(player.tr, player.bl, lights[0].origin, lights[0].lp[3]);
-			pcollisions[8] = intersect(player.tl, player.br, lights[1].origin, lights[1].lp[0]);
-			pcollisions[9] = intersect(player.tr, player.bl, lights[1].origin, lights[1].lp[0]);
-			pcollisions[10] = intersect(player.tl, player.br, lights[1].origin, lights[1].lp[1]);
-			pcollisions[11] = intersect(player.tr, player.bl, lights[1].origin, lights[1].lp[1]);
-			pcollisions[12] = intersect(player.tl, player.br, lights[1].origin, lights[1].lp[2]);
-			pcollisions[13] = intersect(player.tr, player.bl, lights[1].origin, lights[1].lp[2]);
-			//pcollisions[14] = intersect(player.tl, player.br, lights[1].origin, lights[1].lp[3]);
-			//pcollisions[15] = intersect(player.tr, player.bl, lights[1].origin, lights[1].lp[3]);
+		//player collisions HERE
+		//if (pcollisions[i] == undefined) {continue;}
+		pcollisions[0] = intersect(player.tl, player.br, lights[0].origin, lights[0].lp[0]);
+		pcollisions[1] = intersect(player.tr, player.bl, lights[0].origin, lights[0].lp[0]);
+		pcollisions[2] = intersect(player.tl, player.br, lights[0].origin, lights[0].lp[1]);
+		pcollisions[3] = intersect(player.tr, player.bl, lights[0].origin, lights[0].lp[1]);
+		pcollisions[4] = intersect(player.tl, player.br, lights[0].origin, lights[0].lp[2]);
+		pcollisions[5] = intersect(player.tr, player.bl, lights[0].origin, lights[0].lp[2]);
+		//pcollisions[6] = intersect(player.tl, player.br, lights[0].origin, lights[0].lp[3]);
+		//pcollisions[7] = intersect(player.tr, player.bl, lights[0].origin, lights[0].lp[3]);
+		pcollisions[8] = intersect(player.tl, player.br, lights[1].origin, lights[1].lp[0]);
+		pcollisions[9] = intersect(player.tr, player.bl, lights[1].origin, lights[1].lp[0]);
+		pcollisions[10] = intersect(player.tl, player.br, lights[1].origin, lights[1].lp[1]);
+		pcollisions[11] = intersect(player.tr, player.bl, lights[1].origin, lights[1].lp[1]);
+		pcollisions[12] = intersect(player.tl, player.br, lights[1].origin, lights[1].lp[2]);
+		pcollisions[13] = intersect(player.tr, player.bl, lights[1].origin, lights[1].lp[2]);
+		//pcollisions[14] = intersect(player.tl, player.br, lights[1].origin, lights[1].lp[3]);
+		//pcollisions[15] = intersect(player.tr, player.bl, lights[1].origin, lights[1].lp[3]);
 		//}
 		var lose = false;
 		if (!lose) {
