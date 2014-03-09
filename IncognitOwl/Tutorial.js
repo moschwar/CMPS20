@@ -549,9 +549,10 @@ function start() {
 	walls[11] = walls.d(13, 6, 14);
 	walls[12] = walls.u(13, 7, 14);
 	walls[13] = walls.l(14, 6, 7);
-
+    
+    var boxcount = 2;
 	var boxes = new Array();
-	for (var i = 0; i < 2; i++) {
+	for (var i = 0; i < boxcount; i++) {
 		boxes[i] = new Sprite();
 		boxes[i].image = Textures.load("Resources/box_game_sprite_update-2.png");
 		boxes[i].width = 67;
@@ -573,9 +574,9 @@ function start() {
 	gInput.addBool(32, "place");
 
 	var red = new Sprite();
-	red.image = Textures.load("http://i.imgur.com/TF4RvJN.png");
+	red.image = Textures.load("Resources/red.png");
 	var green = new Sprite();
-	green.image = Textures.load("http://i.imgur.com/MnKEQ5X.png");
+	green.image = Textures.load("Resources/green.png");
 
 	var end1 = new Sprite();
 	var end2 = new Sprite();
@@ -684,8 +685,9 @@ function start() {
 					boxes[k].alpha = 1;
 				}
 			}
-			if (gInput.place && !boxes[0].placed && this.isdirt()) {
+			if (gInput.place && boxcount > 1 && this.isdirt()) {
 				this.moving = true;
+				boxcount--;
 				boxes[0].x = this.x;
 				boxes[0].y = this.y;
 				boxes[0].placed = true;
@@ -695,7 +697,7 @@ function start() {
 				setTimeout(function() {
 					cursor.moving = false;
 				}, 200);
-			} else if (gInput.place && !boxes[1].placed && this.isdirt() && !this.isBox()) {
+			} else if (gInput.place && boxcount == 1 && this.isdirt() && !this.isBox()) {
 				this.moving = true;
 				boxes[1].x = this.x;
 				boxes[1].y = this.y;
@@ -841,7 +843,7 @@ function start() {
 	gInput.addBool(38, "up");
 	gInput.addBool(37, "left");
 	gInput.addBool(39, "right");
-	player.speed = 3;
+	player.speed = 2;
 	player.noright = false;
 	player.noleft = false;
 	player.noup = false;
@@ -1160,8 +1162,8 @@ function start() {
 		}
 	};
 
-	var ph = 3;
-	var nh = -3;
+	var ph = player.speed;
+	var nh = -player.speed;
 
 	//WALL COLLIDE CHECKS
 	var wallcollideup = function(after) {
