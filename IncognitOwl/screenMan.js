@@ -188,6 +188,13 @@ gameOver.init = function(){
     this.gui.x = canvas.width/2 + -world.x;
     this.gui.y = canvas.height/2 + -world.y;
     
+    var youLose = new TextBox("YOU LOSE");
+    youLose.center = true;
+    youLose.fontSize = 36;
+    youLose.drawBG = true;
+    youLose.bgColor = "#8D8D8D";
+    this.gui.addChild(youLose);
+    
     var returnToMenu = new TextBox("Space to Return to Main Menu");
     returnToMenu.y = 50;
     returnToMenu.center = true;
