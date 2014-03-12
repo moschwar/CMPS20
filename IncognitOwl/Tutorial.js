@@ -9,6 +9,11 @@ function start() {
 	var sixDone = false;
 	var sevenDone = false;
 	var eightDone = false;
+	
+	var posttxt = false;
+	if(getCookie("continue") == 0){
+			posttxt = true;
+	}
 
 	clearColor = [0, .5, .5, .5];
 	var can = document.getElementById('canvas');
@@ -708,6 +713,7 @@ function start() {
 				if(!posttxt){
 					textTwo();
 				}
+				player.active = false;
 			}
 		}
 	};
@@ -875,18 +881,19 @@ function start() {
 			boxes[i].br = new Vector((boxes[i].x + boxes[i].width), (boxes[i].y + boxes[i].height));
 			//bottom right
 		}
-		this.frameRate = 0;
 		var speed = this.speed;
-		if (player.noleft || player.noright) {
-			if (player.collisionvert(boxes[0]) || player.collisionvert(boxes[1])) {
-				player.noleft = false;
-				player.noright = false;
+		for (var i = 0; i < boxes.length; i++) {
+			if (player.noleft || player.noright) {
+				if (player.collisionvert(boxes[i])) {
+					player.noleft = false;
+					player.noright = false;
+				}
 			}
-		}
-		if (player.noup || player.nodown) {
-			if (player.collisionhorz(boxes[0]) || player.collisionhorz(boxes[1])) {
-				player.noup = false;
-				player.nodown = false;
+			if (player.noup || player.nodown) {
+				if (player.collisionhorz(boxes[i])) {
+					player.noup = false;
+					player.nodown = false;
+				}
 			}
 		}
 		if (!gInput.down) {
@@ -901,6 +908,10 @@ function start() {
 		if (!gInput.right) {
 			player.noright = false;
 		}
+		if (!gInput.right && !gInput.left && !gInput.up && !gInput.down){
+			player.frameRate = 0;
+		}
+		
 		if (gInput.down) {
 			player.noup = false;
 			if (!player.nodown) {
@@ -957,8 +968,8 @@ function start() {
 				boxes[k].alpha = .2;
 			}
 		} else if (!screenMan.screens.find(pauseMenu) && !screenMan.screens.find(scriptScreen)) {
-			player.speed = 3;
-			player.moveRate = 7;
+			player.speed = ph;
+			//player.moveRate = 7;
 			player.alpha = 1;
 			for (var k = 0; k < 2; k++) {
 				boxes[k].alpha = 1;
@@ -989,7 +1000,9 @@ function start() {
 	};
 
 	function startGame() {
-		textOne();
+		if(!posttxt){
+			textOne();
+		}
 	}
 
 
@@ -997,13 +1010,14 @@ function start() {
 		this.drawChildren(ctx);
 		var bigW = 30;
 		var smallW = 11;
-		ctx.fillStyle = "green";
-		ctx.fillText("noup " + player.noup, 70, 80);
-		ctx.fillText("nodown " + player.nodown, 70, 90);
-		ctx.fillText("noleft " + player.noleft, 70, 100);
-		ctx.fillText("noright " + player.noright, 70, 110);
-		ctx.fillText("player.x " + player.x, 400, 220);
-		ctx.fillText("player.y " + player.y, 400, 230);
+		ctx.fillStyle = "lightgreen";
+		ctx.fillText("noup " + player.noup, canvas.width/2 + -world.x - (70 * 4), canvas.height/2 + -world.y - (70 * 4));
+		ctx.fillText("nodown " + player.nodown, canvas.width/2 + -world.x - (70 * 4), canvas.height/2 + -world.y - (70 * 4) + 10);
+		ctx.fillText("noleft " + player.noleft, canvas.width/2 + -world.x - (70 * 4), canvas.height/2 + -world.y - (70 * 4) + 20);
+		ctx.fillText("noright " + player.noright, canvas.width/2 + -world.x - (70 * 4), canvas.height/2 + -world.y - (70 * 4) + 30);
+		ctx.fillText("player.x " + player.x, canvas.width/2 + -world.x - (70 * 4), canvas.height/2 + -world.y - (70 * 4) + 40);
+		ctx.fillText("player.y " + player.y, canvas.width/2 + -world.x - (70 * 4), canvas.height/2 + -world.y - (70 * 4) + 50);
+		ctx.fillText("player.moveRate " + player.moveRate, canvas.width/2 + -world.x - (70 * 4), canvas.height/2 + -world.y - (70 * 4) + 60);
 		ctx.strokeStyle = "orange";
 		ctx.lineWidth = smallW;
 		for (var i = 0; i < lights.length; i++) {
@@ -1243,19 +1257,17 @@ function start() {
 	}
 
 	var pcollisions = new Array();
-	var posttxt = false;
 
 	world.update = function(d) {
 		//world.draw(ctx);
-		if(getCookie("continue") == 0){
-			posttxt = true;
-		}
-		if (!cursor.active && scriptOne == true) {
+		
+		if (!cursor.active && (scriptOne == true || posttxt)) {
 			cursor.moving = true;
 			setTimeout(function() {
 				cursor.moving = false;
 			}, 150);
 			world.addChild(cursor);
+			player.active = true;
 			cursor.active = true;
 		}
 		if (!player.active && (scriptTwo == true || posttxt)) {
@@ -1278,33 +1290,33 @@ function start() {
 			player.alpha = 0;
 			traps = 0;
 			player.speed = 0;
-			player.moveRate = 0;
+			//player.moveRate = 0;
 			if(!posttxt){
 				textThree();
 			}
 		}
-		if ((scriptThree || posttxt) && !threeDone) {
+		if ((scriptThree == true || posttxt) && !threeDone) {
 			player.alpha = 1;
 			player.speed = 3;
-			player.moveRate = 7;
+			//player.moveRate = 7;
 			threeDone = true;
 			setCookie("continue",0,30);
 		}
 		if (player.y < 497 && player.y > 261 && !fourDone) {
 			player.speed = 0;
-			player.moveRate = 0;
+			player.frameRate = 0;
 			textFour();
 			fourDone = true;
 		}
 		if (player.x > 495 && player.x < 700 && !fiveDone) {
 			player.speed = 0;
-			player.moveRate = 0;
+			player.frameRate = 0;
 			textFive();
 			fiveDone = true;
 		}
 		if (player.x > 700 && !sixDone) {
 			player.speed = 0;
-			player.moveRate = 0;
+			player.frameRate = 0;
 			textSix();
 			sixDone = true;
 		}
@@ -1315,14 +1327,14 @@ function start() {
 		}
 		if (player.y < 261 && player.y > 12 && !sevenDone) {
 			player.speed = 0;
-			player.moveRate = 0;
+			player.frameRate = 0;
 			boxes[1].alpha = 0;
 			textSeven();
 			sevenDone = true;
 		}
 		if (player.y < 12 && !eightDone) {
 			player.speed = 0;
-			player.moveRate = 0;
+			player.frameRate = 0;
 			boxes[1].alpha = 0;
 			textEight();
 			eightDone = true;
@@ -1346,18 +1358,18 @@ function start() {
 		pcollisions[9] = intersect(player.tr, player.bl, lights[1].origin, lights[1].lp[1]);
 		pcollisions[10] = intersect(player.tl, player.br, lights[1].origin, lights[1].lp[2]);
 		pcollisions[11] = intersect(player.tr, player.bl, lights[1].origin, lights[1].lp[2]);
-		pcollisions[12] = intersect(player.tl, player.br, lights[2].origin, lights[1].lp[0]);
-		pcollisions[13] = intersect(player.tr, player.bl, lights[2].origin, lights[1].lp[0]);
-		pcollisions[14] = intersect(player.tl, player.br, lights[2].origin, lights[1].lp[1]);
-		pcollisions[15] = intersect(player.tr, player.bl, lights[2].origin, lights[1].lp[1]);
-		pcollisions[16] = intersect(player.tl, player.br, lights[2].origin, lights[1].lp[2]);
-		pcollisions[17] = intersect(player.tr, player.bl, lights[2].origin, lights[1].lp[2]);
-		pcollisions[18] = intersect(player.tl, player.br, lights[3].origin, lights[1].lp[0]);
-		pcollisions[19] = intersect(player.tr, player.bl, lights[3].origin, lights[1].lp[0]);
-		pcollisions[20] = intersect(player.tl, player.br, lights[3].origin, lights[1].lp[1]);
-		pcollisions[21] = intersect(player.tr, player.bl, lights[3].origin, lights[1].lp[1]);
-		pcollisions[22] = intersect(player.tl, player.br, lights[3].origin, lights[1].lp[2]);
-		pcollisions[23] = intersect(player.tr, player.bl, lights[3].origin, lights[1].lp[2]);
+		pcollisions[12] = intersect(player.tl, player.br, lights[2].origin, lights[2].lp[0]);
+		pcollisions[13] = intersect(player.tr, player.bl, lights[2].origin, lights[2].lp[0]);
+		pcollisions[14] = intersect(player.tl, player.br, lights[2].origin, lights[2].lp[1]);
+		pcollisions[15] = intersect(player.tr, player.bl, lights[2].origin, lights[2].lp[1]);
+		pcollisions[16] = intersect(player.tl, player.br, lights[2].origin, lights[2].lp[2]);
+		pcollisions[17] = intersect(player.tr, player.bl, lights[2].origin, lights[2].lp[2]);
+		pcollisions[18] = intersect(player.tl, player.br, lights[3].origin, lights[3].lp[0]);
+		pcollisions[19] = intersect(player.tr, player.bl, lights[3].origin, lights[3].lp[0]);
+		pcollisions[20] = intersect(player.tl, player.br, lights[3].origin, lights[3].lp[1]);
+		pcollisions[21] = intersect(player.tr, player.bl, lights[3].origin, lights[3].lp[1]);
+		pcollisions[22] = intersect(player.tl, player.br, lights[3].origin, lights[3].lp[2]);
+		pcollisions[23] = intersect(player.tr, player.bl, lights[3].origin, lights[3].lp[2]);
 		
 		var lose = false;
 		if (!lose) {
