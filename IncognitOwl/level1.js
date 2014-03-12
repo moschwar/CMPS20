@@ -11,6 +11,9 @@ function start2() {//////////////////////////////////////////////////////
 	world.y = -70 * 22;
 
 	var u = 70;
+	
+	var sounds = new SoundManager();
+	sounds.loop("Audio/nightvideogame.mp3");
 
 	l90 = new Object();
 	l90.reverse = false;
@@ -471,40 +474,41 @@ function start2() {//////////////////////////////////////////////////////
    		this.xy2.y = points.y2;
 		
 		//box collisions//////////////////////////////////////////////////////////////////////////////
-		this.bcollisions[0] = intersect(boxes[0].tr, boxes[0].br, this.origin, this.xy0);
-		this.bcollisions[1] = intersect(boxes[0].tr, boxes[0].br, this.origin, this.xy1);
-		this.bcollisions[2] = intersect(boxes[0].tr, boxes[0].br, this.origin, this.xy2);
-		this.bcollisions[3] = intersect(boxes[0].tr, boxes[0].br, this.origin, this.xy0);
-		this.bcollisions[4] = intersect(boxes[0].tr, boxes[0].br, this.origin, this.xy1);
-		this.bcollisions[5] = intersect(boxes[0].tr, boxes[0].br, this.origin, this.xy2);
-		this.bcollisions[6] = intersect(boxes[1].tr, boxes[1].br, this.origin, this.xy0);
-		this.bcollisions[7] = intersect(boxes[1].tr, boxes[1].br, this.origin, this.xy1);
-		this.bcollisions[8] = intersect(boxes[1].tr, boxes[1].br, this.origin, this.xy2);
-		this.bcollisions[9] = intersect(boxes[1].tr, boxes[1].br, this.origin, this.xy0);
-		this.bcollisions[10] = intersect(boxes[1].tr, boxes[1].br, this.origin, this.xy1);
-		this.bcollisions[11] = intersect(boxes[1].tr, boxes[1].br, this.origin, this.xy2);
-		this.bcollisions[12] = intersect(boxes[0].bl, boxes[0].br, this.origin, this.xy0);
-		this.bcollisions[13] = intersect(boxes[0].bl, boxes[0].br, this.origin, this.xy1);
-		this.bcollisions[14] = intersect(boxes[0].bl, boxes[0].br, this.origin, this.xy2);
-		this.bcollisions[15] = intersect(boxes[0].bl, boxes[0].br, this.origin, this.xy0);
-		this.bcollisions[16] = intersect(boxes[0].bl, boxes[0].br, this.origin, this.xy1);
-		this.bcollisions[17] = intersect(boxes[0].bl, boxes[0].br, this.origin, this.xy2);
-		this.bcollisions[18] = intersect(boxes[1].bl, boxes[1].br, this.origin, this.xy0);
-		this.bcollisions[19] = intersect(boxes[1].bl, boxes[1].br, this.origin, this.xy1);
-		this.bcollisions[20] = intersect(boxes[1].bl, boxes[1].br, this.origin, this.xy2);
-		this.bcollisions[21] = intersect(boxes[1].bl, boxes[1].br, this.origin, this.xy0);
-		this.bcollisions[22] = intersect(boxes[1].bl, boxes[1].br, this.origin, this.xy1);
-		this.bcollisions[23] = intersect(boxes[1].bl, boxes[1].br, this.origin, this.xy2);
+		this.bcollisions[0] = intersect(boxes[0].bl, boxes[0].br, this.origin, this.xy0);
+		this.bcollisions[1] = intersect(boxes[0].bl, boxes[0].br, this.origin, this.xy1);
+		this.bcollisions[2] = intersect(boxes[0].bl, boxes[0].br, this.origin, this.xy2);
+		this.bcollisions[3] = intersect(boxes[0].bl, boxes[0].br, this.origin, this.xy0);
+		this.bcollisions[4] = intersect(boxes[0].bl, boxes[0].br, this.origin, this.xy1);
+		this.bcollisions[5] = intersect(boxes[0].bl, boxes[0].br, this.origin, this.xy2);
+		this.bcollisions[6] = intersect(boxes[1].bl, boxes[1].br, this.origin, this.xy0);
+		this.bcollisions[7] = intersect(boxes[1].bl, boxes[1].br, this.origin, this.xy1);
+		this.bcollisions[8] = intersect(boxes[1].bl, boxes[1].br, this.origin, this.xy2);
+		this.bcollisions[9] = intersect(boxes[1].bl, boxes[1].br, this.origin, this.xy0);
+		this.bcollisions[10] = intersect(boxes[1].bl, boxes[1].br, this.origin, this.xy1);
+		this.bcollisions[11] = intersect(boxes[1].bl, boxes[1].br, this.origin, this.xy2);
+		this.bcollisions[12] = intersect(boxes[0].tr, boxes[0].br, this.origin, this.xy0);
+		this.bcollisions[13] = intersect(boxes[0].tr, boxes[0].br, this.origin, this.xy1);
+		this.bcollisions[14] = intersect(boxes[0].tr, boxes[0].br, this.origin, this.xy2);
+		this.bcollisions[15] = intersect(boxes[0].tr, boxes[0].br, this.origin, this.xy0);
+		this.bcollisions[16] = intersect(boxes[0].tr, boxes[0].br, this.origin, this.xy1);
+		this.bcollisions[17] = intersect(boxes[0].tr, boxes[0].br, this.origin, this.xy2);
+		this.bcollisions[18] = intersect(boxes[1].tr, boxes[1].br, this.origin, this.xy0);
+		this.bcollisions[19] = intersect(boxes[1].tr, boxes[1].br, this.origin, this.xy1);
+		this.bcollisions[20] = intersect(boxes[1].tr, boxes[1].br, this.origin, this.xy2);
+		this.bcollisions[21] = intersect(boxes[1].tr, boxes[1].br, this.origin, this.xy0);
+		this.bcollisions[22] = intersect(boxes[1].tr, boxes[1].br, this.origin, this.xy1);
+		this.bcollisions[23] = intersect(boxes[1].tr, boxes[1].br, this.origin, this.xy2);
+		
 
 		for (var i = 0; i < this.bcollisions.length; i++) {
         if (!(this.bcollisions[i] == undefined) && this.bcollisions[i].occurred) {
-            if (i % 4 == 0) {
+            if (i % 3 == 0) {
                 this.lp[0].x = this.bcollisions[i].point.x;
                 this.lp[0].y = this.bcollisions[i].point.y;
-            } else if (i % 4 == 1) {
+            } else if (i % 3 == 1) {
                 this.lp[1].x = this.bcollisions[i].point.x;
                 this.lp[1].y = this.bcollisions[i].point.y;
-            } else if (i % 4 == 2) {
+            } else if (i % 3 == 2) {
                 this.lp[2].x = this.bcollisions[i].point.x;
                 this.lp[2].y = this.bcollisions[i].point.y;
             }
@@ -571,18 +575,25 @@ function start2() {//////////////////////////////////////////////////////
 	};
 	lights[5].update = function(d) {
 		var points = new Object();
-		points.x0 = this.x0;
-		points.y0 = this.y0;
-		points.x1 = this.x1;
-		points.y1 = this.y1;
-		points.x2 = this.x2;
-		points.y2 = this.y2;
+		//points.x0 = this.x0;
+		//points.y0 = this.y0;
+		//points.x1 = this.x1;
+		//points.y1 = this.y1;
+		//points.x2 = this.x2;
+		//points.y2 = this.y2;
 
 		points.rotation = this.rotation;
 		points.direc = this.direc;
 		points.origin = this.origin;
 		points.clock = this.clock;
-		points = findPoints(points);
+		
+		
+		points.x0 = points.origin.x + l90.nc0 * u * 2.5;
+		points.y0 = points.origin.y + l90.ns0 * u * 2.5;
+		points.x1 = points.origin.x + l90.nc1 * u * 2.5;
+		points.y1 = points.origin.y + l90.ns1 * u * 2.5;
+		points.x2 = points.origin.x + l90.nc2 * u * 2.5;
+		points.y2 = points.origin.y + l90.ns2 * u * 2.5;
 		
 		this.xy0.x = points.x0;
  		this.xy0.y = points.y0;
@@ -645,19 +656,25 @@ function start2() {//////////////////////////////////////////////////////
 	};
 	lights[6].update = function(d) {
 		var points = new Object();
-		points.x0 = this.x0;
-		points.y0 = this.y0;
-		points.x1 = this.x1;
-		points.y1 = this.y1;
-		points.x2 = this.x2;
-		points.y2 = this.y2;
+		//points.x0 = this.x0;
+		//points.y0 = this.y0;
+		//points.x1 = this.x1;
+		//points.y1 = this.y1;
+		//points.x2 = this.x2;
+		//points.y2 = this.y2;
 
 		points.rotation = this.rotation;
 		points.direc = this.direc;
 		points.origin = this.origin;
 		points.clock = this.clock;
-		points = findPoints(points);
 		
+		points.x0 = points.origin.x + l90.ns0 * u * ll;
+		points.y0 = points.origin.y + l90.nc0 * u * ll;
+		points.x1 = points.origin.x + l90.ns1 * u * ll;
+		points.y1 = points.origin.y + l90.nc1 * u * ll;
+		points.x2 = points.origin.x + l90.ns2 * u * ll;
+		points.y2 = points.origin.y + l90.nc2 * u * ll;
+	
 		this.xy0.x = points.x0;
  		this.xy0.y = points.y0;
  	  	this.xy1.x = points.x1;
@@ -817,7 +834,7 @@ function start2() {//////////////////////////////////////////////////////
 	
 
 	var walls = new Array();
-	for (var i = 0; i < 45; i++) {////////////////////////////////////////////////////////////walls array
+	for (var i = 0; i < 72; i++) {////////////////////////////////////////////////////////////walls array
 		walls[i] = new Object();
 	}
 
@@ -870,7 +887,7 @@ function start2() {//////////////////////////////////////////////////////
 	walls[8] = walls.l(2, 21, 27);
 	walls[9] = walls.d(4, 24, 7);
 	walls[10] = walls.r(7, 23, 24);
-	walls[11] = walls.d(7, 23, 15);
+	walls[11] = walls.d(7, 23, 13);
 	walls[12] = walls.r(15, 21, 23);
 	walls[13] = walls.u(8, 21, 15);
 	walls[14] = walls.d(2, 21, 5);
@@ -894,7 +911,7 @@ function start2() {//////////////////////////////////////////////////////
 	walls[32] = walls.l(6, 5, 6);
 	walls[33] = walls.u(5, 6, 6);
 	walls[34] = walls.l(5, 6, 10);
-	walls[35] = walls.d(5, 10, 7);
+	walls[35] = walls.d(5, 10, 6);
 	walls[36] = walls.l(6, 10, 11);
 	walls[37] = walls.u(6, 11, 10);
 	walls[38] = walls.l(10, 11, 12);
@@ -904,6 +921,35 @@ function start2() {//////////////////////////////////////////////////////
 	walls[42] = walls.l(6, 14, 18);
 	walls[43] = walls.d(4, 14, 6);
 	walls[44] = walls.r(4, 14, 18);
+	walls[45] = walls.l(13, 23, 24);
+	walls[46] = walls.r(14, 23, 24);
+	walls[47] = walls.d(14, 23, 15);
+	walls[48] = walls.u(14, 24, 16);
+	walls[49] = walls.u(11, 24, 13);
+	walls[50] = walls.l(11, 24, 27);
+	walls[51] = walls.d(11, 27, 13);
+	walls[52] = walls.l(13, 27, 28);
+	walls[53] = walls.u(11, 28, 13);
+	walls[54] = walls.l(11, 28, 29);
+	walls[55] = walls.d(11, 29, 14);
+	walls[56] = walls.r(14, 27, 29);
+	walls[57] = walls.d(14, 27, 16);
+	walls[58] = walls.r(16, 24, 27);
+	walls[59] = walls.u(12, 25, 13);
+	walls[60] = walls.l(13, 25, 26);
+	walls[61] = walls.d(12, 26, 13);
+	walls[62] = walls.r(12, 25, 26);
+	walls[63] = walls.u(14, 25, 15);
+	walls[64] = walls.l(15, 25, 26);
+	walls[65] = walls.d(14, 26, 15);
+	walls[66] = walls.r(14, 25, 26);
+	walls[67] = walls.d(5, 5, 6);
+	walls[68] = walls.d(7, 5, 8);
+	walls[69] = walls.r(8, 2, 5);
+	walls[70] = walls.l(2, 5, 5);
+	walls[71] = walls.u(2, 5, 8);
+
+
 
 	var boxcount = 2;
 	//////BOXES ARRAY////////////////////////////////////////////////
@@ -1192,7 +1238,19 @@ function start2() {//////////////////////////////////////////////////////
 				}
 			}
 		}
-
+		if (!gInput.down) {
+			player.nodown = false;
+		}
+		if (!gInput.up) {
+			player.noup = false;
+		}
+		if (!gInput.left) {
+			player.noleft = false;
+		}
+		if (!gInput.right) {
+			player.noright = false;
+		}
+		
 		if (gInput.down) {
 			player.noup = false;
 			if (!player.nodown) {
@@ -1374,17 +1432,16 @@ function start2() {//////////////////////////////////////////////////////
 		this.drawChildren(ctx);
 		var bigW = 30;
 		var smallW = 11;
-		ctx.fillStyle = "green";
-		ctx.fillText("noup " + player.noup, 70, 80);
-		ctx.fillText("nodown " + player.nodown, 70, 90);
-		ctx.fillText("noleft " + player.noleft, 70, 100);
-		ctx.fillText("noright " + player.noright, 70, 110);
-		ctx.fillText("player.x " + player.x, 70, 120);
-		ctx.fillText("player.y " + player.y, 70, 130);
+		ctx.fillStyle = "lightgreen";
+		ctx.fillText("noup " + player.noup, canvas.width/2 + -world.x - (70 * 4), canvas.height/2 + -world.y - (70 * 4));
+		ctx.fillText("nodown " + player.nodown, canvas.width/2 + -world.x - (70 * 4), canvas.height/2 + -world.y - (70 * 4) + 10);
+		ctx.fillText("noleft " + player.noleft, canvas.width/2 + -world.x - (70 * 4), canvas.height/2 + -world.y - (70 * 4) + 20);
+		ctx.fillText("noright " + player.noright, canvas.width/2 + -world.x - (70 * 4), canvas.height/2 + -world.y - (70 * 4) + 30);
+		ctx.fillText("player.x " + player.x, canvas.width/2 + -world.x - (70 * 4), canvas.height/2 + -world.y - (70 * 4) + 40);
+		ctx.fillText("player.y " + player.y, canvas.width/2 + -world.x - (70 * 4), canvas.height/2 + -world.y - (70 * 4) + 50);
 		ctx.strokeStyle = "orange";
-		//ADD VISUAL REPRESENTATIONS HERE///////////////////////////////////////////////////////////////////
+		ctx.lineWidth = smallW;
 		for (var i = 0; i < lights.length; i++) {
-			ctx.lineWidth = smallW;
 			ctx.beginPath();
 			ctx.moveTo(lights[i].origin.x, lights[i].origin.y);
 			ctx.lineTo(lights[i].lp[0].x, lights[i].lp[0].y);
@@ -1409,17 +1466,16 @@ function start2() {//////////////////////////////////////////////////////
 		for (var i = 0; i < boxes.length; i++) {
 			if (upcollide(after, boxes[i]) || wallcollideup(after)) {
 				this.noup = true;
-			} else {
-				if (world.y < 0 && player.y < bg.height - ycenter) {
-					world.y += player.speed / 2;
-				}
-				this.animation = "up";
-				this.y = after;
-				this.frameRate = this.moveRate;
-			}
-
+			} 
 		}
-
+		if(!this.noup) {
+			if (world.y < 0 && player.y < bg.height - ycenter) {
+				world.y += player.speed;
+			}
+			this.animation = "up";
+			this.y = after;
+			this.frameRate = this.moveRate;
+		}
 	};
 	player.down = function(speed) {
 		var after = this.y + player.speed;
@@ -1427,31 +1483,33 @@ function start2() {//////////////////////////////////////////////////////
 
 			if (downcollide(after, boxes[i]) || wallcollidedown(after)) {
 				this.nodown = true;
-			} else {
-				if (player.y + 315 < bg.height && player.y > ycenter) {
-					world.y -= player.speed / 2;
-				}
-				this.animation = "down";
-				this.y = after;
-				this.frameRate = this.moveRate;
-			}
+			} 
 		}
+		if(!this.nodown) {
+		if (player.y + 315 < bg.height && player.y > ycenter) {
+				world.y -= player.speed;
+			}
+			this.animation = "down";
+			this.y = after;
+			this.frameRate = this.moveRate;
+		}
+		
 	};
 	player.left = function(speed) {
 		var after = this.x - player.speed;
 		for (var i = 0; i < boxes.length; i++) {
-
 			if (leftcollide(after, boxes[i]) || wallcollideleft(after)) {
 				this.noleft = true;
-			} else {
-				if (world.x < 0 && player.x < bg.width - xcenter) {
-					//console.log(player.speed);
-					world.x += player.speed / 2;
-				}
-				this.animation = "left";
-				this.x = after;
-				this.frameRate = this.moveRate;
 			}
+		}
+		if(!this.noleft){
+			if (world.x < 0 && player.x < bg.width - xcenter) {
+				//console.log(player.speed);
+				world.x += player.speed;
+			}
+			this.animation = "left";
+			this.x = after;
+			this.frameRate = this.moveRate;
 		}
 	};
 	player.right = function(speed) {
@@ -1459,20 +1517,21 @@ function start2() {//////////////////////////////////////////////////////
 		for (var i = 0; i < boxes.length; i++) {
 			if (rightcollide(after, boxes[i]) || wallcollideright(after)) {
 				this.noright = true;
-			} else {
-				if (player.x + 420 < bg.width && player.x > xcenter) {
-					world.x -= player.speed / 2;
-				}
-				this.animation = "right";
-				this.x = after;
-				this.frameRate = this.moveRate;
+			} 
+		}
+		if (!this.noright) {
+			if (player.x + 420 < bg.width && player.x > xcenter) {
+				world.x -= player.speed;
 			}
+			this.animation = "right";
+			this.x = after;
+			this.frameRate = this.moveRate;
 		}
 	};
 
 	//BOX COLLIDE CHECKS
 	var upcollide = function(after, obj) {
-		if (after + nh > obj.y && ((after + nh < (obj.y + obj.height) && !player.collisionvert(obj)))) {
+		if (after + nh > obj.y && after + nh < (obj.y + obj.height) && !player.collisionvert(obj)) {
 			return true;
 		} else {
 			return false;
@@ -1496,7 +1555,7 @@ function start2() {//////////////////////////////////////////////////////
 	};
 
 	var rightcollide = function(after, obj) {
-		if (((after + player.width + nh) < (obj.x + obj.width)) && ((((after + player.width + nh) > (obj.x) && !player.collisionhorz(obj))))) {
+		if (((after + player.width + nh) < (obj.x + obj.width)) && ((((after + player.width) > (obj.x + nh) && !player.collisionhorz(obj))))) {
 			return true;
 		} else {
 			return false;
@@ -1533,7 +1592,7 @@ function start2() {//////////////////////////////////////////////////////
 	};
 	var wallcollideright = function(after) {
 		for (var i = 0; i < walls.length; i++) {
-			if ((after + player.width + nh) < (walls[i].right) && (after + player.width + nh) > (walls[i].left) && player.wallcollisionhorz(i)) {
+			if ((after + player.width + nh) < (walls[i].right) && (after + player.width) > (walls[i].left + nh) && player.wallcollisionhorz(i)) {
 				return true;
 			}
 		}
@@ -1542,14 +1601,14 @@ function start2() {//////////////////////////////////////////////////////
 
 	//BOX SLIDE OFF CHECKS
 	player.collisionvert = function(sprite) {
-		if (this.x + this.width < sprite.x || this.x > sprite.x + sprite.width) {
+		if (this.x + this.width < sprite.x + ph || this.x > sprite.x + sprite.width + nh) {
 			return true;
 		} else {
 			return false;
 		}
 	};
 	player.collisionhorz = function(sprite) {
-		if (this.y > sprite.y + sprite.height || this.y + this.height < sprite.y) {
+		if (this.y + this.height < sprite.y + ph || this.y > sprite.y + sprite.height + nh) {
 			return true;
 		} else {
 			return false;
@@ -1648,24 +1707,24 @@ function start2() {//////////////////////////////////////////////////////
 		pcollisions[27] = intersect(player.tr, player.bl, lights[4].origin, lights[4].lp[1]);
 		pcollisions[28] = intersect(player.tl, player.br, lights[4].origin, lights[4].lp[2]);
 		pcollisions[29] = intersect(player.tr, player.bl, lights[4].origin, lights[4].lp[2]);//[4]
-		pcollisions[24] = intersect(player.tl, player.br, lights[5].origin, lights[5].lp[0]);
-		pcollisions[25] = intersect(player.tr, player.bl, lights[5].origin, lights[5].lp[0]);
-		pcollisions[26] = intersect(player.tl, player.br, lights[5].origin, lights[5].lp[1]);
-		pcollisions[27] = intersect(player.tr, player.bl, lights[5].origin, lights[5].lp[1]);
-		pcollisions[28] = intersect(player.tl, player.br, lights[5].origin, lights[5].lp[2]);
-		pcollisions[29] = intersect(player.tr, player.bl, lights[5].origin, lights[5].lp[2]);//[5]
-		pcollisions[24] = intersect(player.tl, player.br, lights[6].origin, lights[6].lp[0]);
-		pcollisions[25] = intersect(player.tr, player.bl, lights[6].origin, lights[6].lp[0]);
-		pcollisions[26] = intersect(player.tl, player.br, lights[6].origin, lights[6].lp[1]);
-		pcollisions[27] = intersect(player.tr, player.bl, lights[6].origin, lights[6].lp[1]);
-		pcollisions[28] = intersect(player.tl, player.br, lights[6].origin, lights[6].lp[2]);
-		pcollisions[29] = intersect(player.tr, player.bl, lights[6].origin, lights[6].lp[2]);//[6]
-		pcollisions[30] = intersect(player.tl, player.br, lights[7].origin, lights[7].lp[0]);
-		pcollisions[31] = intersect(player.tr, player.bl, lights[7].origin, lights[7].lp[0]);
-		pcollisions[32] = intersect(player.tl, player.br, lights[7].origin, lights[7].lp[1]);
-		pcollisions[33] = intersect(player.tr, player.bl, lights[7].origin, lights[7].lp[1]);
-		pcollisions[34] = intersect(player.tl, player.br, lights[7].origin, lights[7].lp[2]);
-		pcollisions[35] = intersect(player.tr, player.bl, lights[7].origin, lights[7].lp[2]);//[7]
+		pcollisions[30] = intersect(player.tl, player.br, lights[5].origin, lights[5].lp[0]);
+		pcollisions[31] = intersect(player.tr, player.bl, lights[5].origin, lights[5].lp[0]);
+		pcollisions[32] = intersect(player.tl, player.br, lights[5].origin, lights[5].lp[1]);
+		pcollisions[33] = intersect(player.tr, player.bl, lights[5].origin, lights[5].lp[1]);
+		pcollisions[34] = intersect(player.tl, player.br, lights[5].origin, lights[5].lp[2]);
+		pcollisions[35] = intersect(player.tr, player.bl, lights[5].origin, lights[5].lp[2]);//[5]
+		pcollisions[36] = intersect(player.tl, player.br, lights[6].origin, lights[6].lp[0]);
+		pcollisions[37] = intersect(player.tr, player.bl, lights[6].origin, lights[6].lp[0]);
+		pcollisions[38] = intersect(player.tl, player.br, lights[6].origin, lights[6].lp[1]);
+		pcollisions[39] = intersect(player.tr, player.bl, lights[6].origin, lights[6].lp[1]);
+		pcollisions[40] = intersect(player.tl, player.br, lights[6].origin, lights[6].lp[2]);
+		pcollisions[41] = intersect(player.tr, player.bl, lights[6].origin, lights[6].lp[2]);//[6]
+		pcollisions[42] = intersect(player.tl, player.br, lights[7].origin, lights[7].lp[0]);
+		pcollisions[43] = intersect(player.tr, player.bl, lights[7].origin, lights[7].lp[0]);
+		pcollisions[44] = intersect(player.tl, player.br, lights[7].origin, lights[7].lp[1]);
+		pcollisions[45] = intersect(player.tr, player.bl, lights[7].origin, lights[7].lp[1]);
+		pcollisions[46] = intersect(player.tl, player.br, lights[7].origin, lights[7].lp[2]);
+		pcollisions[47] = intersect(player.tr, player.bl, lights[7].origin, lights[7].lp[2]);//[7]
 
 		var lose = false;
 		if (!lose) {
