@@ -946,10 +946,8 @@ function start2() {//////////////////////////////////////////////////////
 	walls[67] = walls.d(5, 5, 6);
 	walls[68] = walls.d(7, 5, 8);
 	walls[69] = walls.r(8, 2, 5);
-	walls[70] = walls.l(2, 5, 5);
-	walls[71] = walls.u(2, 5, 8);
-
-
+	walls[70] = walls.l(5, 2, 5);
+	walls[71] = walls.u(5, 2, 8);
 
 	var boxcount = 2;
 	//////BOXES ARRAY////////////////////////////////////////////////
@@ -1198,7 +1196,7 @@ function start2() {//////////////////////////////////////////////////////
 	player.nodown = false;
 
 	player.update = function(d) {
-		if (player.y < 5 * u){
+		if (player.y < 3.5 * u){
 			location.reload();
 		}
 		
@@ -1441,6 +1439,7 @@ function start2() {//////////////////////////////////////////////////////
 		ctx.fillText("player.y " + player.y, canvas.width/2 + -world.x - (70 * 4), canvas.height/2 + -world.y - (70 * 4) + 50);
 		ctx.strokeStyle = "orange";
 		ctx.lineWidth = smallW;
+		//var g = 76;
 		for (var i = 0; i < lights.length; i++) {
 			ctx.beginPath();
 			ctx.moveTo(lights[i].origin.x, lights[i].origin.y);
@@ -1456,6 +1455,10 @@ function start2() {//////////////////////////////////////////////////////
 			ctx.moveTo(lights[i].origin.x, lights[i].origin.y);
 			ctx.lineTo(lights[i].lp[2].x, lights[i].lp[2].y);
 			ctx.stroke();
+			/*ctx.beginPath();
+			ctx.moveTo(walls[g].left, walls[g].top);
+			ctx.lineTo(walls[g].right, walls[g].bot);
+			ctx.stroke();*/
 		}
 
 	};
