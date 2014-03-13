@@ -1,8 +1,8 @@
 function start3() {//////////////////////////////////////////////////////
 	var bg = new Sprite();
 
-	bg.width = 1190;
-	bg.height = 2240;
+	bg.width = 1400;
+	bg.height = 2520;
 
 	clearColor = [0, .5, .5, .5];
 	var can = document.getElementById('canvas');
