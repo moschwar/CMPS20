@@ -44,6 +44,7 @@ function textLevelOne() {
 	tyton.y = canvas.height / 2 + -world.y + 20;
 	tyton.width = 150;
 	tyton.height = 150;
+	tyton.index = 0;
 	tyton.image = Textures.load("Resources/athena_character_text.png");
 	scriptScreen.stage.addChild(tyton);
 

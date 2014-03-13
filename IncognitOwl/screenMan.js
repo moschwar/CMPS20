@@ -304,6 +304,43 @@ gameOver.init = function(){
     };
 };
 
+var inventory = new Screen(false, true);
+
+inventory.init = function(){
+	
+	this.width = canvas.width;
+    this.height = canvas.height;
+    
+    this.gui.x = canvas.width/2 + -world.x;
+    this.gui.y = canvas.height/2 + -world.y;
+    
+	var invBox = new Sprite();
+	invBox.image = Textures.load("Resources/box_game_sprite_update-2.png");
+	invBox.x = canvas.width / 2 + -world.x + 200;
+	invBox.y = canvas.height / 2 + -world.y + 250;
+	invBox.width = 50;
+	invBox.height = 50;
+	inventory.stage.addChild(invBox);
+	
+	var invTrap = new Sprite();
+	invTrap.image = Textures.load("Resources/snap_trap-png.png");
+	invTrap.x = canvas.width / 2 + -world.x + 310;
+	invTrap.y = canvas.height / 2 + -world.y + 250;
+	invTrap.width = 50;
+	invTrap.height = 50;
+	inventory.stage.addChild(invTrap);
+	
+	invBox.update = function(d){
+		invBox.x = canvas.width / 2 + -world.x + 200;
+	    invBox.y = canvas.height / 2 + -world.y + 250;
+    };
+	
+	invTrap.update = function(d){
+		invTrap.x = canvas.width / 2 + -world.x + 310;
+	    invTrap.y = canvas.height / 2 + -world.y + 250;
+	};
+};
+
 var scriptScreen = new Screen(false, true);
 
 scriptScreen.init = function(){
@@ -370,4 +407,3 @@ if(autoStart3 == 1){
 	screenMan.remove(mainMenu);
 	screenMan.push(gameScreen3);
 }
-
