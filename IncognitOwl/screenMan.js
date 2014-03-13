@@ -170,6 +170,8 @@ mainMenu.init = function(){
         	screenMan.push(gameScreen);
         } else if(currLvl == 1){
         	screenMan.push(gameScreen2);
+        } else if(currLvl == 2){
+        	screenMan.push(gameScreen3);
         }
     };
     
@@ -230,6 +232,19 @@ levelSelect.init = function(){
     levelOne.func = function(){
         screenMan.remove(mainMenu);
         screenMan.push(gameScreen2);
+    };
+    
+    var levelTwo = new TextButton("Level 2");
+    levelTwo.y = 100;
+    levelTwo.center = true;
+    levelTwo.label.dropShadow = true;
+    levelTwo.label.fontSize = 30;
+    levelTwo.setLabelColors("#aaaaaa", "#ffffff", "#ff0000");
+    this.gui.addChild(levelTwo);
+    
+    levelTwo.func = function(){
+        screenMan.remove(mainMenu);
+        screenMan.push(gameScreen3);
     };
     
 };
@@ -376,6 +391,17 @@ gameScreen2.init = function(){
     this.width = 1190;
     this.height = 2240;
     start2();
+};
+
+var gameScreen3 = new Screen(false, true);
+gameScreen3.image = Textures.load("Resources/level_2_update-1.png");
+
+//Override the empty init function to set some properties
+gameScreen3.init = function(){
+    //Since we set a background we want the screen to fill  the canvas
+    this.width = 1400;
+    this.height = 2520;
+    start3();
 };
 
 
