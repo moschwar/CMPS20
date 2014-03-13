@@ -602,12 +602,12 @@ function start2() {//////////////////////////////////////////////////////
 		points.origin = this.origin;
 		points.clock = this.clock;
 
-		points.x0 = points.origin.x + l90.nc0 * u * 2.5;
-		points.y0 = points.origin.y + l90.ns0 * u * 2.5;
-		points.x1 = points.origin.x + l90.nc1 * u * 2.5;
-		points.y1 = points.origin.y + l90.ns1 * u * 2.5;
-		points.x2 = points.origin.x + l90.nc2 * u * 2.5;
-		points.y2 = points.origin.y + l90.ns2 * u * 2.5;
+		points.x0 = points.origin.x + l90.nc0 * u * 2.6;
+		points.y0 = points.origin.y + l90.ns0 * u * 2.6;
+		points.x1 = points.origin.x + l90.nc1 * u * 2.6;
+		points.y1 = points.origin.y + l90.ns1 * u * 2.6;
+		points.x2 = points.origin.x + l90.nc2 * u * 2.6;
+		points.y2 = points.origin.y + l90.ns2 * u * 2.6;
 
 		this.xy0.x = points.x0;
 		this.xy0.y = points.y0;
@@ -682,12 +682,12 @@ function start2() {//////////////////////////////////////////////////////
 		points.origin = this.origin;
 		points.clock = this.clock;
 
-		points.x0 = points.origin.x + l90.ns0 * u * ll;
-		points.y0 = points.origin.y + l90.nc0 * u * ll;
-		points.x1 = points.origin.x + l90.ns1 * u * ll;
-		points.y1 = points.origin.y + l90.nc1 * u * ll;
-		points.x2 = points.origin.x + l90.ns2 * u * ll;
-		points.y2 = points.origin.y + l90.nc2 * u * ll;
+		points.x0 = points.origin.x + l90.ns0 * u * 2.6;
+		points.y0 = points.origin.y + l90.nc0 * u * 2.6;
+		points.x1 = points.origin.x + l90.ns1 * u * 2.6;
+		points.y1 = points.origin.y + l90.nc1 * u * 2.6;
+		points.x2 = points.origin.x + l90.ns2 * u * 2.6;
+		points.y2 = points.origin.y + l90.nc2 * u * 2.6;
 
 		this.xy0.x = points.x0;
 		this.xy0.y = points.y0;
