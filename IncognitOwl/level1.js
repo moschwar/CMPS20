@@ -790,6 +790,14 @@ function start2() {//////////////////////////////////////////////////////
 	var xcenter = 420;
 	var ycenter = 315;
 	var traps = 0;
+	
+	var roof = new Sprite();
+	roof.image = Textures.load("Resources/roof.png");
+	roof.width = u * 3.6 + 4;
+	roof.height = u * 3.75 + 6;
+	roof.x = u * 4.5 + 12;
+	roof.y = u * 1.25 - 3;
+	world.addChild(roof);
 
 	var trap = new Sprite();
 	trap.width = 35;
@@ -946,8 +954,8 @@ function start2() {//////////////////////////////////////////////////////
 	walls[67] = walls.d(5, 5, 6);
 	walls[68] = walls.d(7, 5, 8);
 	walls[69] = walls.r(8, 2, 5);
-	walls[70] = walls.l(2, 5, 5);
-	walls[71] = walls.u(2, 5, 8);
+	walls[70] = walls.l(5, 2, 5);
+	walls[71] = walls.u(5, 2, 8);
 
 
 
@@ -1081,7 +1089,7 @@ function start2() {//////////////////////////////////////////////////////
 				for (var k = 0; k < 2; k++) {
 					boxes[k].alpha = .2;
 				}
-			} else if (!screenMan.screens.find(pauseMenu)) {
+			} else if (!screenMan.screens.find(pauseMenu) && !screenMan.screens.find(scriptScreen)) {
 				cursor.speed = 70;
 				for (var k = 0; k < 2; k++) {
 					boxes[k].alpha = 1;
@@ -1198,8 +1206,17 @@ function start2() {//////////////////////////////////////////////////////
 	player.nodown = false;
 
 	player.update = function(d) {
-		if (player.y < 5 * u){
-			location.reload();
+		if (player.y < 6 * u){
+			roof.alpha = 0.2;
+		} else if (player.y > 6 * u){
+			roof.alpha = 1;
+		}
+		if (player.y < 3.5 * u){
+            boxes[0].alpha = 0;
+            boxes[1].alpha = 0;
+			player.speed = 0;
+			setCookie("continue", 2, 30);
+			textEndLevelOne();
 		}
 		
 		//If the character misn't moving, set the frameRate to 0
@@ -1341,7 +1358,7 @@ function start2() {//////////////////////////////////////////////////////
 			for (var k = 0; k < 2; k++) {
 				boxes[k].alpha = .2;
 			}
-		} else if (!screenMan.screens.find(pauseMenu)) {
+		} else if (!screenMan.screens.find(pauseMenu) && !screenMan.screens.find(scriptScreen)) {
 			player.speed = 2;
 			player.moveRate = 7;
 			player.alpha = 1;
@@ -1419,14 +1436,9 @@ function start2() {//////////////////////////////////////////////////////
 
 	 /////////////////////////////////////////////////////////////////////////////////////////////*/
 
-	function startGame() {
-		cursor.moving = true;
-		setTimeout(function() {
-			cursor.moving = false;
-		}, 150);
-		world.addChild(cursor);
+	function startGame2() {
+		textLevelOne();
 	}
-
 
 	world.draw = function(ctx) {
 		this.drawChildren(ctx);
@@ -1672,9 +1684,24 @@ function start2() {//////////////////////////////////////////////////////
 
 	var pcollisions = new Array();
 
-	startGame();
+	startGame2();
 
 	world.update = function(d) {
+		if (!cursor.active && levelScriptOne == true) {
+			cursor.moving = true;
+			setTimeout(function() {
+				cursor.moving = false;
+			}, 150);
+			world.addChild(cursor);
+			cursor.active = true;
+		}
+		if (player.y < 3.5 * u){
+			for (var k = 0; k < 2; k++) {
+				boxes[k].alpha = 0;
+			}
+			player.speed = 0;
+			textEndLevelOne();
+		}
 		//player with light collisions HERE///////////////////lights.edit////////////////////////////////////////
 
 		pcollisions[0] = intersect(player.tl, player.br, lights[0].origin, lights[0].lp[0]);

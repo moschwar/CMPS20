@@ -549,8 +549,8 @@ function start() {
 	walls[11] = walls.d(13, 6, 14);
 	walls[12] = walls.u(13, 7, 14);
 	walls[13] = walls.l(14, 6, 7);
-    
-    var boxcount = 2;
+
+	var boxcount = 2;
 	var boxes = new Array();
 	for (var i = 0; i < boxcount; i++) {
 		boxes[i] = new Sprite();
@@ -742,12 +742,14 @@ function start() {
 
 	guard2.update = function(d) {
 
-        if(trap.collision(guard2)){
-        	guard2.x = 0;
-        	guard2.y = 0;
-        	world.removeChild(guard2);
-        	trap.alpha = 0;
-        }
+		if (trap.collision(guard2)) {
+			setTimeout(function() {
+				guard2.x = 0;
+				guard2.y = 0;
+				world.removeChild(guard2);
+				trap.alpha = 0;
+			}, 250);
+		}
 		availSpace += guard2.speed;
 
 		if (availSpace <= 70) {
@@ -789,7 +791,7 @@ function start() {
 		}
 
 	};
-	
+
 	function short_collision(px, py) {
 		if (px > 70 * 8 - 35 && px < 70 * 9 - 30 && py > 70 * 5 - 35 && py < 70 * 6) {
 			return true;
@@ -852,7 +854,7 @@ function start() {
 	player.update = function(d) {
 		//If the character misn't moving, set the frameRate to 0
 		//If the character had an idle animation we wouldn't need to do this
-		if(player.collision(guard2)){
+		if (player.collision(guard2)) {
 			screenMan.push(gameOver);
 		}
 		player.tl = new Vector(player.x, player.y);
@@ -985,7 +987,7 @@ function start() {
 		var bigW = 30;
 		var smallW = 11;
 		ctx.fillStyle = "green";
-		ctx.fillText("noup " + player.noup, 70, 80);
+		ctx.fillText("Traps: " + traps, canvas.width/2 + -world.x + (70 * 4), canvas.height/2 + -world.y + (70 * 4));
 		ctx.fillText("nodown " + player.nodown, 70, 90);
 		ctx.fillText("noleft " + player.noleft, 70, 100);
 		ctx.fillText("noright " + player.noright, 70, 110);
@@ -1120,7 +1122,7 @@ function start() {
 		if (rightcollide(after, boxes[0]) || rightcollide(after, boxes[1]) || wallcollideright(after)) {
 			this.noright = true;
 		} else {
-			if (player.x + 420 < bg.width && player.x > xcenter) {
+			if (player.x + 420 < bg.width - 70 && player.x > xcenter) {
 				world.x -= player.speed;
 			}
 			this.animation = "right";
@@ -1237,7 +1239,7 @@ function start() {
 			return false;
 		}
 	};
-    trap.collision = function(sprite) {
+	trap.collision = function(sprite) {
 		if (this.x < sprite.x + sprite.width && this.x + this.width > sprite.x && this.y < sprite.y + sprite.height && this.y + this.height > sprite.y) {
 			return true;
 		} else {
@@ -1288,6 +1290,7 @@ function start() {
 			}, 150);
 			world.addChild(cursor);
 			cursor.active = true;
+			screenMan.push(inventory);
 		}
 		if (!player.active && scriptTwo == true) {
 
@@ -1349,6 +1352,7 @@ function start() {
 		if (player.y < 261 && player.y > 12 && !sevenDone) {
 			player.speed = 0;
 			player.moveRate = 0;
+			boxes[0].alpha = 0;
 			boxes[1].alpha = 0;
 			textSeven();
 			sevenDone = true;

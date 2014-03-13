@@ -163,6 +163,7 @@ levelSelect.init = function(){
     Tutorial.func = function(){
         screenMan.remove(mainMenu);
         screenMan.push(gameScreen);
+        
     };
     
     var levelOne = new TextButton("Level 1");
@@ -190,7 +191,7 @@ pauseMenu.init = function(){
     this.gui.x = canvas.width/2 + -world.x;
     this.gui.y = canvas.height/2 + -world.y;
     
-    var pause = new TextBox("[PAUSED]");
+    var pause = new TextBox("[MENU]");
     pause.y = -50;
     pause.center = true;
     pause.fontSize = 40;
@@ -252,6 +253,43 @@ gameOver.init = function(){
     };
 };
 
+var inventory = new Screen(false, true);
+
+inventory.init = function(){
+	
+	this.width = canvas.width;
+    this.height = canvas.height;
+    
+    this.gui.x = canvas.width/2 + -world.x;
+    this.gui.y = canvas.height/2 + -world.y;
+    
+	var invBox = new Sprite();
+	invBox.image = Textures.load("Resources/box_game_sprite_update-2.png");
+	invBox.x = canvas.width / 2 + -world.x + 200;
+	invBox.y = canvas.height / 2 + -world.y + 250;
+	invBox.width = 50;
+	invBox.height = 50;
+	inventory.stage.addChild(invBox);
+	
+	var invTrap = new Sprite();
+	invTrap.image = Textures.load("Resources/snap_trap-png.png");
+	invTrap.x = canvas.width / 2 + -world.x + 310;
+	invTrap.y = canvas.height / 2 + -world.y + 250;
+	invTrap.width = 50;
+	invTrap.height = 50;
+	inventory.stage.addChild(invTrap);
+	
+	invBox.update = function(d){
+		invBox.x = canvas.width / 2 + -world.x + 200;
+	    invBox.y = canvas.height / 2 + -world.y + 250;
+	};
+	
+	invTrap.update = function(d){
+		invTrap.x = canvas.width / 2 + -world.x + 310;
+	    invTrap.y = canvas.height / 2 + -world.y + 250;
+	};
+};
+
 var scriptScreen = new Screen(false, true);
 
 scriptScreen.init = function(){
@@ -276,7 +314,7 @@ gameScreen.init = function(){
 };
 
 var gameScreen2 = new Screen(false, true);
-gameScreen2.image = Textures.load("Resources/level1.png");
+gameScreen2.image = Textures.load("Resources/level 1 no_roof.png");
 
 //Override the empty init function to set some properties
 gameScreen2.init = function(){
@@ -288,7 +326,7 @@ gameScreen2.init = function(){
 
 
 gInput.addFunc(27, function(){
-    if(screenMan.screens.find(gameScreen) && !screenMan.screens.find(pauseMenu)){
+    if((screenMan.screens.find(gameScreen) || screenMan.screens.find(gameScreen2)) && !screenMan.screens.find(pauseMenu)){
         pauseMenu.gui.x = canvas.width/2 + -world.x;
         pauseMenu.gui.y = canvas.height/2 + -world.y;
         screenMan.push(pauseMenu);

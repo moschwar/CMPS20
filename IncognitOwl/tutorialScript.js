@@ -30,7 +30,7 @@ tutorialText[18] = "That’s why utilizing both the day and night time is essent
 tutorialText[19] = "Tallon: Alright, well what tactical doohickeys do I have to work with\nduring the day?";
 tutorialText[20] = "Featherwick: For now, only crates which can be placed to obstruct\nenemy vision.";
 tutorialText[21] = "We are currently researching other technologies and should have\nthem ready for you soon.";
-tutorialText[22] = "Try placing the crate in your inventory on the blue X, near the light\ntower, and one on the red X in front of the doors.";
+tutorialText[22] = "Try placing the crate in your inventory on the red X, near the light\ntower, and one on the blue X in front of the doors.";
 tutorialText[23] = "Note that you can only drop these crates onto dirt, otherwise they\nwill break on impact.";
 tutorialText[24] = "Tallon: Uhh... crate on the blue and red, dirt only? Piece of cake.\n";
 tutorialText[25] = "(Press the <spacebar> while the cursor is over a dirt space to\nplace a crate)";
@@ -76,6 +76,7 @@ tutorialText[58] = "Tallon: Fine, fine.\n";
 //After finish line
 tutorialText[59] = "Tyton: Well done, soldier. Now get some rest. Tomorrow’s a big day.\n";
 tutorialText[60] = "Tallon: Will do, sir. (Heh, I'll have my purple wing in no time.)\n";
+tutorialText[61] = "Tallon: Will do, sir. (Heh, I'll have my purple wing in no time.)\n";
 
 function textOne() {
 	//Stop the game
@@ -86,14 +87,18 @@ function textOne() {
 	player.moveRate = 0; */
 	//Add text overlay
 	var jax = new Sprite();
-	jax.x = canvas.width / 2 + -world.x - 300;
-	jax.y = canvas.height / 2 + -world.y + 75;
+	jax.x = canvas.width / 2 + -world.x - 335;
+	jax.y = canvas.height / 2 + -world.y + 30;
+	jax.width = 150;
+	jax.height = 150;
 	jax.image = Textures.load("Resources/Jax_character_for_text.png");
 	scriptScreen.stage.addChild(jax);
 
 	var tyton = new Sprite();
 	tyton.x = canvas.width / 2 + -world.x + 200;
-	tyton.y = canvas.height / 2 + -world.y + 65;
+	tyton.y = canvas.height / 2 + -world.y + 20;
+	tyton.width = 150;
+	tyton.height = 150;
 	tyton.image = Textures.load("Resources/Tyton_character_text.png");
 	scriptScreen.stage.addChild(tyton);
 
@@ -117,6 +122,9 @@ function textOne() {
 	var pressed = true;
 
 	test.update = function(d) {
+		if(i >= 6){
+			tyton.image = Textures.load("Resources/athena_character_text.png");
+		}
 		while (gInput.place && pressed == true && i < 26) {
 			pressed = false;
 			i++;
@@ -145,14 +153,18 @@ function textTwo() {
 	player.moveRate = 0; */
 	//Add text overlay
 	var jax = new Sprite();
-	jax.x = canvas.width / 2 + -world.x - 300;
-	jax.y = canvas.height / 2 + -world.y + 75;
+	jax.x = canvas.width / 2 + -world.x - 335;
+	jax.y = canvas.height / 2 + -world.y + 30;
+	jax.width = 150;
+	jax.height = 150;
 	jax.image = Textures.load("Resources/Jax_character_for_text.png");
 	scriptScreen.stage.addChild(jax);
 
 	var tyton = new Sprite();
 	tyton.x = canvas.width / 2 + -world.x + 200;
-	tyton.y = canvas.height / 2 + -world.y + 65;
+	tyton.y = canvas.height / 2 + -world.y + 20;
+	tyton.width = 150;
+	tyton.height = 150;
 	tyton.image = Textures.load("Resources/athena_character_text.png");
 	scriptScreen.stage.addChild(tyton);
 
@@ -201,14 +213,18 @@ function textThree() {
 
 	//Add text overlay
 	var jax = new Sprite();
-	jax.x = canvas.width / 2 + -world.x - 300;
-	jax.y = canvas.height / 2 + -world.y + 75;
+	jax.x = canvas.width / 2 + -world.x - 335;
+	jax.y = canvas.height / 2 + -world.y + 30;
+	jax.width = 150;
+	jax.height = 150;
 	jax.image = Textures.load("Resources/Jax_character_for_text.png");
 	scriptScreen.stage.addChild(jax);
 
 	var tyton = new Sprite();
 	tyton.x = canvas.width / 2 + -world.x + 200;
-	tyton.y = canvas.height / 2 + -world.y + 65;
+	tyton.y = canvas.height / 2 + -world.y + 20;
+	tyton.width = 150;
+	tyton.height = 150;
 	tyton.image = Textures.load("Resources/athena_character_text.png");
 	scriptScreen.stage.addChild(tyton);
 
@@ -257,14 +273,18 @@ function textFour() {
 
 	//Add text overlay
 	var jax = new Sprite();
-	jax.x = canvas.width / 2 + -world.x - 300;
-	jax.y = canvas.height / 2 + -world.y + 75;
+	jax.x = canvas.width / 2 + -world.x - 335;
+	jax.y = canvas.height / 2 + -world.y + 30;
+	jax.width = 150;
+	jax.height = 150;
 	jax.image = Textures.load("Resources/Jax_character_for_text.png");
 	scriptScreen.stage.addChild(jax);
 
 	var tyton = new Sprite();
 	tyton.x = canvas.width / 2 + -world.x + 200;
-	tyton.y = canvas.height / 2 + -world.y + 65;
+	tyton.y = canvas.height / 2 + -world.y + 20;
+	tyton.width = 150;
+	tyton.height = 150;
 	tyton.image = Textures.load("Resources/athena_character_text.png");
 	scriptScreen.stage.addChild(tyton);
 
@@ -313,14 +333,18 @@ function textFive() {
 
 	//Add text overlay
 	var jax = new Sprite();
-	jax.x = canvas.width / 2 + -world.x - 300;
-	jax.y = canvas.height / 2 + -world.y + 75;
+	jax.x = canvas.width / 2 + -world.x - 335;
+	jax.y = canvas.height / 2 + -world.y + 30;
+	jax.width = 150;
+	jax.height = 150;
 	jax.image = Textures.load("Resources/Jax_character_for_text.png");
 	scriptScreen.stage.addChild(jax);
 
 	var tyton = new Sprite();
 	tyton.x = canvas.width / 2 + -world.x + 200;
-	tyton.y = canvas.height / 2 + -world.y + 65;
+	tyton.y = canvas.height / 2 + -world.y + 20;
+	tyton.width = 150;
+	tyton.height = 150;
 	tyton.image = Textures.load("Resources/athena_character_text.png");
 	scriptScreen.stage.addChild(tyton);
 
@@ -369,14 +393,18 @@ function textSix() {
 
 	//Add text overlay
 	var jax = new Sprite();
-	jax.x = canvas.width / 2 + -world.x - 300;
-	jax.y = canvas.height / 2 + -world.y + 75;
+	jax.x = canvas.width / 2 + -world.x - 335;
+	jax.y = canvas.height / 2 + -world.y + 30;
+	jax.width = 150;
+	jax.height = 150;
 	jax.image = Textures.load("Resources/Jax_character_for_text.png");
 	scriptScreen.stage.addChild(jax);
 
 	var tyton = new Sprite();
 	tyton.x = canvas.width / 2 + -world.x + 200;
-	tyton.y = canvas.height / 2 + -world.y + 65;
+	tyton.y = canvas.height / 2 + -world.y + 20;
+	tyton.width = 150;
+	tyton.height = 150;
 	tyton.image = Textures.load("Resources/athena_character_text.png");
 	scriptScreen.stage.addChild(tyton);
 
@@ -400,7 +428,7 @@ function textSix() {
 	var pressed = true;
 
 	test.update = function(d) {
-		while (gInput.place && pressed == true && i < 49) {
+		while (gInput.place && pressed == true && i < 50) {
 			pressed = false;
 			i++;
 			test.text = tutorialText[i];
@@ -408,7 +436,7 @@ function textSix() {
 			setTimeout(function() {
 				pressed = true;
 			}, 200);
-			if (i === 49) {
+			if (i === 50) {
 				scriptSix = true;
 	            scriptScreen.stage.removeChild(jax);
 		        scriptScreen.stage.removeChild(tyton);
@@ -425,14 +453,18 @@ function textSeven() {
 
 	//Add text overlay
 	var jax = new Sprite();
-	jax.x = canvas.width / 2 + -world.x - 300;
-	jax.y = canvas.height / 2 + -world.y + 75;
+	jax.x = canvas.width / 2 + -world.x - 335;
+	jax.y = canvas.height / 2 + -world.y + 30;
+	jax.width = 150;
+	jax.height = 150;
 	jax.image = Textures.load("Resources/Jax_character_for_text.png");
 	scriptScreen.stage.addChild(jax);
 
 	var tyton = new Sprite();
 	tyton.x = canvas.width / 2 + -world.x + 200;
-	tyton.y = canvas.height / 2 + -world.y + 65;
+	tyton.y = canvas.height / 2 + -world.y + 20;
+	tyton.width = 150;
+	tyton.height = 150;
 	tyton.image = Textures.load("Resources/athena_character_text.png");
 	scriptScreen.stage.addChild(tyton);
 
@@ -481,14 +513,18 @@ function textEight() {
 
 	//Add text overlay
 	var jax = new Sprite();
-	jax.x = canvas.width / 2 + -world.x - 300;
-	jax.y = canvas.height / 2 + -world.y + 75;
+	jax.x = canvas.width / 2 + -world.x - 335;
+	jax.y = canvas.height / 2 + -world.y + 30;
+	jax.width = 150;
+	jax.height = 150;
 	jax.image = Textures.load("Resources/Jax_character_for_text.png");
 	scriptScreen.stage.addChild(jax);
 
 	var tyton = new Sprite();
 	tyton.x = canvas.width / 2 + -world.x + 200;
-	tyton.y = canvas.height / 2 + -world.y + 65;
+	tyton.y = canvas.height / 2 + -world.y + 20;
+	tyton.width = 150;
+	tyton.height = 150;
 	tyton.image = Textures.load("Resources/Tyton_character_text.png");
 	scriptScreen.stage.addChild(tyton);
 
