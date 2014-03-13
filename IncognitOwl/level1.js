@@ -804,8 +804,23 @@ function start2() {//////////////////////////////////////////////////////
 	var ycenter = 315;
 	var traps = 0;
 
+	var extraItem = new Sprite();
+	extraItem.image = Textures.load("Resources/bonus_item.png");
+	extraItem.width = 50;
+	extraItem.height = 40;
+	extraItem.x = 70 * 11 + 12;
+	extraItem.y = 70 * 28 + 17;
+	
+	var winItem = new Sprite();
+	winItem.image = Textures.load("Resources/briefcase.png")
+	winItem.width = 50;
+	winItem.height = 40;
+	winItem.x = 70 * 6 + 13;
+ 	winItem.y = 70 * 3 + 35;
+ 	
 	var roof = new Sprite();
 	roof.image = Textures.load("Resources/roof.png");
+	roof.index = -1;
 	roof.width = u * 3.6 + 4;
 	roof.height = u * 3.75 + 6;
 	roof.x = u * 4.5 + 12;
@@ -1122,6 +1137,8 @@ function start2() {//////////////////////////////////////////////////////
 				world.addChild(guard2);
 				world.addChild(guard3);
 				world.addChild(guard4);
+				world.addChild(extraItem);
+				world.addChild(winItem);
 				//textOne();
 				setTimeout(function() {
 					traps = 1;

@@ -15,6 +15,9 @@ function start() {
 			posttxt = true;
 	}
 
+	var sounds = new SoundManager();
+	sounds.loop("Audio/nightvideogame.mp3");
+
 	clearColor = [0, .5, .5, .5];
 	var can = document.getElementById('canvas');
 	var ctx = canvas.getContext("2d");
