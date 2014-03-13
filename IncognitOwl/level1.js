@@ -11,15 +11,31 @@ function start2() {//////////////////////////////////////////////////////
 	world.y = -70 * 22;
 
 	var u = 70;
-	
+
 	var sounds = new SoundManager();
 	sounds.loop("Audio/nightvideogame.mp3");
+
+	var auto = "auto2";  ///////////////////////////////////////////////////////////
+	setCookie(auto, 0);
+	setCookie("continue", 2);
 
 	l90 = new Object();
 	l90.reverse = false;
 	l90.turn = false;
 	l90.rot = 0;
 
+	var trap = new Sprite();
+	trap.width = 35;
+	trap.height = 35;
+	trap.image = Textures.load("Resources/snap_trap-png.png");
+	trap.collision = function(sprite) {
+		if (this.x < sprite.x + sprite.width && this.x + this.width > sprite.x && this.y < sprite.y + sprite.height && this.y + this.height > sprite.y) {
+			return true;
+		} else {
+			return false;
+		}
+	};
+	
 	l90.update = function(d) {
 		if (!this.turn) {
 			if (this.reverse) {
@@ -158,7 +174,7 @@ function start2() {//////////////////////////////////////////////////////
 		 *      points.y0 = points.origin.y + l90.ns0 * u * ll;
 		 *
 		 */
-		if (points.clock == 0) { //////////////CLOCKWISE
+		if (points.clock == 0) {//////////////CLOCKWISE
 			if (points.rotation == 0) {
 				if (points.direc == "up") {
 					points.x0 = points.origin.x + l90.ns0 * -u * ll;
@@ -250,7 +266,7 @@ function start2() {//////////////////////////////////////////////////////
 					points.y2 = points.origin.y + l360.mc2 * u * ll;
 				}
 			}
-		} else if (points.clock == 1) { /////////////COUNTERCLOCKWISE
+		} else if (points.clock == 1) {/////////////COUNTERCLOCKWISE
 			if (points.rotation == 0) {
 				if (points.direc == "up") {
 					points.x0 = points.origin.x + l90.ms0 * -u * ll;
@@ -465,14 +481,14 @@ function start2() {//////////////////////////////////////////////////////
 		points.origin = this.origin;
 		points.clock = this.clock;
 		points = findPoints(points);
-		
+
 		this.xy0.x = points.x0;
- 		this.xy0.y = points.y0;
- 	  	this.xy1.x = points.x1;
-   		this.xy1.y = points.y1;
-   		this.xy2.x = points.x2;
-   		this.xy2.y = points.y2;
-		
+		this.xy0.y = points.y0;
+		this.xy1.x = points.x1;
+		this.xy1.y = points.y1;
+		this.xy2.x = points.x2;
+		this.xy2.y = points.y2;
+
 		//box collisions//////////////////////////////////////////////////////////////////////////////
 		this.bcollisions[0] = intersect(boxes[0].bl, boxes[0].br, this.origin, this.xy0);
 		this.bcollisions[1] = intersect(boxes[0].bl, boxes[0].br, this.origin, this.xy1);
@@ -498,33 +514,32 @@ function start2() {//////////////////////////////////////////////////////
 		this.bcollisions[21] = intersect(boxes[1].tr, boxes[1].br, this.origin, this.xy0);
 		this.bcollisions[22] = intersect(boxes[1].tr, boxes[1].br, this.origin, this.xy1);
 		this.bcollisions[23] = intersect(boxes[1].tr, boxes[1].br, this.origin, this.xy2);
-		
 
 		for (var i = 0; i < this.bcollisions.length; i++) {
-        if (!(this.bcollisions[i] == undefined) && this.bcollisions[i].occurred) {
-            if (i % 3 == 0) {
-                this.lp[0].x = this.bcollisions[i].point.x;
-                this.lp[0].y = this.bcollisions[i].point.y;
-            } else if (i % 3 == 1) {
-                this.lp[1].x = this.bcollisions[i].point.x;
-                this.lp[1].y = this.bcollisions[i].point.y;
-            } else if (i % 3 == 2) {
-                this.lp[2].x = this.bcollisions[i].point.x;
-                this.lp[2].y = this.bcollisions[i].point.y;
-            }
-        } else {
-            if (i == 0) {
-                this.lp[0].x = points.x0;
-                this.lp[0].y = points.y0;
-            } else if (i == 1) {
-                this.lp[1].x = points.x1;
-                this.lp[1].y = points.y1;
-            } else if (i == 2) {
-                this.lp[2].x = points.x2;
-                this.lp[2].y = points.y2;
-            } 
-        }
-    }
+			if (!(this.bcollisions[i] == undefined) && this.bcollisions[i].occurred) {
+				if (i % 3 == 0) {
+					this.lp[0].x = this.bcollisions[i].point.x;
+					this.lp[0].y = this.bcollisions[i].point.y;
+				} else if (i % 3 == 1) {
+					this.lp[1].x = this.bcollisions[i].point.x;
+					this.lp[1].y = this.bcollisions[i].point.y;
+				} else if (i % 3 == 2) {
+					this.lp[2].x = this.bcollisions[i].point.x;
+					this.lp[2].y = this.bcollisions[i].point.y;
+				}
+			} else {
+				if (i == 0) {
+					this.lp[0].x = points.x0;
+					this.lp[0].y = points.y0;
+				} else if (i == 1) {
+					this.lp[1].x = points.x1;
+					this.lp[1].y = points.y1;
+				} else if (i == 2) {
+					this.lp[2].x = points.x2;
+					this.lp[2].y = points.y2;
+				}
+			}
+		}
 
 	};
 	lights[3].update = function(d) {
@@ -586,22 +601,21 @@ function start2() {//////////////////////////////////////////////////////
 		points.direc = this.direc;
 		points.origin = this.origin;
 		points.clock = this.clock;
-		
-		
+
 		points.x0 = points.origin.x + l90.nc0 * u * 2.5;
 		points.y0 = points.origin.y + l90.ns0 * u * 2.5;
 		points.x1 = points.origin.x + l90.nc1 * u * 2.5;
 		points.y1 = points.origin.y + l90.ns1 * u * 2.5;
 		points.x2 = points.origin.x + l90.nc2 * u * 2.5;
 		points.y2 = points.origin.y + l90.ns2 * u * 2.5;
-		
+
 		this.xy0.x = points.x0;
- 		this.xy0.y = points.y0;
- 	  	this.xy1.x = points.x1;
-   		this.xy1.y = points.y1;
-   		this.xy2.x = points.x2;
-   		this.xy2.y = points.y2;
-		
+		this.xy0.y = points.y0;
+		this.xy1.x = points.x1;
+		this.xy1.y = points.y1;
+		this.xy2.x = points.x2;
+		this.xy2.y = points.y2;
+
 		this.bcollisions[0] = intersect(boxes[0].tl, boxes[0].bl, this.origin, this.xy0);
 		this.bcollisions[1] = intersect(boxes[0].tl, boxes[0].bl, this.origin, this.xy1);
 		this.bcollisions[2] = intersect(boxes[0].tl, boxes[0].bl, this.origin, this.xy2);
@@ -628,8 +642,8 @@ function start2() {//////////////////////////////////////////////////////
 		this.bcollisions[23] = intersect(boxes[1].bl, boxes[1].br, this.origin, this.xy2);
 
 		for (var i = 0; i < this.bcollisions.length; i++) {
-			if (!(this.bcollisions[i] == undefined) && this.bcollisions[i].occurred) { ////////////////////////////////////
-				if (i % 3 == 0) { //MUST SCALE WITH LIGHT COUNT
+			if (!(this.bcollisions[i] == undefined) && this.bcollisions[i].occurred) {////////////////////////////////////
+				if (i % 3 == 0) {//MUST SCALE WITH LIGHT COUNT
 					this.lp[0].x = this.bcollisions[i].point.x;
 					this.lp[0].y = this.bcollisions[i].point.y;
 				} else if (i % 3 == 1) {
@@ -649,8 +663,8 @@ function start2() {//////////////////////////////////////////////////////
 				} else if (i == 2) {
 					this.lp[2].x = points.x2;
 					this.lp[2].y = points.y2;
-				} 
-		    }
+				}
+			}
 		}
 
 	};
@@ -667,20 +681,20 @@ function start2() {//////////////////////////////////////////////////////
 		points.direc = this.direc;
 		points.origin = this.origin;
 		points.clock = this.clock;
-		
+
 		points.x0 = points.origin.x + l90.ns0 * u * ll;
 		points.y0 = points.origin.y + l90.nc0 * u * ll;
 		points.x1 = points.origin.x + l90.ns1 * u * ll;
 		points.y1 = points.origin.y + l90.nc1 * u * ll;
 		points.x2 = points.origin.x + l90.ns2 * u * ll;
 		points.y2 = points.origin.y + l90.nc2 * u * ll;
-	
+
 		this.xy0.x = points.x0;
- 		this.xy0.y = points.y0;
- 	  	this.xy1.x = points.x1;
-   		this.xy1.y = points.y1;
-   		this.xy2.x = points.x2;
-   		this.xy2.y = points.y2;
+		this.xy0.y = points.y0;
+		this.xy1.x = points.x1;
+		this.xy1.y = points.y1;
+		this.xy2.x = points.x2;
+		this.xy2.y = points.y2;
 
 		//box collisions//////////////////////////////////////////////////////////////////////////////
 		this.bcollisions[0] = intersect(boxes[0].tr, boxes[0].br, this.origin, this.xy0);
@@ -709,8 +723,8 @@ function start2() {//////////////////////////////////////////////////////
 		this.bcollisions[23] = intersect(boxes[1].tr, boxes[1].tl, this.origin, this.xy2);
 
 		for (var i = 0; i < this.bcollisions.length; i++) {
-			if (!(this.bcollisions[i] == undefined) && this.bcollisions[i].occurred) { ////////////////////////////////////
-				if (i % 3 == 0) { //MUST SCALE WITH LIGHT COUNT
+			if (!(this.bcollisions[i] == undefined) && this.bcollisions[i].occurred) {////////////////////////////////////
+				if (i % 3 == 0) {//MUST SCALE WITH LIGHT COUNT
 					this.lp[0].x = this.bcollisions[i].point.x;
 					this.lp[0].y = this.bcollisions[i].point.y;
 				} else if (i % 3 == 1) {
@@ -730,30 +744,29 @@ function start2() {//////////////////////////////////////////////////////
 				} else if (i == 2) {
 					this.lp[2].x = points.x2;
 					this.lp[2].y = points.y2;
-				} 
-		    }
+				}
+			}
 		}
-
 
 	};
 	var stop = false;
 	lights[7].update = function(d) {
 		var points = new Object();
-		if(!stop){
+		if (!stop) {
 			stop = true;
 
 			points.rotation = this.rotation;
 			points.direc = this.direc;
 			points.origin = this.origin;
 			points.clock = this.clock;
-			
+
 			points.x0 = points.origin.x + l90.mc0 * u * ll;
 			points.y0 = points.origin.y + l90.ms0 * u * ll;
 			points.x1 = points.origin.x + l90.mc1 * u * ll;
 			points.y1 = points.origin.y + l90.ms1 * u * ll;
 			points.x2 = points.origin.x + l90.mc2 * u * ll;
 			points.y2 = points.origin.y + l90.ms2 * u * ll;
-		
+
 			this.lp[0].x = points.x0;
 			this.lp[0].y = points.y0;
 			this.lp[1].x = points.x1;
@@ -790,7 +803,7 @@ function start2() {//////////////////////////////////////////////////////
 	var xcenter = 420;
 	var ycenter = 315;
 	var traps = 0;
-	
+
 	var roof = new Sprite();
 	roof.image = Textures.load("Resources/roof.png");
 	roof.width = u * 3.6 + 4;
@@ -798,11 +811,6 @@ function start2() {//////////////////////////////////////////////////////
 	roof.x = u * 4.5 + 12;
 	roof.y = u * 1.25 - 3;
 	world.addChild(roof);
-
-	var trap = new Sprite();
-	trap.width = 35;
-	trap.height = 35;
-	trap.image = Textures.load("Resources/snap_trap-png.png");
 
 	var win = new Sprite();
 	win.image = Textures.load("http://static2.wikia.nocookie.net/__cb20100728113416/mafiawars/images/7/7e/Boss_title_youwin.png");
@@ -839,7 +847,6 @@ function start2() {//////////////////////////////////////////////////////
 	dirts[12] = dirts.at(7, 9);
 	dirts[13] = dirts.at(8, 8);
 	dirts[14] = dirts.at(8, 9);
-	
 
 	var walls = new Array();
 	for (var i = 0; i < 72; i++) {////////////////////////////////////////////////////////////walls array
@@ -956,11 +963,6 @@ function start2() {//////////////////////////////////////////////////////
 	walls[69] = walls.r(8, 2, 5);
 	walls[70] = walls.l(5, 2, 5);
 	walls[71] = walls.u(5, 2, 8);
-<<<<<<< HEAD
-
-
-=======
->>>>>>> 60314084fce79b735648159939ce2b57fd6fa915
 
 	var boxcount = 2;
 	//////BOXES ARRAY////////////////////////////////////////////////
@@ -1116,6 +1118,9 @@ function start2() {//////////////////////////////////////////////////////
 				world.y = -70 * 22;
 				world.addChild(player);
 				world.addChild(guard);
+				world.addChild(guard2);
+				world.addChild(guard3);
+				world.addChild(guard4);
 				//textOne();
 				setTimeout(function() {
 					traps = 1;
@@ -1137,18 +1142,267 @@ function start2() {//////////////////////////////////////////////////////
 		}
 	};
 
+	//Right guard (left) 1
 	var guard = new Sprite();
 	guard.image = Textures.load("Resources/bat_full.png");
 	guard.width = 67;
 	guard.height = 67;
-	guard.x = 70 * 8 + 2;
-	guard.y = 70 * 4;
+	guard.x = 70 * 11;
+	guard.y = 70 * 25;
 	guard.alerted = false;
 	guard.frameWidth = 63;
 	guard.frameHeight = 49;
-	guard.frameCount = 21;
-	guard.frameRate = 0;
-	guard.moveRate = 0;
+	guard.frameCount = 20;
+	guard.frameRate = 7;
+	guard.moveRate = 7;
+	guard.speed = 2;
+	guard.addAnimations(["down", "up", "right", "left"], [5, 5, 5, 5]);
+
+	var availSpace = 0;
+
+	guard.update = function() {
+		if (trap.collision(guard)) {
+			setTimeout(function() {
+				guard.x = 0;
+				guard.y = 0;
+				world.removeChild(guard);
+				trap.alpha = 0;
+			}, 250);
+		}
+		
+		availSpace += guard.speed;
+
+		if (availSpace <= 70) {//curently working
+			guard.animation = "up";
+			//guard2.frameRate = guard2.moveRate;
+			guard.y -= guard.speed;
+		}
+		if (availSpace >= 70) {
+			guard.y -= 0;
+			guard.animation = "right";
+			//guard2.frameRate = guard2.moveRate;
+			guard.x += guard.speed;
+		}
+
+		if (availSpace >= 210) {
+			guard.x -= guard.speed;
+			guard.animation = "down";
+			//guard2.frameRate = guard2.moveRate;
+			guard.y += guard.speed;
+		}
+
+		if (availSpace >= 350) {
+			guard.y -= guard.speed;
+			guard.animation = "left";
+			//guard2.frameRate = guard2.moveRate;
+			guard.x -= guard.speed;
+		}
+
+		if (availSpace >= 490) {
+			guard.x += guard.speed;
+			guard.animation = "up";
+			//guard2.frameRate = guard2.moveRate;
+			guard.y -= guard.speed;
+		}
+
+		if (availSpace >= 560) {
+			guard.y += guard.speed;
+			//guard2.frameRate = guard2.moveRate;
+			availSpace = 0;
+		}
+
+	};
+
+	//left-side guard (door)
+	var guard2 = new Sprite();
+	guard2.image = Textures.load("Resources/bat_full.png");
+	guard2.width = 67;
+	guard2.height = 67;
+	guard2.x = 70 * 3;
+	guard2.y = 70 * 21;
+	guard2.alerted = false;
+	guard2.frameWidth = 63;
+	guard2.frameHeight = 49;
+	guard2.frameCount = 20;
+	guard2.frameRate = 7;
+	guard2.moveRate = 7;
+	guard2.speed = 2;
+	guard2.addAnimations(["down", "up", "right", "left"], [5, 5, 5, 5]);
+
+	var availSpace2 = 0;
+
+	guard2.update = function() {
+		if (trap.collision(guard2)) {
+			setTimeout(function() {
+				guard2.x = 0;
+				guard2.y = 0;
+				world.removeChild(guard2);
+				trap.alpha = 0;
+			}, 250);
+		}
+		
+		availSpace2 += guard2.speed;
+
+		if (availSpace2 <= 140) {
+			guard2.animation = "down";
+			//guard2.frameRate = guard2.moveRate;
+			guard2.y += guard2.speed;
+		}
+		if (availSpace2 >= 140) {
+			guard2.y += 0;
+			guard2.animation = "left";
+			//guard2.frameRate = guard2.moveRate;
+			guard2.x -= guard2.speed;
+		}
+
+		if (availSpace2 >= 210) {
+			guard2.x += guard2.speed;
+			guard2.animation = "up";
+			//guard2.frameRate = guard2.moveRate;
+			guard2.y -= guard2.speed;
+		}
+
+		if (availSpace2 >= 350) {
+			guard2.y += guard2.speed;
+			guard2.animation = "right";
+			//guard2.frameRate = guard2.moveRate;
+			guard2.x += guard2.speed;
+		}
+
+		if (availSpace2 >= 420) {
+			guard2.x -= guard2.speed;
+			//guard2.animation = "right";
+			//guard2.frameRate = guard2.moveRate;
+			//guard2.x += guard2.speed;
+			availSpace2 = 0;
+		}
+
+	};
+
+	//right side  corner guard
+	var guard3 = new Sprite();
+	guard3.image = Textures.load("Resources/bat_full.png");
+	guard3.width = 67;
+	guard3.height = 67;
+	guard3.x = 70 * 15;
+	guard3.y = 70 * 26;
+	guard3.alerted = false;
+	guard3.frameWidth = 63;
+	guard3.frameHeight = 49;
+	guard3.frameCount = 20;
+	guard3.frameRate = 7;
+	guard3.moveRate = 7;
+	guard3.speed = 2;
+	guard3.addAnimations(["down", "up", "right", "left"], [5, 5, 5, 5]);
+
+	var availSpace3 = 0;
+
+	guard3.update = function() {
+		if (trap.collision(guard3)) {
+			setTimeout(function() {
+				guard3.x = 0;
+				guard3.y = 0;
+				world.removeChild(guard3);
+				trap.alpha = 0;
+			}, 250);
+		}
+		
+		availSpace3 += guard3.speed;
+
+		if (availSpace3 <= 140) {//curently working
+			guard3.animation = "up";
+			//guard2.frameRate = guard2.moveRate;
+			guard3.y -= guard3.speed;
+		}
+		if (availSpace3 >= 140) {
+			guard3.y += 0;
+			guard3.animation = "left";
+			//guard2.frameRate = guard2.moveRate;
+			guard3.x -= guard3.speed;
+		}
+
+		if (availSpace3 >= 280) {
+			guard3.x += guard3.speed;
+			guard3.animation = "down";
+			//guard2.frameRate = guard2.moveRate;
+			guard3.y += guard3.speed;
+		}
+
+		if (availSpace3 >= 420) {
+			guard3.y -= guard3.speed;
+			guard3.animation = "right";
+			//guard2.frameRate = guard2.moveRate;
+			guard3.x += guard3.speed;
+		}
+
+		if (availSpace3 >= 560) {
+			guard3.x -= guard3.speed;
+			//guard.animation = "left";
+			//guard2.frameRate = guard2.moveRate;
+			//		guard3.y -= guard3.speed;
+
+			availSpace3 = 0;
+		}
+
+	};
+
+	//middle-map guard
+	var guard4 = new Sprite();
+	guard4.image = Textures.load("Resources/bat_full.png");
+	guard4.width = 67;
+	guard4.height = 67;
+	guard4.x = 70 * 3;
+	guard4.y = 70 * 16;
+	guard4.alerted = false;
+	guard4.frameWidth = 63;
+	guard4.frameHeight = 49;
+	guard4.frameCount = 20;
+	guard4.frameRate = 7;
+	guard4.moveRate = 7;
+	guard4.speed = 2;
+	guard4.addAnimations(["down", "up", "right", "left"], [5, 5, 5, 5]);
+
+	var availSpace4 = 0;
+
+	guard4.update = function() {
+		if (trap.collision(guard4)) {
+			setTimeout(function() {
+				guard4.x = 0;
+				guard4.y = 0;
+				world.removeChild(guard4);
+				trap.alpha = 0;
+			}, 250);
+		}
+		
+		availSpace4 += guard4.speed;
+
+		if (availSpace4 <= 140) {
+			guard4.animation = "up";
+			//guard2.frameRate = guard2.moveRate;
+			guard4.y -= guard4.speed;
+		}
+		if (availSpace4 >= 140) {
+			guard4.y += 0;
+			guard4.animation = "down";
+			//guard2.frameRate = guard2.moveRate;
+			guard4.y += guard4.speed;
+		}
+
+		if (availSpace4 >= 350) {
+			guard4.y -= guard4.speed;
+			guard4.animation = "up";
+			//guard2.frameRate = guard2.moveRate;
+			guard4.y -= guard4.speed;
+		}
+
+		if (availSpace4 >= 420) {
+			guard4.y += guard4.speed;
+			//guard4.animation = "up";
+			//guard2.frameRate = guard2.moveRate;
+			//guard4.y -= guard4.speed;
+			availSpace4 = 0;
+		}
+	};
 
 	function short_collision(px, py) {
 		if (px > 70 * 8 - 35 && px < 70 * 9 - 30 && py > 70 * 5 - 35 && py < 70 * 6) {
@@ -1170,6 +1424,28 @@ function start2() {//////////////////////////////////////////////////////
 	player.height = 62;
 	player.x = 70 * 2.2;
 	player.y = 70 * 28.5;
+	
+	player.collision = function(sprite) {
+		if (this.x < sprite.x + sprite.width && this.x + this.width > sprite.x && this.y < sprite.y + sprite.height && this.y + this.height > sprite.y) {
+			return true;
+		} else {
+			return false;
+		}
+	};
+
+	if (player.collision(guard)) {
+		screenMan.push(gameOver);
+	}
+	if (player.collision(guard2)) {
+		screenMan.push(gameOver);
+	}
+	if (player.collision(guard3)) {
+		screenMan.push(gameOver);
+	}
+	if (player.collision(guard4)) {
+		screenMan.push(gameOver);
+	}
+
 	player.tl = new Vector(player.x, player.y);
 	//top left
 	player.tr = new Vector((player.x + player.width), player.y);
@@ -1209,24 +1485,35 @@ function start2() {//////////////////////////////////////////////////////
 	player.nodown = false;
 
 	player.update = function(d) {
-<<<<<<< HEAD
-		if (player.y < 6 * u){
+		if (player.y < 6 * u) {
 			roof.alpha = 0.2;
-		} else if (player.y > 6 * u){
+		} else if (player.y > 6 * u) {
 			roof.alpha = 1;
 		}
-		if (player.y < 3.5 * u){
-            boxes[0].alpha = 0;
-            boxes[1].alpha = 0;
+		if (player.y < 3.5 * u) {
+			boxes[0].alpha = 0;
+			boxes[1].alpha = 0;
 			player.speed = 0;
 			setCookie("continue", 2, 30);
 			textEndLevelOne();
-=======
-		if (player.y < 3.5 * u){
-			location.reload();
->>>>>>> 60314084fce79b735648159939ce2b57fd6fa915
 		}
-		
+
+		if(player.collision(guard)){
+			setCookie("auto", 2, 30);
+			screenMan.push(gameOver);
+		}
+		if(player.collision(guard2)){
+			setCookie("auto", 2, 30);
+			screenMan.push(gameOver);
+		}
+		if(player.collision(guard3)){
+			setCookie("auto", 2, 30);
+			screenMan.push(gameOver);
+		}
+		if(player.collision(guard4)){
+			setCookie("auto", 2, 30);
+			screenMan.push(gameOver);
+		}
 		//If the character misn't moving, set the frameRate to 0
 		//If the character had an idle animation we wouldn't need to do this
 		player.tl = new Vector(player.x, player.y);
@@ -1275,7 +1562,7 @@ function start2() {//////////////////////////////////////////////////////
 		if (!gInput.right) {
 			player.noright = false;
 		}
-		
+
 		if (gInput.down) {
 			player.noup = false;
 			if (!player.nodown) {
@@ -1337,17 +1624,20 @@ function start2() {//////////////////////////////////////////////////////
 			if (guard.vision == 0 && short_collision(this.x, this.y)) {
 				guard.frameRate = 7;
 				guard.moveRate = 7;
+				setCookie(auto, 1);
 				screenMan.push(gameOver);
 				guard.alerted = true;
 			} else if (guard.vision == 1 && long_collision(this.x, this.y)) {
 				guard.frameRate = 7;
 				guard.moveRate = 7;
+				setCookie(auto, 1);
 				screenMan.push(gameOver);
 				guard.alerted = true;
 			}
 			if (this.collision(light)) {
 				guard.frameRate = 7;
 				guard.moveRate = 7;
+				setCookie(auto, 1);
 				screenMan.push(gameOver);
 				guard.alerted = true;
 			}
@@ -1378,13 +1668,14 @@ function start2() {//////////////////////////////////////////////////////
 			trap.x = player.x + 17.5;
 			trap.y = player.y + 17.5;
 			world.addChild(trap);
-			trap--;
+			traps--;
 		}
 		if (player.y < 550) {
 			//textTwo();
 		}
 		if (screenMan.screens.find(gameOver)) {
 			traps = 0;
+			setCookie(auto, 1);
 			player.speed = 0;
 			player.moveRate = 0;
 			player.alpha = .5;
@@ -1448,17 +1739,18 @@ function start2() {//////////////////////////////////////////////////////
 		textLevelOne();
 	}
 
+
 	world.draw = function(ctx) {
 		this.drawChildren(ctx);
 		var bigW = 30;
 		var smallW = 11;
 		ctx.fillStyle = "lightgreen";
-		ctx.fillText("noup " + player.noup, canvas.width/2 + -world.x - (70 * 4), canvas.height/2 + -world.y - (70 * 4));
-		ctx.fillText("nodown " + player.nodown, canvas.width/2 + -world.x - (70 * 4), canvas.height/2 + -world.y - (70 * 4) + 10);
-		ctx.fillText("noleft " + player.noleft, canvas.width/2 + -world.x - (70 * 4), canvas.height/2 + -world.y - (70 * 4) + 20);
-		ctx.fillText("noright " + player.noright, canvas.width/2 + -world.x - (70 * 4), canvas.height/2 + -world.y - (70 * 4) + 30);
-		ctx.fillText("player.x " + player.x, canvas.width/2 + -world.x - (70 * 4), canvas.height/2 + -world.y - (70 * 4) + 40);
-		ctx.fillText("player.y " + player.y, canvas.width/2 + -world.x - (70 * 4), canvas.height/2 + -world.y - (70 * 4) + 50);
+		/*ctx.fillText("noup " + player.noup, canvas.width / 2 + -world.x - (70 * 4), canvas.height / 2 + -world.y - (70 * 4));
+		ctx.fillText("nodown " + player.nodown, canvas.width / 2 + -world.x - (70 * 4), canvas.height / 2 + -world.y - (70 * 4) + 10);
+		ctx.fillText("noleft " + player.noleft, canvas.width / 2 + -world.x - (70 * 4), canvas.height / 2 + -world.y - (70 * 4) + 20);
+		ctx.fillText("noright " + player.noright, canvas.width / 2 + -world.x - (70 * 4), canvas.height / 2 + -world.y - (70 * 4) + 30);
+		ctx.fillText("continue cookie: " + getCookie("continue"), canvas.width / 2 + -world.x - (70 * 4), canvas.height / 2 + -world.y - (70 * 4) + 40);
+		ctx.fillText("auto2 cookie: " + getCookie("auto2"), canvas.width / 2 + -world.x - (70 * 4), canvas.height / 2 + -world.y - (70 * 4) + 50);*/
 		ctx.strokeStyle = "orange";
 		ctx.lineWidth = smallW;
 		//var g = 76;
@@ -1478,9 +1770,9 @@ function start2() {//////////////////////////////////////////////////////
 			ctx.lineTo(lights[i].lp[2].x, lights[i].lp[2].y);
 			ctx.stroke();
 			/*ctx.beginPath();
-			ctx.moveTo(walls[g].left, walls[g].top);
-			ctx.lineTo(walls[g].right, walls[g].bot);
-			ctx.stroke();*/
+			 ctx.moveTo(walls[g].left, walls[g].top);
+			 ctx.lineTo(walls[g].right, walls[g].bot);
+			 ctx.stroke();*/
 		}
 
 	};
@@ -1491,9 +1783,9 @@ function start2() {//////////////////////////////////////////////////////
 		for (var i = 0; i < boxes.length; i++) {
 			if (upcollide(after, boxes[i]) || wallcollideup(after)) {
 				this.noup = true;
-			} 
+			}
 		}
-		if(!this.noup) {
+		if (!this.noup) {
 			if (world.y < 0 && player.y < bg.height - ycenter) {
 				world.y += player.speed;
 			}
@@ -1508,17 +1800,17 @@ function start2() {//////////////////////////////////////////////////////
 
 			if (downcollide(after, boxes[i]) || wallcollidedown(after)) {
 				this.nodown = true;
-			} 
+			}
 		}
-		if(!this.nodown) {
-		if (player.y + 315 < bg.height && player.y > ycenter) {
+		if (!this.nodown) {
+			if (player.y + 315 < bg.height && player.y > ycenter) {
 				world.y -= player.speed;
 			}
 			this.animation = "down";
 			this.y = after;
 			this.frameRate = this.moveRate;
 		}
-		
+
 	};
 	player.left = function(speed) {
 		var after = this.x - player.speed;
@@ -1527,7 +1819,7 @@ function start2() {//////////////////////////////////////////////////////
 				this.noleft = true;
 			}
 		}
-		if(!this.noleft){
+		if (!this.noleft) {
 			if (world.x < 0 && player.x < bg.width - xcenter) {
 				//console.log(player.speed);
 				world.x += player.speed;
@@ -1542,7 +1834,7 @@ function start2() {//////////////////////////////////////////////////////
 		for (var i = 0; i < boxes.length; i++) {
 			if (rightcollide(after, boxes[i]) || wallcollideright(after)) {
 				this.noright = true;
-			} 
+			}
 		}
 		if (!this.noright) {
 			if (player.x + 420 < bg.width && player.x > xcenter) {
@@ -1655,13 +1947,21 @@ function start2() {//////////////////////////////////////////////////////
 			return true;
 		}
 	};
-	player.collision = function(sprite) {
+	/*player.collision = function(sprite) {
+		if (this.x < sprite.x + sprite.width && this.x + this.width > sprite.x && this.y < sprite.y + sprite.height && this.y + this.height > sprite.y) {
+			return true;
+		} else {
+			return false;
+		}
+	};*/
+	trap.collision = function(sprite) {
 		if (this.x < sprite.x + sprite.width && this.x + this.width > sprite.x && this.y < sprite.y + sprite.height && this.y + this.height > sprite.y) {
 			return true;
 		} else {
 			return false;
 		}
 	};
+	
 
 	function intersect(l0p0, l0p1, l1p0, l1p1) {
 		var coll = new Object();
@@ -1700,6 +2000,7 @@ function start2() {//////////////////////////////////////////////////////
 	startGame2();
 
 	world.update = function(d) {
+		//player with light collisions HERE///////////////////lights.edit////////////////////////////////////////
 		if (!cursor.active && levelScriptOne == true) {
 			cursor.moving = true;
 			setTimeout(function() {
@@ -1708,68 +2009,76 @@ function start2() {//////////////////////////////////////////////////////
 			world.addChild(cursor);
 			cursor.active = true;
 		}
-		if (player.y < 3.5 * u){
+		if (player.y < 3.5 * u) {
 			for (var k = 0; k < 2; k++) {
 				boxes[k].alpha = 0;
 			}
 			player.speed = 0;
 			textEndLevelOne();
 		}
-		//player with light collisions HERE///////////////////lights.edit////////////////////////////////////////
 
 		pcollisions[0] = intersect(player.tl, player.br, lights[0].origin, lights[0].lp[0]);
 		pcollisions[1] = intersect(player.tr, player.bl, lights[0].origin, lights[0].lp[0]);
 		pcollisions[2] = intersect(player.tl, player.br, lights[0].origin, lights[0].lp[1]);
 		pcollisions[3] = intersect(player.tr, player.bl, lights[0].origin, lights[0].lp[1]);
 		pcollisions[4] = intersect(player.tl, player.br, lights[0].origin, lights[0].lp[2]);
-		pcollisions[5] = intersect(player.tr, player.bl, lights[0].origin, lights[0].lp[2]);//[0]
+		pcollisions[5] = intersect(player.tr, player.bl, lights[0].origin, lights[0].lp[2]);
+		//[0]
 		pcollisions[6] = intersect(player.tl, player.br, lights[1].origin, lights[1].lp[0]);
 		pcollisions[7] = intersect(player.tr, player.bl, lights[1].origin, lights[1].lp[0]);
 		pcollisions[8] = intersect(player.tl, player.br, lights[1].origin, lights[1].lp[1]);
 		pcollisions[9] = intersect(player.tr, player.bl, lights[1].origin, lights[1].lp[1]);
 		pcollisions[10] = intersect(player.tl, player.br, lights[1].origin, lights[1].lp[2]);
-		pcollisions[11] = intersect(player.tr, player.bl, lights[1].origin, lights[1].lp[2]);//[1]
+		pcollisions[11] = intersect(player.tr, player.bl, lights[1].origin, lights[1].lp[2]);
+		//[1]
 		pcollisions[12] = intersect(player.tl, player.br, lights[2].origin, lights[2].lp[0]);
 		pcollisions[13] = intersect(player.tr, player.bl, lights[2].origin, lights[2].lp[0]);
 		pcollisions[14] = intersect(player.tl, player.br, lights[2].origin, lights[2].lp[1]);
 		pcollisions[15] = intersect(player.tr, player.bl, lights[2].origin, lights[2].lp[1]);
 		pcollisions[16] = intersect(player.tl, player.br, lights[2].origin, lights[2].lp[2]);
-		pcollisions[17] = intersect(player.tr, player.bl, lights[2].origin, lights[2].lp[2]);//[2]
+		pcollisions[17] = intersect(player.tr, player.bl, lights[2].origin, lights[2].lp[2]);
+		//[2]
 		pcollisions[18] = intersect(player.tl, player.br, lights[3].origin, lights[3].lp[0]);
 		pcollisions[19] = intersect(player.tr, player.bl, lights[3].origin, lights[3].lp[0]);
 		pcollisions[20] = intersect(player.tl, player.br, lights[3].origin, lights[3].lp[1]);
 		pcollisions[21] = intersect(player.tr, player.bl, lights[3].origin, lights[3].lp[1]);
 		pcollisions[22] = intersect(player.tl, player.br, lights[3].origin, lights[3].lp[2]);
-		pcollisions[23] = intersect(player.tr, player.bl, lights[3].origin, lights[3].lp[2]);//[3]
+		pcollisions[23] = intersect(player.tr, player.bl, lights[3].origin, lights[3].lp[2]);
+		//[3]
 		pcollisions[24] = intersect(player.tl, player.br, lights[4].origin, lights[4].lp[0]);
 		pcollisions[25] = intersect(player.tr, player.bl, lights[4].origin, lights[4].lp[0]);
 		pcollisions[26] = intersect(player.tl, player.br, lights[4].origin, lights[4].lp[1]);
 		pcollisions[27] = intersect(player.tr, player.bl, lights[4].origin, lights[4].lp[1]);
 		pcollisions[28] = intersect(player.tl, player.br, lights[4].origin, lights[4].lp[2]);
-		pcollisions[29] = intersect(player.tr, player.bl, lights[4].origin, lights[4].lp[2]);//[4]
+		pcollisions[29] = intersect(player.tr, player.bl, lights[4].origin, lights[4].lp[2]);
+		//[4]
 		pcollisions[30] = intersect(player.tl, player.br, lights[5].origin, lights[5].lp[0]);
 		pcollisions[31] = intersect(player.tr, player.bl, lights[5].origin, lights[5].lp[0]);
 		pcollisions[32] = intersect(player.tl, player.br, lights[5].origin, lights[5].lp[1]);
 		pcollisions[33] = intersect(player.tr, player.bl, lights[5].origin, lights[5].lp[1]);
 		pcollisions[34] = intersect(player.tl, player.br, lights[5].origin, lights[5].lp[2]);
-		pcollisions[35] = intersect(player.tr, player.bl, lights[5].origin, lights[5].lp[2]);//[5]
+		pcollisions[35] = intersect(player.tr, player.bl, lights[5].origin, lights[5].lp[2]);
+		//[5]
 		pcollisions[36] = intersect(player.tl, player.br, lights[6].origin, lights[6].lp[0]);
 		pcollisions[37] = intersect(player.tr, player.bl, lights[6].origin, lights[6].lp[0]);
 		pcollisions[38] = intersect(player.tl, player.br, lights[6].origin, lights[6].lp[1]);
 		pcollisions[39] = intersect(player.tr, player.bl, lights[6].origin, lights[6].lp[1]);
 		pcollisions[40] = intersect(player.tl, player.br, lights[6].origin, lights[6].lp[2]);
-		pcollisions[41] = intersect(player.tr, player.bl, lights[6].origin, lights[6].lp[2]);//[6]
+		pcollisions[41] = intersect(player.tr, player.bl, lights[6].origin, lights[6].lp[2]);
+		//[6]
 		pcollisions[42] = intersect(player.tl, player.br, lights[7].origin, lights[7].lp[0]);
 		pcollisions[43] = intersect(player.tr, player.bl, lights[7].origin, lights[7].lp[0]);
 		pcollisions[44] = intersect(player.tl, player.br, lights[7].origin, lights[7].lp[1]);
 		pcollisions[45] = intersect(player.tr, player.bl, lights[7].origin, lights[7].lp[1]);
 		pcollisions[46] = intersect(player.tl, player.br, lights[7].origin, lights[7].lp[2]);
-		pcollisions[47] = intersect(player.tr, player.bl, lights[7].origin, lights[7].lp[2]);//[7]
+		pcollisions[47] = intersect(player.tr, player.bl, lights[7].origin, lights[7].lp[2]);
+		//[7]
 
 		var lose = false;
 		if (!lose) {
 			for (var i = 0; i < pcollisions.length; i++) {
 				if ((pcollisions[i] != undefined) && pcollisions[i].occurred) {
+					setCookie(auto, 1);
 					screenMan.push(gameOver);
 					lose = true;
 					break;
@@ -1778,4 +2087,5 @@ function start2() {//////////////////////////////////////////////////////
 		}
 		this.updateChildren(d);
 	};
+
 };

@@ -1,7 +1,19 @@
 clearColor = [0, 0, 0, 0];
 use2D = true;
 initGame("canvas");
+
+
+var currLvl = -1;
+var autoStart1 = getCookie("auto1");
+var autoStart2 = getCookie("auto2");
+var autoStart3 = getCookie("auto3");
+var gc = getCookie("continue");
+if(gc!=""){
+	currLvl = gc;
+}
+
 //Create a screen class
+
 function Screen(alwaysUpdate, alwaysDraw) {
     //Call the Sprite constructor to copy any object properties
     Sprite.call(this);
@@ -130,7 +142,7 @@ mainMenu.init = function(){
     }; */
     
     var levelSel = new TextButton("Level Select");
-    levelSel.y = 50;
+    levelSel.y = 150;
     levelSel.center = true;
     levelSel.label.dropShadow = true;
     levelSel.label.fontSize = 30;
@@ -140,6 +152,46 @@ mainMenu.init = function(){
     levelSel.func = function(){
         screenMan.remove(mainMenu);
         screenMan.push(levelSelect);
+    };
+    
+    var Continues = new TextButton("Continue");
+    Continues.y = 50;
+    Continues.center = true;
+    Continues.label.dropShadow = true;
+    Continues.label.fontSize = 30;
+    Continues.setLabelColors("#aaaaaa", "#ffffff", "#ff0000");
+    this.gui.addChild(Continues);
+    
+    Continues.func = function(){
+        screenMan.remove(mainMenu);
+        if(currLvl < 1){
+        	screenMan.push(gameScreen);
+        } else if(currLvl == 1){
+        	screenMan.push(gameScreen2);
+        }
+    };
+    
+    var resetSave = new TextButton("New Game");
+    resetSave.y = 100;
+    resetSave.center = true;
+    resetSave.label.dropShadow = true;
+    resetSave.label.fontSize = 30;
+    resetSave.setLabelColors("#aaaaaa", "#ffffff", "#ff0000");
+    this.gui.addChild(resetSave);
+    
+    resetSave.func = function(){
+        var conf = true;
+        if(currLvl > -1){
+        	var conf = confirm("Are you sure?");
+        }
+        if(conf){
+        	setCookie("auto1",0,30);
+        	setCookie("auto2",0,30);
+        	setCookie("auto3",0,30);
+        	setCookie("continue",-1,30);
+        	screenMan.remove(mainMenu);
+        	screenMan.push(gameScreen);
+        }
     };
 };
 
@@ -163,7 +215,6 @@ levelSelect.init = function(){
     Tutorial.func = function(){
         screenMan.remove(mainMenu);
         screenMan.push(gameScreen);
-        
     };
     
     var levelOne = new TextButton("Level 1");
@@ -191,7 +242,7 @@ pauseMenu.init = function(){
     this.gui.x = canvas.width/2 + -world.x;
     this.gui.y = canvas.height/2 + -world.y;
     
-    var pause = new TextBox("[MENU]");
+    var pause = new TextBox("[PAUSED]");
     pause.y = -50;
     pause.center = true;
     pause.fontSize = 40;
@@ -253,43 +304,6 @@ gameOver.init = function(){
     };
 };
 
-var inventory = new Screen(false, true);
-
-inventory.init = function(){
-	
-	this.width = canvas.width;
-    this.height = canvas.height;
-    
-    this.gui.x = canvas.width/2 + -world.x;
-    this.gui.y = canvas.height/2 + -world.y;
-    
-	var invBox = new Sprite();
-	invBox.image = Textures.load("Resources/box_game_sprite_update-2.png");
-	invBox.x = canvas.width / 2 + -world.x + 200;
-	invBox.y = canvas.height / 2 + -world.y + 250;
-	invBox.width = 50;
-	invBox.height = 50;
-	inventory.stage.addChild(invBox);
-	
-	var invTrap = new Sprite();
-	invTrap.image = Textures.load("Resources/snap_trap-png.png");
-	invTrap.x = canvas.width / 2 + -world.x + 310;
-	invTrap.y = canvas.height / 2 + -world.y + 250;
-	invTrap.width = 50;
-	invTrap.height = 50;
-	inventory.stage.addChild(invTrap);
-	
-	invBox.update = function(d){
-		invBox.x = canvas.width / 2 + -world.x + 200;
-	    invBox.y = canvas.height / 2 + -world.y + 250;
-	};
-	
-	invTrap.update = function(d){
-		invTrap.x = canvas.width / 2 + -world.x + 310;
-	    invTrap.y = canvas.height / 2 + -world.y + 250;
-	};
-};
-
 var scriptScreen = new Screen(false, true);
 
 scriptScreen.init = function(){
@@ -314,7 +328,7 @@ gameScreen.init = function(){
 };
 
 var gameScreen2 = new Screen(false, true);
-gameScreen2.image = Textures.load("Resources/level 1 no_roof.png");
+gameScreen2.image = Textures.load("Resources/level_1_no_roof.png");
 
 //Override the empty init function to set some properties
 gameScreen2.init = function(){
@@ -326,7 +340,7 @@ gameScreen2.init = function(){
 
 
 gInput.addFunc(27, function(){
-    if((screenMan.screens.find(gameScreen) || screenMan.screens.find(gameScreen2)) && !screenMan.screens.find(pauseMenu)){
+    if(screenMan.screens.find(gameScreen) && !screenMan.screens.find(pauseMenu)){
         pauseMenu.gui.x = canvas.width/2 + -world.x;
         pauseMenu.gui.y = canvas.height/2 + -world.y;
         screenMan.push(pauseMenu);
@@ -343,3 +357,17 @@ gInput.addFunc(32, function(){
     	location.reload();
     }
 });
+
+if(autoStart1 == 1){
+	screenMan.remove(mainMenu);
+	screenMan.push(gameScreen);
+}
+if(autoStart2 == 1){
+	screenMan.remove(mainMenu);
+	screenMan.push(gameScreen2);
+}
+if(autoStart3 == 1){
+	screenMan.remove(mainMenu);
+	screenMan.push(gameScreen3);
+}
+

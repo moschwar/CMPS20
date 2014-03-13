@@ -20,6 +20,12 @@ function start() {
 	var ctx = canvas.getContext("2d");
 	world.x = -70 * 1;
 	world.y = -70 * 6;
+	
+	var sounds = new SoundManager();
+	sounds.loop("Audio/nightvideogame.mp3");
+
+	var auto = "auto1" ///////////////////////////////////////////////////////////
+	setCookie(auto,0);
 
 	l90 = new Object();
 	l90.reverse = false;
@@ -554,8 +560,8 @@ function start() {
 	walls[11] = walls.d(13, 6, 14);
 	walls[12] = walls.u(13, 7, 14);
 	walls[13] = walls.l(14, 6, 7);
-
-	var boxcount = 2;
+    
+    var boxcount = 2;
 	var boxes = new Array();
 	for (var i = 0; i < boxcount; i++) {
 		boxes[i] = new Sprite();
@@ -750,7 +756,7 @@ function start() {
 
 	guard2.update = function(d) {
 
-		if (trap.collision(guard2)) {
+        if (trap.collision(guard2)) {
 			setTimeout(function() {
 				guard2.x = 0;
 				guard2.y = 0;
@@ -799,7 +805,7 @@ function start() {
 		}
 
 	};
-
+	
 	function short_collision(px, py) {
 		if (px > 70 * 8 - 35 && px < 70 * 9 - 30 && py > 70 * 5 - 35 && py < 70 * 6) {
 			return true;
@@ -862,7 +868,8 @@ function start() {
 	player.update = function(d) {
 		//If the character misn't moving, set the frameRate to 0
 		//If the character had an idle animation we wouldn't need to do this
-		if (player.collision(guard2)) {
+		if(player.collision(guard2)){
+			setCookie("continue", 2, 30);
 			screenMan.push(gameOver);
 		}
 		player.tl = new Vector(player.x, player.y);
@@ -942,17 +949,20 @@ function start() {
 			if (guard.vision == 0 && short_collision(this.x, this.y)) {
 				guard.frameRate = 7;
 				guard.moveRate = 7;
+				setCookie(auto,1);
 				screenMan.push(gameOver);
 				guard.alerted = true;
 			} else if (guard.vision == 1 && long_collision(this.x, this.y)) {
 				guard.frameRate = 7;
 				guard.moveRate = 7;
+				setCookie(auto,1);
 				screenMan.push(gameOver);
 				guard.alerted = true;
 			}
 			if (this.collision(light)) {
 				guard.frameRate = 7;
 				guard.moveRate = 7;
+				setCookie(auto,1);
 				screenMan.push(gameOver);
 				guard.alerted = true;
 			}
@@ -986,6 +996,7 @@ function start() {
 
 		if (screenMan.screens.find(gameOver)) {
 			traps = 0;
+			setCookie(auto,1);
 			player.speed = 0;
 			player.moveRate = 0;
 			player.alpha = .5;
@@ -1012,24 +1023,14 @@ function start() {
 		this.drawChildren(ctx);
 		var bigW = 30;
 		var smallW = 11;
-<<<<<<< HEAD
-		ctx.fillStyle = "green";
-		ctx.fillText("Traps: " + traps, canvas.width/2 + -world.x + (70 * 4), canvas.height/2 + -world.y + (70 * 4));
-		ctx.fillText("nodown " + player.nodown, 70, 90);
-		ctx.fillText("noleft " + player.noleft, 70, 100);
-		ctx.fillText("noright " + player.noright, 70, 110);
-		ctx.fillText("player.x " + player.x, 400, 220);
-		ctx.fillText("player.y " + player.y, 400, 230);
-=======
 		ctx.fillStyle = "lightgreen";
-		ctx.fillText("noup " + player.noup, canvas.width/2 + -world.x - (70 * 4), canvas.height/2 + -world.y - (70 * 4));
+		/*ctx.fillText("noup " + player.noup, canvas.width/2 + -world.x - (70 * 4), canvas.height/2 + -world.y - (70 * 4));
 		ctx.fillText("nodown " + player.nodown, canvas.width/2 + -world.x - (70 * 4), canvas.height/2 + -world.y - (70 * 4) + 10);
 		ctx.fillText("noleft " + player.noleft, canvas.width/2 + -world.x - (70 * 4), canvas.height/2 + -world.y - (70 * 4) + 20);
 		ctx.fillText("noright " + player.noright, canvas.width/2 + -world.x - (70 * 4), canvas.height/2 + -world.y - (70 * 4) + 30);
 		ctx.fillText("player.x " + player.x, canvas.width/2 + -world.x - (70 * 4), canvas.height/2 + -world.y - (70 * 4) + 40);
 		ctx.fillText("player.y " + player.y, canvas.width/2 + -world.x - (70 * 4), canvas.height/2 + -world.y - (70 * 4) + 50);
-		ctx.fillText("player.moveRate " + player.moveRate, canvas.width/2 + -world.x - (70 * 4), canvas.height/2 + -world.y - (70 * 4) + 60);
->>>>>>> 60314084fce79b735648159939ce2b57fd6fa915
+		ctx.fillText("player.moveRate " + player.moveRate, canvas.width/2 + -world.x - (70 * 4), canvas.height/2 + -world.y - (70 * 4) + 60);*/
 		ctx.strokeStyle = "orange";
 		ctx.lineWidth = smallW;
 		for (var i = 0; i < lights.length; i++) {
@@ -1105,20 +1106,13 @@ function start() {
 	};
 	player.right = function(speed) {
 		var after = this.x + player.speed;
-<<<<<<< HEAD
-		if (rightcollide(after, boxes[0]) || rightcollide(after, boxes[1]) || wallcollideright(after)) {
-			this.noright = true;
-		} else {
-			if (player.x + 420 < bg.width - 70 && player.x > xcenter) {
-=======
 		for (var i = 0; i < boxes.length; i++) {
 			if (rightcollide(after, boxes[i]) || wallcollideright(after)) {
 				this.noright = true;
 			} 
 		}
 		if (!this.noright) {
-			if (player.x + 420 < bg.width && player.x > xcenter) {
->>>>>>> 60314084fce79b735648159939ce2b57fd6fa915
+			if (player.x + 420 < bg.width - 70 && player.x > xcenter) {
 				world.x -= player.speed;
 			}
 			this.animation = "right";
@@ -1288,7 +1282,7 @@ function start() {
 			world.addChild(cursor);
 			player.active = true;
 			cursor.active = true;
-			screenMan.push(inventory);
+			//screenMan.push(inventory);
 		}
 		if (!player.active && (scriptTwo == true || posttxt)) {
 
@@ -1347,12 +1341,8 @@ function start() {
 		}
 		if (player.y < 261 && player.y > 12 && !sevenDone) {
 			player.speed = 0;
-<<<<<<< HEAD
-			player.moveRate = 0;
-			boxes[0].alpha = 0;
-=======
 			player.frameRate = 0;
->>>>>>> 60314084fce79b735648159939ce2b57fd6fa915
+			boxes[0].alpha = 0;
 			boxes[1].alpha = 0;
 			textSeven();
 			sevenDone = true;
@@ -1360,9 +1350,11 @@ function start() {
 		if (player.y < 12 && !eightDone) {
 			player.speed = 0;
 			player.frameRate = 0;
+			boxes[0].alpha = 0;
 			boxes[1].alpha = 0;
 			textEight();
 			eightDone = true;
+			setCookie("auto2",true,30);
 			setCookie("continue",1,30);
 		}
 		//Simulate checking against 500 rectangles
@@ -1397,9 +1389,10 @@ function start() {
 		pcollisions[23] = intersect(player.tr, player.bl, lights[3].origin, lights[3].lp[2]);
 		
 		var lose = false;
-		if (!lose) {
+		if (!lose && !eightDone) {
 			for (var i = 0; i < pcollisions.length; i++) {
 				if ((pcollisions[i] != undefined) && pcollisions[i].occurred) {
+					setCookie(auto,1);
 					screenMan.push(gameOver);
 					lose = true;
 					break;
