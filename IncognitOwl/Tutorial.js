@@ -9,6 +9,11 @@ function start() {
 	var sixDone = false;
 	var sevenDone = false;
 	var eightDone = false;
+	
+	var posttxt = false;
+	if(getCookie("continue") == 0){
+			posttxt = true;
+	}
 
 	clearColor = [0, .5, .5, .5];
 	var can = document.getElementById('canvas');
@@ -705,7 +710,10 @@ function start() {
 				this.remove();
 				world.x = -70 * 1;
 				world.y = -70 * 6;
-				textTwo();
+				if(!posttxt){
+					textTwo();
+				}
+				player.active = false;
 			}
 		}
 	};
@@ -875,21 +883,37 @@ function start() {
 			boxes[i].br = new Vector((boxes[i].x + boxes[i].width), (boxes[i].y + boxes[i].height));
 			//bottom right
 		}
-		this.frameRate = 0;
 		var speed = this.speed;
-		if (player.noleft || player.noright) {
-			if (player.collisionvert(boxes[0]) || player.collisionvert(boxes[1])) {
-				player.noleft = false;
-				player.noright = false;
+		for (var i = 0; i < boxes.length; i++) {
+			if (player.noleft || player.noright) {
+				if (player.collisionvert(boxes[i])) {
+					player.noleft = false;
+					player.noright = false;
+				}
+			}
+			if (player.noup || player.nodown) {
+				if (player.collisionhorz(boxes[i])) {
+					player.noup = false;
+					player.nodown = false;
+				}
 			}
 		}
-		if (player.noup || player.nodown) {
-			if (player.collisionhorz(boxes[0]) || player.collisionhorz(boxes[1])) {
-				player.noup = false;
-				player.nodown = false;
-			}
+		if (!gInput.down) {
+			player.nodown = false;
 		}
-
+		if (!gInput.up) {
+			player.noup = false;
+		}
+		if (!gInput.left) {
+			player.noleft = false;
+		}
+		if (!gInput.right) {
+			player.noright = false;
+		}
+		if (!gInput.right && !gInput.left && !gInput.up && !gInput.down){
+			player.frameRate = 0;
+		}
+		
 		if (gInput.down) {
 			player.noup = false;
 			if (!player.nodown) {
@@ -946,8 +970,8 @@ function start() {
 				boxes[k].alpha = .2;
 			}
 		} else if (!screenMan.screens.find(pauseMenu) && !screenMan.screens.find(scriptScreen)) {
-			player.speed = 3;
-			player.moveRate = 7;
+			player.speed = ph;
+			//player.moveRate = 7;
 			player.alpha = 1;
 			for (var k = 0; k < 2; k++) {
 				boxes[k].alpha = 1;
@@ -978,7 +1002,9 @@ function start() {
 	};
 
 	function startGame() {
-		textOne();
+		if(!posttxt){
+			textOne();
+		}
 	}
 
 
@@ -986,6 +1012,7 @@ function start() {
 		this.drawChildren(ctx);
 		var bigW = 30;
 		var smallW = 11;
+<<<<<<< HEAD
 		ctx.fillStyle = "green";
 		ctx.fillText("Traps: " + traps, canvas.width/2 + -world.x + (70 * 4), canvas.height/2 + -world.y + (70 * 4));
 		ctx.fillText("nodown " + player.nodown, 70, 90);
@@ -993,96 +1020,46 @@ function start() {
 		ctx.fillText("noright " + player.noright, 70, 110);
 		ctx.fillText("player.x " + player.x, 400, 220);
 		ctx.fillText("player.y " + player.y, 400, 230);
+=======
+		ctx.fillStyle = "lightgreen";
+		ctx.fillText("noup " + player.noup, canvas.width/2 + -world.x - (70 * 4), canvas.height/2 + -world.y - (70 * 4));
+		ctx.fillText("nodown " + player.nodown, canvas.width/2 + -world.x - (70 * 4), canvas.height/2 + -world.y - (70 * 4) + 10);
+		ctx.fillText("noleft " + player.noleft, canvas.width/2 + -world.x - (70 * 4), canvas.height/2 + -world.y - (70 * 4) + 20);
+		ctx.fillText("noright " + player.noright, canvas.width/2 + -world.x - (70 * 4), canvas.height/2 + -world.y - (70 * 4) + 30);
+		ctx.fillText("player.x " + player.x, canvas.width/2 + -world.x - (70 * 4), canvas.height/2 + -world.y - (70 * 4) + 40);
+		ctx.fillText("player.y " + player.y, canvas.width/2 + -world.x - (70 * 4), canvas.height/2 + -world.y - (70 * 4) + 50);
+		ctx.fillText("player.moveRate " + player.moveRate, canvas.width/2 + -world.x - (70 * 4), canvas.height/2 + -world.y - (70 * 4) + 60);
+>>>>>>> 60314084fce79b735648159939ce2b57fd6fa915
 		ctx.strokeStyle = "orange";
-		//ADD VISUAL REPRESENTATIONS HERE
 		ctx.lineWidth = smallW;
-		ctx.beginPath();
-		ctx.moveTo(lights[0].origin.x, lights[0].origin.y);
-		ctx.lineTo(lights[0].lp[0].x, lights[0].lp[0].y);
-		ctx.stroke();
-		ctx.lineWidth = bigW;
-		ctx.beginPath();
-		ctx.moveTo(lights[0].origin.x, lights[0].origin.y);
-		ctx.lineTo(lights[0].lp[1].x, lights[0].lp[1].y);
-		ctx.stroke();
-		ctx.lineWidth = smallW;
-		ctx.beginPath();
-		ctx.moveTo(lights[0].origin.x, lights[0].origin.y);
-		ctx.lineTo(lights[0].lp[2].x, lights[0].lp[2].y);
-		ctx.stroke();
-		/*ctx.lineWidth = smallW;
-		 ctx.beginPath();
-		 ctx.moveTo(lights[0].origin.x, lights[0].origin.y);
-		 ctx.lineTo(lights[0].lp[3].x, lights[0].lp[3].y);
-		 ctx.stroke();*/
-		ctx.lineWidth = smallW;
-		ctx.beginPath();
-		ctx.moveTo(lights[1].origin.x, lights[1].origin.y);
-		ctx.lineTo(lights[1].lp[0].x, lights[1].lp[0].y);
-		ctx.stroke();
-		ctx.lineWidth = bigW;
-		ctx.beginPath();
-		ctx.moveTo(lights[1].origin.x, lights[1].origin.y);
-		ctx.lineTo(lights[1].lp[1].x, lights[1].lp[1].y);
-		ctx.stroke();
-		ctx.lineWidth = smallW;
-		ctx.beginPath();
-		ctx.moveTo(lights[1].origin.x, lights[1].origin.y);
-		ctx.lineTo(lights[1].lp[2].x, lights[1].lp[2].y);
-		ctx.stroke();
-		/*ctx.lineWidth = smallW;
-		 ctx.beginPath();
-		 ctx.moveTo(lights[1].origin.x, lights[1].origin.y);
-		 ctx.lineTo(lights[1].lp[3].x, lights[1].lp[3].y);
-		 ctx.stroke();*/
-		ctx.beginPath();
-		ctx.moveTo(lights[2].origin.x, lights[2].origin.y);
-		ctx.lineTo(lights[2].lp[0].x, lights[2].lp[0].y);
-		ctx.stroke();
-		ctx.lineWidth = bigW;
-		ctx.beginPath();
-		ctx.moveTo(lights[2].origin.x, lights[2].origin.y);
-		ctx.lineTo(lights[2].lp[1].x, lights[2].lp[1].y);
-		ctx.stroke();
-		ctx.lineWidth = smallW;
-		ctx.beginPath();
-		ctx.moveTo(lights[2].origin.x, lights[2].origin.y);
-		ctx.lineTo(lights[2].lp[2].x, lights[2].lp[2].y);
-		ctx.stroke();
-		/*ctx.lineWidth = smallW;
-		 ctx.beginPath();
-		 ctx.moveTo(lights[2].origin.x, lights[2].origin.y);
-		 ctx.lineTo(lights[2].lp[3].x, lights[2].lp[3].y);
-		 ctx.stroke();*/
-		ctx.lineWidth = smallW;
-		ctx.beginPath();
-		ctx.moveTo(lights[3].origin.x, lights[3].origin.y);
-		ctx.lineTo(lights[3].lp[0].x, lights[3].lp[0].y);
-		ctx.stroke();
-		ctx.lineWidth = bigW;
-		ctx.beginPath();
-		ctx.moveTo(lights[3].origin.x, lights[3].origin.y);
-		ctx.lineTo(lights[3].lp[1].x, lights[3].lp[1].y);
-		ctx.stroke();
-		ctx.lineWidth = smallW;
-		ctx.beginPath();
-		ctx.moveTo(lights[3].origin.x, lights[3].origin.y);
-		ctx.lineTo(lights[3].lp[2].x, lights[3].lp[2].y);
-		ctx.stroke();
-		/*ctx.lineWidth = smallW;
-		 ctx.beginPath();
-		 ctx.moveTo(lights[3].origin.x, lights[3].origin.y);
-		 ctx.lineTo(lights[3].lp[3].x, lights[3].lp[3].y);
-		 ctx.stroke();*/
+		for (var i = 0; i < lights.length; i++) {
+			ctx.beginPath();
+			ctx.moveTo(lights[i].origin.x, lights[i].origin.y);
+			ctx.lineTo(lights[i].lp[0].x, lights[i].lp[0].y);
+			ctx.stroke();
+			ctx.lineWidth = bigW;
+			ctx.beginPath();
+			ctx.moveTo(lights[i].origin.x, lights[i].origin.y);
+			ctx.lineTo(lights[i].lp[1].x, lights[i].lp[1].y);
+			ctx.stroke();
+			ctx.lineWidth = smallW;
+			ctx.beginPath();
+			ctx.moveTo(lights[i].origin.x, lights[i].origin.y);
+			ctx.lineTo(lights[i].lp[2].x, lights[i].lp[2].y);
+			ctx.stroke();
+		}
 
 	};
 
 	// CONTROL CHECKS
 	player.up = function(speed) {
 		var after = this.y - player.speed;
-		if (upcollide(after, boxes[0]) || upcollide(after, boxes[1]) || wallcollideup(after)) {
-			this.noup = true;
-		} else {
+		for (var i = 0; i < boxes.length; i++) {
+			if (upcollide(after, boxes[i]) || wallcollideup(after)) {
+				this.noup = true;
+			} 
+		}
+		if(!this.noup) {
 			if (world.y < 0 && player.y < bg.height - ycenter) {
 				world.y += player.speed;
 			}
@@ -1093,23 +1070,32 @@ function start() {
 	};
 	player.down = function(speed) {
 		var after = this.y + player.speed;
-		if (downcollide(after, boxes[0]) || downcollide(after, boxes[1]) || wallcollidedown(after)) {
-			this.nodown = true;
-		} else {
-			if (player.y + 315 < bg.height && player.y > ycenter) {
+		for (var i = 0; i < boxes.length; i++) {
+
+			if (downcollide(after, boxes[i]) || wallcollidedown(after)) {
+				this.nodown = true;
+			} 
+		}
+		if(!this.nodown) {
+		if (player.y + 315 < bg.height && player.y > ycenter) {
 				world.y -= player.speed;
 			}
 			this.animation = "down";
 			this.y = after;
 			this.frameRate = this.moveRate;
 		}
+		
 	};
 	player.left = function(speed) {
 		var after = this.x - player.speed;
-		if (leftcollide(after, boxes[0]) || leftcollide(after, boxes[1]) || wallcollideleft(after)) {
-			this.noleft = true;
-		} else {
+		for (var i = 0; i < boxes.length; i++) {
+			if (leftcollide(after, boxes[i]) || wallcollideleft(after)) {
+				this.noleft = true;
+			}
+		}
+		if(!this.noleft){
 			if (world.x < 0 && player.x < bg.width - xcenter) {
+				//console.log(player.speed);
 				world.x += player.speed;
 			}
 			this.animation = "left";
@@ -1119,10 +1105,20 @@ function start() {
 	};
 	player.right = function(speed) {
 		var after = this.x + player.speed;
+<<<<<<< HEAD
 		if (rightcollide(after, boxes[0]) || rightcollide(after, boxes[1]) || wallcollideright(after)) {
 			this.noright = true;
 		} else {
 			if (player.x + 420 < bg.width - 70 && player.x > xcenter) {
+=======
+		for (var i = 0; i < boxes.length; i++) {
+			if (rightcollide(after, boxes[i]) || wallcollideright(after)) {
+				this.noright = true;
+			} 
+		}
+		if (!this.noright) {
+			if (player.x + 420 < bg.width && player.x > xcenter) {
+>>>>>>> 60314084fce79b735648159939ce2b57fd6fa915
 				world.x -= player.speed;
 			}
 			this.animation = "right";
@@ -1133,7 +1129,7 @@ function start() {
 
 	//BOX COLLIDE CHECKS
 	var upcollide = function(after, obj) {
-		if (after + nh > obj.y && ((after + nh < (obj.y + obj.height) && !player.collisionvert(obj)))) {
+		if (after + nh > obj.y && after + nh < (obj.y + obj.height) && !player.collisionvert(obj)) {
 			return true;
 		} else {
 			return false;
@@ -1157,7 +1153,7 @@ function start() {
 	};
 
 	var rightcollide = function(after, obj) {
-		if (((after + player.width + nh) < (obj.x + obj.width)) && ((((after + player.width + nh) > (obj.x) && !player.collisionhorz(obj))))) {
+		if (((after + player.width + nh) < (obj.x + obj.width)) && ((((after + player.width) > (obj.x + nh) && !player.collisionhorz(obj))))) {
 			return true;
 		} else {
 			return false;
@@ -1194,7 +1190,7 @@ function start() {
 	};
 	var wallcollideright = function(after) {
 		for (var i = 0; i < walls.length; i++) {
-			if ((after + player.width + nh) < (walls[i].right) && (after + player.width + nh) > (walls[i].left) && player.wallcollisionhorz(i)) {
+			if ((after + player.width + nh) < (walls[i].right) && (after + player.width) > (walls[i].left + nh) && player.wallcollisionhorz(i)) {
 				return true;
 			}
 		}
@@ -1203,14 +1199,14 @@ function start() {
 
 	//BOX SLIDE OFF CHECKS
 	player.collisionvert = function(sprite) {
-		if (this.x + this.width < sprite.x || this.x > sprite.x + sprite.width) {
+		if (this.x + this.width < sprite.x + ph || this.x > sprite.x + sprite.width + nh) {
 			return true;
 		} else {
 			return false;
 		}
 	};
 	player.collisionhorz = function(sprite) {
-		if (this.y > sprite.y + sprite.height || this.y + this.height < sprite.y) {
+		if (this.y + this.height < sprite.y + ph || this.y > sprite.y + sprite.height + nh) {
 			return true;
 		} else {
 			return false;
@@ -1283,16 +1279,18 @@ function start() {
 
 	world.update = function(d) {
 		//world.draw(ctx);
-		if (!cursor.active && scriptOne == true) {
+		
+		if (!cursor.active && (scriptOne == true || posttxt)) {
 			cursor.moving = true;
 			setTimeout(function() {
 				cursor.moving = false;
 			}, 150);
 			world.addChild(cursor);
+			player.active = true;
 			cursor.active = true;
 			screenMan.push(inventory);
 		}
-		if (!player.active && scriptTwo == true) {
+		if (!player.active && (scriptTwo == true || posttxt)) {
 
 			world.addChild(player);
 			world.addChild(guard);
@@ -1308,39 +1306,37 @@ function start() {
 			world.addChild(lights[2]);
 			world.addChild(lights[3]);
 
-			if (!((boxes[0].x == 70 * 8 && boxes[0].y == 70 * 6) || (boxes[1].x == 70 * 8 && boxes[1].y == 70 * 6))) {
-				guard.vision = 1;
-			} else {
-				guard.vision = 0;
-			}
 			player.active = true;
 			player.alpha = 0;
 			traps = 0;
 			player.speed = 0;
-			player.moveRate = 0;
-			textThree();
+			//player.moveRate = 0;
+			if(!posttxt){
+				textThree();
+			}
 		}
-		if (scriptThree && !threeDone) {
+		if ((scriptThree == true || posttxt) && !threeDone) {
 			player.alpha = 1;
 			player.speed = 3;
-			player.moveRate = 7;
+			//player.moveRate = 7;
 			threeDone = true;
+			setCookie("continue",0,30);
 		}
 		if (player.y < 497 && player.y > 261 && !fourDone) {
 			player.speed = 0;
-			player.moveRate = 0;
+			player.frameRate = 0;
 			textFour();
 			fourDone = true;
 		}
 		if (player.x > 495 && player.x < 700 && !fiveDone) {
 			player.speed = 0;
-			player.moveRate = 0;
+			player.frameRate = 0;
 			textFive();
 			fiveDone = true;
 		}
 		if (player.x > 700 && !sixDone) {
 			player.speed = 0;
-			player.moveRate = 0;
+			player.frameRate = 0;
 			textSix();
 			sixDone = true;
 		}
@@ -1351,18 +1347,23 @@ function start() {
 		}
 		if (player.y < 261 && player.y > 12 && !sevenDone) {
 			player.speed = 0;
+<<<<<<< HEAD
 			player.moveRate = 0;
 			boxes[0].alpha = 0;
+=======
+			player.frameRate = 0;
+>>>>>>> 60314084fce79b735648159939ce2b57fd6fa915
 			boxes[1].alpha = 0;
 			textSeven();
 			sevenDone = true;
 		}
 		if (player.y < 12 && !eightDone) {
 			player.speed = 0;
-			player.moveRate = 0;
+			player.frameRate = 0;
 			boxes[1].alpha = 0;
 			textEight();
 			eightDone = true;
+			setCookie("continue",1,30);
 		}
 		//Simulate checking against 500 rectangles
 		//for (var i = 0; i < 4 * 500; i++) {
@@ -1376,15 +1377,25 @@ function start() {
 		pcollisions[5] = intersect(player.tr, player.bl, lights[0].origin, lights[0].lp[2]);
 		//pcollisions[6] = intersect(player.tl, player.br, lights[0].origin, lights[0].lp[3]);
 		//pcollisions[7] = intersect(player.tr, player.bl, lights[0].origin, lights[0].lp[3]);
-		pcollisions[8] = intersect(player.tl, player.br, lights[1].origin, lights[1].lp[0]);
-		pcollisions[9] = intersect(player.tr, player.bl, lights[1].origin, lights[1].lp[0]);
-		pcollisions[10] = intersect(player.tl, player.br, lights[1].origin, lights[1].lp[1]);
-		pcollisions[11] = intersect(player.tr, player.bl, lights[1].origin, lights[1].lp[1]);
-		pcollisions[12] = intersect(player.tl, player.br, lights[1].origin, lights[1].lp[2]);
-		pcollisions[13] = intersect(player.tr, player.bl, lights[1].origin, lights[1].lp[2]);
-		//pcollisions[14] = intersect(player.tl, player.br, lights[1].origin, lights[1].lp[3]);
-		//pcollisions[15] = intersect(player.tr, player.bl, lights[1].origin, lights[1].lp[3]);
-		//}
+		pcollisions[6] = intersect(player.tl, player.br, lights[1].origin, lights[1].lp[0]);
+		pcollisions[7] = intersect(player.tr, player.bl, lights[1].origin, lights[1].lp[0]);
+		pcollisions[8] = intersect(player.tl, player.br, lights[1].origin, lights[1].lp[1]);
+		pcollisions[9] = intersect(player.tr, player.bl, lights[1].origin, lights[1].lp[1]);
+		pcollisions[10] = intersect(player.tl, player.br, lights[1].origin, lights[1].lp[2]);
+		pcollisions[11] = intersect(player.tr, player.bl, lights[1].origin, lights[1].lp[2]);
+		pcollisions[12] = intersect(player.tl, player.br, lights[2].origin, lights[2].lp[0]);
+		pcollisions[13] = intersect(player.tr, player.bl, lights[2].origin, lights[2].lp[0]);
+		pcollisions[14] = intersect(player.tl, player.br, lights[2].origin, lights[2].lp[1]);
+		pcollisions[15] = intersect(player.tr, player.bl, lights[2].origin, lights[2].lp[1]);
+		pcollisions[16] = intersect(player.tl, player.br, lights[2].origin, lights[2].lp[2]);
+		pcollisions[17] = intersect(player.tr, player.bl, lights[2].origin, lights[2].lp[2]);
+		pcollisions[18] = intersect(player.tl, player.br, lights[3].origin, lights[3].lp[0]);
+		pcollisions[19] = intersect(player.tr, player.bl, lights[3].origin, lights[3].lp[0]);
+		pcollisions[20] = intersect(player.tl, player.br, lights[3].origin, lights[3].lp[1]);
+		pcollisions[21] = intersect(player.tr, player.bl, lights[3].origin, lights[3].lp[1]);
+		pcollisions[22] = intersect(player.tl, player.br, lights[3].origin, lights[3].lp[2]);
+		pcollisions[23] = intersect(player.tr, player.bl, lights[3].origin, lights[3].lp[2]);
+		
 		var lose = false;
 		if (!lose) {
 			for (var i = 0; i < pcollisions.length; i++) {
