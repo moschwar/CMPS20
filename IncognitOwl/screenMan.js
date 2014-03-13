@@ -160,7 +160,9 @@ mainMenu.init = function(){
     Continues.label.dropShadow = true;
     Continues.label.fontSize = 30;
     Continues.setLabelColors("#aaaaaa", "#ffffff", "#ff0000");
-    this.gui.addChild(Continues);
+    if(currLvl >= 0){
+    	this.gui.addChild(Continues);
+    }
     
     Continues.func = function(){
         screenMan.remove(mainMenu);
@@ -341,6 +343,7 @@ inventory.init = function(){
 	};
 };
 
+
 var scriptScreen = new Screen(false, true);
 
 scriptScreen.init = function(){
@@ -407,3 +410,4 @@ if(autoStart3 == 1){
 	screenMan.remove(mainMenu);
 	screenMan.push(gameScreen3);
 }
+

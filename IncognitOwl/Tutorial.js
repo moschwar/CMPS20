@@ -24,7 +24,7 @@ function start() {
 	var sounds = new SoundManager();
 	sounds.loop("Audio/nightvideogame.mp3");
 
-	var auto = "auto1"; ///////////////////////////////////////////////////////////
+	var auto = "auto1" ///////////////////////////////////////////////////////////
 	setCookie(auto,0);
 
 	l90 = new Object();
@@ -710,7 +710,6 @@ function start() {
 				}, 200);
 			} else if (gInput.place && boxcount == 1 && this.isdirt() && !this.isBox()) {
 				this.moving = true;
-				boxcount--;
 				boxes[1].x = this.x;
 				boxes[1].y = this.y;
 				boxes[1].placed = true;
@@ -1024,10 +1023,7 @@ function start() {
 		this.drawChildren(ctx);
 		var bigW = 30;
 		var smallW = 11;
-		ctx.fillStyle = "white";
-		ctx.font="30px Verdana";
-		ctx.fillText("x" + boxcount, canvas.width/2 + -world.x + (70 * 4) - 20, canvas.height/2 + -world.y + (70 * 4) + 10);
-		ctx.fillText("x" + traps, canvas.width/2 + -world.x + (70 * 4) + 90, canvas.height/2 + -world.y + (70 * 4) + 10);
+		ctx.fillStyle = "lightgreen";
 		/*ctx.fillText("noup " + player.noup, canvas.width/2 + -world.x - (70 * 4), canvas.height/2 + -world.y - (70 * 4));
 		ctx.fillText("nodown " + player.nodown, canvas.width/2 + -world.x - (70 * 4), canvas.height/2 + -world.y - (70 * 4) + 10);
 		ctx.fillText("noleft " + player.noleft, canvas.width/2 + -world.x - (70 * 4), canvas.height/2 + -world.y - (70 * 4) + 20);
@@ -1233,7 +1229,7 @@ function start() {
 			return false;
 		}
 	};
-    player.gcollision = function(sprite) {
+	player.gcollision = function(sprite) {
 		if (this.x < sprite.x + sprite.width + 15 && this.x + this.width > sprite.x - 15 && this.y < sprite.y + sprite.height + 25 && this.y + this.height > sprite.y - 25) {
 			return true;
 		} else {
@@ -1281,8 +1277,6 @@ function start() {
 	}
 
 	var pcollisions = new Array();
-	
-	var trapGive = false;
 
 	world.update = function(d) {
 		//world.draw(ctx);
@@ -1295,7 +1289,7 @@ function start() {
 			world.addChild(cursor);
 			player.active = true;
 			cursor.active = true;
-			screenMan.push(inventory);
+			//screenMan.push(inventory);
 		}
 		if (!player.active && (scriptTwo == true || posttxt)) {
 
@@ -1347,11 +1341,9 @@ function start() {
 			textSix();
 			sixDone = true;
 		}
-		
-		if (scriptSix && !trapGive) {
+		if (scriptSix) {
 			setTimeout(function() {
 				traps = 1;
-				trapGive = true;
 			}, 500);
 		}
 		if (player.y < 261 && player.y > 12 && !sevenDone) {

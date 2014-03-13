@@ -78,6 +78,7 @@ tutorialText[59] = "Tyton: Well done, soldier. Now get some rest. Tomorrow’s a
 tutorialText[60] = "Tallon: Will do, sir. (Heh, I'll have my purple wing in no time.)\n";
 tutorialText[61] = "Tallon: Will do, sir. (Heh, I'll have my purple wing in no time.)\n";
 
+
 function textOne() {
 	//Stop the game
 	/* CHANGE LOCATION OF PLAYER DECLARATION FOR THIS TO WORK
