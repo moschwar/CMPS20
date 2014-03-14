@@ -12,6 +12,11 @@ function start2() {//////////////////////////////////////////////////////
 
 	var u = 70;
 
+	//
+	var gxv = 8;
+	var gyv = 15;
+	//
+	
 	var sounds = new SoundManager();
 	sounds.loop("Audio/nightvideogame.mp3");
 
@@ -1233,7 +1238,7 @@ function start2() {//////////////////////////////////////////////////////
 
 	//left-side guard (door)
 	var guard2 = new Sprite();
-	guard2.image = Textures.load("Resources/bat_full.png");
+	guard2.image = guard.image;
 	guard2.width = 67;
 	guard2.height = 67;
 	guard2.x = 70 * 3;
@@ -1299,7 +1304,7 @@ function start2() {//////////////////////////////////////////////////////
 
 	//right side  corner guard
 	var guard3 = new Sprite();
-	guard3.image = Textures.load("Resources/bat_full.png");
+	guard3.image = guard.image;
 	guard3.width = 67;
 	guard3.height = 67;
 	guard3.x = 70 * 15;
@@ -1363,10 +1368,10 @@ function start2() {//////////////////////////////////////////////////////
 		}
 
 	};
-
+	
 	//middle-map guard
 	var guard4 = new Sprite();
-	guard4.image = Textures.load("Resources/bat_full.png");
+	guard4.image = guard.image;
 	guard4.width = 67;
 	guard4.height = 67;
 	guard4.x = 70 * 3;
@@ -1645,7 +1650,7 @@ function start2() {//////////////////////////////////////////////////////
 		 }
 
 		 ////////////////////////////////////////////////////////////////////////////////*/
-		if (!guard.alerted) {
+		/*if (!guard.alerted) {
 			if (guard.vision == 0 && short_collision(this.x, this.y)) {
 				guard.frameRate = 7;
 				guard.moveRate = 7;
@@ -1672,7 +1677,7 @@ function start2() {//////////////////////////////////////////////////////
 					guard.alerted = true;
 				}
 			}
-		}
+		}*/
 		if (screenMan.screens.find(pauseMenu)) {
 			traps = 0;
 			player.speed = 0;
@@ -1769,17 +1774,36 @@ function start2() {//////////////////////////////////////////////////////
 		this.drawChildren(ctx);
 		var bigW = 30;
 		var smallW = 11;
-		/*ctx.fillStyle = "lightgreen";
+		ctx.fillStyle = "lightgreen";
 		ctx.fillText("noup " + player.noup, canvas.width / 2 + -world.x - (70 * 4), canvas.height / 2 + -world.y - (70 * 4));
 		ctx.fillText("nodown " + player.nodown, canvas.width / 2 + -world.x - (70 * 4), canvas.height / 2 + -world.y - (70 * 4) + 10);
-		ctx.fillText("noleft " + player.noleft, canvas.width / 2 + -world.x - (70 * 4), canvas.height / 2 + -world.y - (70 * 4) + 20);
-		ctx.fillText("noright " + player.noright, canvas.width / 2 + -world.x - (70 * 4), canvas.height / 2 + -world.y - (70 * 4) + 30);
+		ctx.fillText("guard.index " + guard.index, canvas.width / 2 + -world.x - (70 * 4), canvas.height / 2 + -world.y - (70 * 4) + 20);
+		ctx.fillText("guard2.index " + guard2.index, canvas.width / 2 + -world.x - (70 * 4), canvas.height / 2 + -world.y - (70 * 4) + 30);
 		ctx.fillText("continue cookie: " + getCookie("continue"), canvas.width / 2 + -world.x - (70 * 4), canvas.height / 2 + -world.y - (70 * 4) + 40);
-		ctx.fillText("auto2 cookie: " + getCookie("auto2"), canvas.width / 2 + -world.x - (70 * 4), canvas.height / 2 + -world.y - (70 * 4) + 50);*/
+		ctx.fillText("auto2 cookie: " + getCookie("auto2"), canvas.width / 2 + -world.x - (70 * 4), canvas.height / 2 + -world.y - (70 * 4) + 50);
 		ctx.fillStyle = "white";
 		ctx.font="30px Verdana";
 		ctx.fillText("x" + boxcount, canvas.width/2 + -world.x + (70 * 4) - 20, canvas.height/2 + -world.y + (70 * 4) + 10);
 		ctx.fillText("x" + traps, canvas.width/2 + -world.x + (70 * 4) + 90, canvas.height/2 + -world.y + (70 * 4) + 10);
+		
+		//
+		ctx.lineWidth = 1;
+		ctx.fillStyle = "green";
+		ctx.beginPath();
+		ctx.moveTo(guard2.x-gxv, guard2.y-gyv);
+		ctx.lineTo(guard2.x-gxv, guard2.y+guard2.height+gyv);
+		ctx.stroke();
+		ctx.beginPath();
+		ctx.moveTo(guard2.x-gxv, guard2.y-gyv);
+		ctx.lineTo(guard2.x+guard2.width+gxv, guard2.y-gyv);
+		ctx.stroke();
+		ctx.moveTo(guard2.x+guard2.width+gxv, guard2.y-gyv);
+		ctx.lineTo(guard2.x+guard2.width+gxv, guard2.y+guard2.height+gyv);
+		ctx.stroke();
+		ctx.moveTo(guard2.x-gxv, guard2.y+guard2.height+gyv);
+		ctx.lineTo(guard2.x+guard2.width+gxv, guard2.y+guard2.height+gyv);
+		ctx.stroke();
+		//
 		
 		ctx.strokeStyle = "orange";
 		ctx.lineWidth = smallW;
@@ -1923,7 +1947,7 @@ function start2() {//////////////////////////////////////////////////////
 	};
 	var wallcollidedown = function(after) {
 		for (var i = 0; i < walls.length; i++) {
-			if ((after + player.width + nh) < (walls[i].bot) && (after + player.width + nh) > (walls[i].top) && player.wallcollisionvert(i)) {
+			if ((after + player.width + nh) < (walls[i].bot) && (after + player.width) > (walls[i].top + nh) && player.wallcollisionvert(i)) {
 				return true;
 			}
 		}
@@ -2025,6 +2049,21 @@ function start2() {//////////////////////////////////////////////////////
 	
 	var trapGive = false;
 
+	var blank = new Sprite();
+	blank.image = Textures.load("Resources/box_game_sprite.jpg");
+	blank.width = 35;
+	blank.height = 35;
+	world.addChild(blank);
+	world.addChild(blank);
+	world.addChild(blank);
+	world.addChild(blank);
+	world.addChild(blank);
+	world.addChild(blank);
+	world.addChild(blank);
+	world.addChild(blank);
+	//blank.remove();
+	//blank.remove();
+
 	world.update = function(d) {
 		//player with light collisions HERE///////////////////lights.edit////////////////////////////////////////
 		if (!cursor.active && levelScriptOne == true) {
@@ -2114,99 +2153,4 @@ function start2() {//////////////////////////////////////////////////////
 		}
 		this.updateChildren(d);
 	};
-/*
-walls[0].l(2,2,5);
-walls[1].u(2,2,5);
-walls[2].d(2,5,6);
-walls[3].r(5,2,4);
-walls[4].d(5,4,7);
-walls[5].r(7,4,5);
-walls[6].u(7,5,13);
-walls[7].l(6,5,10);
-walls[8].r(13,5,13);
-walls[9].d(6,10,12);
-walls[10].r(9,7,8);
-walls[11].u(9,8,10);
-walls[12].l(10,7,8);
-walls[13].d(9,7,10);
-walls[14].u(9,11,12);
-walls[15].l(12,10,11);
-walls[16].l(9,11,16);
-walls[17].d(11,13,13);
-walls[18].r(11,13,14);
-walls[19].u(11,14,13);
-walls[20].r(13,14,18);
-walls[21].d(9,16,10);
-walls[22].l(10,16,18);
-walls[23].d(10,18,11);
-walls[24].d(12,18,13);
-walls[25].r(11,15,16);
-walls[26].u(11,16,12);
-walls[27].l(12,10,16);
-walls[28].d(11,15,12);
-walls[29].l(11,18,19);
-walls[30].r(12,18,19);
-walls[31].u(2,19,11);
-walls[32].u(12,19,14);
-walls[33].l(2,19,25);
-walls[34].u(1,25,2);
-walls[35].l(1,25,28);
-walls[36].d(1,28,2);
-walls[37].l(2,28,29);
-walls[38].d(2,29,7);
-walls[39].r(14,19,20);
-walls[40].u(14,20,19);
-walls[41].r(19,20,25);
-walls[42].d(17,26,19);
-walls[43].r(17,26,30);
-walls[44].u(17,30,18);
-walls[45].r(18,30,32);
-walls[46].d(16,32,18);
-walls[47].l(16,31,32);
-walls[48].d(12,31,16);
-walls[49].l(12,29,31);
-walls[50].d(11,29,12);
-walls[51].r(11,29,35);
-walls[52].d(7,35,11);
-walls[53].l(7,29,35);
-walls[54].r(4,26,27);
-walls[55].l(5,26,27);
-walls[56].u(4,27,5);
-walls[57].d(4,26,5);
-walls[58].r(7,21,27);
-walls[59].d(7,21,10);
-walls[60].l(10,21,22);
-walls[61].d(10,22,13);
-walls[62].l(13,22,23);
-walls[63].d(13,23,16);
-walls[64].l(16,23,24);
-walls[65].u(10,24,16);
-walls[66].l(10,24,25);
-walls[67].d(10,25,11);
-walls[68].l(11,25,26);
-walls[69].u(10,26,11);
-walls[70].l(10,26,27);
-walls[71].u(7,27,10);
-walls[72].r(13,27,29);
-walls[73].d(13,27,14);
-walls[74].l(14,27,28);
-walls[75].d(14,28,15);
-walls[76].l(15,28,29);
-walls[77].u(13,29,15);
-
-dirts[0] = dirts.at(1,26);
-dirts[1] = dirts.at(2,26);
-dirts[2] = dirts.at(1,27);
-dirts[3] = dirts.at(2,27);
-dirts[4] = dirts.at(11,25);
-dirts[5] = dirts.at(12,25);
-dirts[6] = dirts.at(11,26);
-dirts[7] = dirts.at(12,26);
-dirts[8] = dirts.at(13,26);
-dirts[9] = dirts.at(9,6);
-dirts[10] = dirts.at(10,6);
-dirts[11] = dirts.at(10,7);
-dirts[12] = dirts.at(10,8);
-dirts[13] = dirts.at(9,8);
-*/
 };

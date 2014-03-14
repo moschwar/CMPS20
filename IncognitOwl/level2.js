@@ -146,6 +146,8 @@ function start3() {//////////////////////////////////////////////////////
 	lights[1] = new Light(u * 7.5, u * 23.5, 0, "left", 0);
 	lights[2] = new Light(u * 1.5, u * 23.5, 0, "right", 1);
 	lights[3] = new Light(u * 1.5, u * 28.5, 0, "right", 1);
+	lights[4] = new Light(u * 9.5, u * 7.5, 2, "down", 1);
+	lights[5] = new Light(u * 17.5, u * 19.5, 0, "down", 0);
 
 
 	var ll = 2.5;
@@ -522,6 +524,52 @@ function start3() {//////////////////////////////////////////////////////
 		this.lp[2].y = points.y2;
 
 	};
+	lights[4].update = function(d) {
+		var points = new Object();
+		points.x0 = this.x0;
+		points.y0 = this.y0;
+		points.x1 = this.x1;
+		points.y1 = this.y1;
+		points.x2 = this.x2;
+		points.y2 = this.y2;
+
+		points.rotation = this.rotation;
+		points.direc = this.direc;
+		points.origin = this.origin;
+		points.clock = this.clock;
+		points = findPoints(points);
+
+		this.lp[0].x = points.x0;
+		this.lp[0].y = points.y0;
+		this.lp[1].x = points.x1;
+		this.lp[1].y = points.y1;
+		this.lp[2].x = points.x2;
+		this.lp[2].y = points.y2;
+
+	};
+	lights[5].update = function(d) {
+		var points = new Object();
+		points.x0 = this.x0;
+		points.y0 = this.y0;
+		points.x1 = this.x1;
+		points.y1 = this.y1;
+		points.x2 = this.x2;
+		points.y2 = this.y2;
+
+		points.rotation = this.rotation;
+		points.direc = this.direc;
+		points.origin = this.origin;
+		points.clock = this.clock;
+		points = findPoints(points);
+
+		this.lp[0].x = points.x0;
+		this.lp[0].y = points.y0;
+		this.lp[1].x = points.x1;
+		this.lp[1].y = points.y1;
+		this.lp[2].x = points.x2;
+		this.lp[2].y = points.y2;
+
+	};
 
 	function Light(x, y, rotation, direc, clock) {
 		light = new Object();
@@ -642,7 +690,7 @@ function start3() {//////////////////////////////////////////////////////
     walls[1] = walls.u(2,2,5);
     walls[2] = walls.d(2,5,6);
     walls[3] = walls.r(5,2,4);
-    walls[4] = walls.d(5,4,7);
+    walls[4] = walls.u(5,4,7);
     walls[5] = walls.r(7,4,5);
     walls[6] = walls.u(7,5,13);
     walls[7] = walls.l(6,5,10);
@@ -665,7 +713,7 @@ function start3() {//////////////////////////////////////////////////////
     walls[24] = walls.d(12,18,13);
     walls[25] = walls.r(11,15,16);
     walls[26] = walls.u(11,16,12);
-    walls[27] = walls.l(12,10,16);
+    walls[27] = walls.l(12,15,16);
     walls[28] = walls.d(11,15,12);
     walls[29] = walls.l(11,18,19);
     walls[30] = walls.r(12,18,19);
@@ -871,18 +919,12 @@ function start3() {//////////////////////////////////////////////////////
 				boxcount--;
 				world.x = -70 * 4;
 				world.y = -70 * 25;
-				console.log("HERE");
 				world.addChild(player);
 				world.addChild(guard);
 				world.addChild(guard2);
 				world.addChild(guard3);
 				world.addChild(guard4);
 				world.addChild(guard5);
-				//world.addChild(guard);
-				//world.addChild(guard2);
-				//world.addChild(guard3);
-				//world.addChild(guard4);
-				//textOne();
 				setTimeout(function() {
 					traps = 1;
 				}, 300);
@@ -892,12 +934,6 @@ function start3() {//////////////////////////////////////////////////////
 				for (var i = 0; i < lights.length; i++) {
 					world.addChild(lights[i]);
 				}
-				//hardcoded vision shortener
-				/*if (!((boxes[0].x == 70 * 8 && boxes[0].y == 70 * 6) || (boxes[1].x == 70 * 8 && boxes[1].y == 70 * 6))) {
-				 guard.vision = 1;
-				 } else {
-				 guard.vision = 0;
-				 }*/
 				this.remove();
 			}
 		}
@@ -1011,10 +1047,8 @@ function start3() {//////////////////////////////////////////////////////
 			return false;
 		}
 	};
-	
-	
-	
-var guard = new Sprite(); 
+
+	var guard = new Sprite(); 
 	guard.image = Textures.load("Resources/bat_full.png");
 	guard.width = 67;
 	guard.height = 67;
@@ -1309,20 +1343,7 @@ guard5.update = function(){
 		availSpace4 = 0;
 	}*/
 };
-	
 
-	/*if (player.gcollision(guard)) {
-		screenMan.push(gameOver);
-	}
-	if (player.gcollision(guard2)) {
-		screenMan.push(gameOver);
-	}
-	if (player.gcollision(guard3)) {
-		screenMan.push(gameOver);
-	}
-	if (player.gcollision(guard4)) {
-		screenMan.push(gameOver);
-	}*/
 
 	player.tl = new Vector(player.x, player.y);
 	//top left
@@ -1669,7 +1690,6 @@ guard5.update = function(){
 	player.down = function(speed) {
 		var after = this.y + player.speed;
 		for (var i = 0; i < boxes.length; i++) {
-
 			if (downcollide(after, boxes[i]) || wallcollidedown(after)) {
 				this.nodown = true;
 			}
@@ -1765,7 +1785,7 @@ guard5.update = function(){
 	};
 	var wallcollidedown = function(after) {
 		for (var i = 0; i < walls.length; i++) {
-			if ((after + player.width + nh) < (walls[i].bot) && (after + player.width + nh) > (walls[i].top) && player.wallcollisionvert(i)) {
+			if ((after + player.width + nh) < (walls[i].bot) && (after + player.width) > (walls[i].top + nh) && player.wallcollisionvert(i)) {
 				return true;
 			}
 		}
@@ -1813,7 +1833,7 @@ guard5.update = function(){
 		}
 	};
 	player.wallcollisionvert = function(i) {
-		if (this.x + this.width < walls[i].left + ph || this.x > walls[i].right + nh) {
+		if (this.x > walls[i].right + nh || this.x + this.width < walls[i].left + ph) {
 			return false;
 		} else {
 			return true;
@@ -1914,7 +1934,7 @@ guard5.update = function(){
 		pcollisions[22] = intersect(player.tl, player.br, lights[3].origin, lights[3].lp[2]);
 		pcollisions[23] = intersect(player.tr, player.bl, lights[3].origin, lights[3].lp[2]);
 		//[3]
-		/*pcollisions[24] = intersect(player.tl, player.br, lights[4].origin, lights[4].lp[0]);
+		pcollisions[24] = intersect(player.tl, player.br, lights[4].origin, lights[4].lp[0]);
 		pcollisions[25] = intersect(player.tr, player.bl, lights[4].origin, lights[4].lp[0]);
 		pcollisions[26] = intersect(player.tl, player.br, lights[4].origin, lights[4].lp[1]);
 		pcollisions[27] = intersect(player.tr, player.bl, lights[4].origin, lights[4].lp[1]);
@@ -1928,7 +1948,7 @@ guard5.update = function(){
 		pcollisions[34] = intersect(player.tl, player.br, lights[5].origin, lights[5].lp[2]);
 		pcollisions[35] = intersect(player.tr, player.bl, lights[5].origin, lights[5].lp[2]);
 		//[5]
-		pcollisions[36] = intersect(player.tl, player.br, lights[6].origin, lights[6].lp[0]);
+		/*pcollisions[36] = intersect(player.tl, player.br, lights[6].origin, lights[6].lp[0]);
 		pcollisions[37] = intersect(player.tr, player.bl, lights[6].origin, lights[6].lp[0]);
 		pcollisions[38] = intersect(player.tl, player.br, lights[6].origin, lights[6].lp[1]);
 		pcollisions[39] = intersect(player.tr, player.bl, lights[6].origin, lights[6].lp[1]);
@@ -1956,22 +1976,4 @@ guard5.update = function(){
 		}
 		this.updateChildren(d);
 	};
-/*
-
-
-dirts[0] = dirts.at(1,26);
-dirts[1] = dirts.at(2,26);
-dirts[2] = dirts.at(1,27);
-dirts[3] = dirts.at(2,27);
-dirts[4] = dirts.at(11,25);
-dirts[5] = dirts.at(12,25);
-dirts[6] = dirts.at(11,26);
-dirts[7] = dirts.at(12,26);
-dirts[8] = dirts.at(13,26);
-dirts[9] = dirts.at(9,6);
-dirts[10] = dirts.at(10,6);
-dirts[11] = dirts.at(10,7);
-dirts[12] = dirts.at(10,8);
-dirts[13] = dirts.at(9,8);
-*/
 };
