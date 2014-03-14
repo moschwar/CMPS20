@@ -873,6 +873,11 @@ function start3() {//////////////////////////////////////////////////////
 				world.y = -70 * 25;
 				console.log("HERE");
 				world.addChild(player);
+				world.addChild(guard);
+				world.addChild(guard2);
+				world.addChild(guard3);
+				world.addChild(guard4);
+				world.addChild(guard5);
 				//world.addChild(guard);
 				//world.addChild(guard2);
 				//world.addChild(guard3);
@@ -1006,6 +1011,305 @@ function start3() {//////////////////////////////////////////////////////
 			return false;
 		}
 	};
+	
+	
+	
+var guard = new Sprite(); 
+	guard.image = Textures.load("Resources/bat_full.png");
+	guard.width = 67;
+	guard.height = 67;
+	guard.x = 70 * 8;
+	guard.y = 70 * 30;
+	guard.alerted = false;
+	guard.frameWidth = 63;
+	guard.frameHeight = 49;
+	guard.frameCount = 20;
+	guard.frameRate = 7;
+	guard.moveRate = 7;
+	guard.speed = 2;
+	guard.addAnimations(["down", "up", "right", "left"], [5, 5, 5, 5]);
+
+	var availSpace = 0;
+	
+	
+	
+
+guard.update = function() {
+	availSpace += guard.speed;
+	
+		if (availSpace <= 70) {   //curently working
+			guard.animation = "left";
+			//guard2.frameRate = guard2.moveRate;
+			guard.x -= guard.speed;
+		}
+
+		if (availSpace >= 70) {
+			guard.x -= 0;
+			guard.animation = "right";
+			//guard2.frameRate = guard2.moveRate;
+			guard.x += guard.speed;
+		}
+
+		if (availSpace >= 280) {
+			guard.x -= guard.speed;
+			guard.animation = "left";
+			//guard2.frameRate = guard2.moveRate;
+			guard.x -= guard.speed;
+		}
+		
+		if (availSpace >= 420) {
+			guard.x += guard.speed;
+			//guard.animation = "left";
+			//guard2.frameRate = guard2.moveRate;
+			availSpace = 0;
+		}
+	};
+	
+	
+	
+	//guard2 (Bottom-right)
+var guard2 = new Sprite(); 
+	guard2.image = Textures.load("Resources/bat_full.png");
+	guard2.width = 67;
+	guard2.height = 67;
+	guard2.x = 70 * 15;
+	guard2.y = 70 * 27;
+	guard2.alerted = false;
+	guard2.frameWidth = 63;
+	guard2.frameHeight = 49;
+	guard2.frameCount = 20;
+	guard2.frameRate = 7;
+	guard2.moveRate = 7;
+	guard2.speed = 2;
+	guard2.addAnimations(["down", "up", "right", "left"], [5, 5, 5, 5]);
+
+
+var availSpace2 = 0;
+	
+	
+	
+
+guard2.update = function() {
+availSpace2 += guard2.speed;
+	
+	if (availSpace2 <= 140) {   //curently working
+		guard2.animation = "up";
+		//guard2.frameRate = guard2.moveRate;
+		guard2.y -= guard2.speed;
+	}
+
+	if (availSpace2 >= 140) {
+		guard2.y -= 0;
+		guard2.animation = "down";
+		//guard2.frameRate = guard2.moveRate;
+		guard2.y += guard2.speed;
+	}
+
+	if (availSpace2 >= 420) {
+		guard2.y -= guard2.speed;
+		guard2.animation = "left";
+		//guard2.frameRate = guard2.moveRate;
+		guard2.x -= guard2.speed;
+	}
+
+	if (availSpace2 >= 560) {
+		guard2.x += guard2.speed;
+		guard2.animation = "right";
+		//guard2.frameRate = guard2.moveRate;
+		guard2.x += guard2.speed;
+	}
+
+	if (availSpace2 >= 700) {
+		guard2.x -= guard2.speed;
+		guard2.animation = "up";
+		//guard2.frameRate = guard2.moveRate;
+		guard2.y -= guard2.speed;
+	}
+
+	if (availSpace2 >= 840) {
+		guard2.y += guard2.speed;
+		//guard2.animation = "left";
+		//guard2.frameRate = guard2.moveRate;
+		availSpace2 = 0;
+	}
+
+};
+
+//guard3 top middle
+var guard3 = new Sprite(); 
+	guard3.image = Textures.load("Resources/bat_full.png");
+	guard3.width = 67;
+	guard3.height = 67;
+	guard3.x = 70 * 11;
+	guard3.y = 70 * 24;
+	guard3.alerted = false;
+	guard3.frameWidth = 63;
+	guard3.frameHeight = 49;
+	guard3.frameCount = 20;
+	guard3.frameRate = 7;
+	guard3.moveRate = 7;
+	guard3.speed = 2;
+	guard3.addAnimations(["down", "up", "right", "left"], [5, 5, 5, 5]);
+
+
+var availSpace3 = 0;
+	
+	
+	
+
+guard3.update = function() {
+availSpace3 += guard3.speed;
+	
+	if (availSpace3 <= 70) {   //curently working
+		guard3.animation = "left";
+		//guard2.frameRate = guard2.moveRate;
+		guard3.x -= guard3.speed;
+	}
+
+	if (availSpace3 >= 70) {
+		guard3.x -= 0;
+		guard3.animation = "right";
+		//guard2.frameRate = guard2.moveRate;
+		guard3.x += guard3.speed;
+	}
+
+	if (availSpace3 >= 350) {
+		guard3.x -= guard3.speed;
+		guard3.animation = "left";
+		//guard2.frameRate = guard2.moveRate;
+		guard3.x -= guard3.speed;
+	}
+
+	if (availSpace3 >= 560) {
+		guard3.x += guard3.speed;
+		//guard3.animation = "right";
+		//guard2.frameRate = guard2.moveRate;
+		//guard3.x += guard3.speed;
+		availSpace3 = 0;
+	}
+	
+};
+var guard4 = new Sprite(); 
+	guard4.image = Textures.load("Resources/bat_full.png");
+	guard4.width = 67;
+	guard4.height = 67;
+	guard4.x = 70 * 10;
+	guard4.y = 70 * 14;
+	guard4.alerted = false;
+	guard4.frameWidth = 63;
+	guard4.frameHeight = 49;
+	guard4.frameCount = 20;
+	guard4.frameRate = 7;
+	guard4.moveRate = 7;
+	guard4.speed = 2;
+	guard4.addAnimations(["down", "up", "right", "left"], [5, 5, 5, 5]);
+
+
+var availSpace4 = 0;
+
+guard4.update = function(){
+	availSpace4 += guard4.speed;
+	
+	if (availSpace4 <= 140 ){
+		guard4.x += guard4.speed;
+	}
+	
+	if (availSpace4 >= 140 ){
+		guard4.x += 0;
+		//animate
+		guard4.y += guard4.speed;
+	}
+	if (availSpace4 >= 280 ){
+		guard4.y -= guard4.speed;
+		//animate
+		guard4.x -= guard4.speed;
+	}
+	if (availSpace4 >= 420 ){
+		guard4.x += guard4.speed;
+		//animate
+		guard4.x += guard4.speed;
+	}
+	
+	if (availSpace4 >= 560){
+		guard4.x -= guard4.speed;
+		//animate
+		guard4.y -= guard4.speed;
+	}
+	
+	if (availSpace4 >= 700 ){
+		guard4.y += guard4.speed;
+		//animate
+		guard4.x -= guard4.speed;
+	}
+	
+	if (availSpace4 >= 840){
+		guard4.x += guard4.speed;
+		//animate
+		availSpace4 = 0;
+	}
+};
+
+var guard5 = new Sprite(); 
+	guard5.image = Textures.load("Resources/bat_full.png");
+	guard5.width = 67;
+	guard5.height = 67;
+	guard5.x = 70 * 8;
+	guard5.y = 70 * 5;
+	guard5.alerted = false;
+	guard5.frameWidth = 63;
+	guard5.frameHeight = 49;
+	guard5.frameCount = 20;
+	guard5.frameRate = 7;
+	guard5.moveRate = 7;
+	guard5.speed = 2;
+	guard5.addAnimations(["down", "up", "right", "left"], [5, 5, 5, 5]);
+
+
+var availSpace5 = 0;
+
+guard5.update = function(){
+	availSpace5 += guard5.speed;
+	
+	if (availSpace5 <= 210 ){
+		guard5.y += guard5.speed;
+	}
+	
+	if (availSpace5 >= 210 ){
+		guard5.y += 0;
+		//animate
+		guard5.x -= guard4.speed;
+	}
+	if (availSpace5 >= 280 ){
+		guard5.x += guard5.speed;
+		//animate
+		guard5.y -= guard5.speed;
+	}
+	if (availSpace5 >= 490 ){
+		guard5.y += guard5.speed;
+		//animate
+		guard5.x += guard5.speed;
+	}
+	
+	if (availSpace5 >= 560){
+		guard5.x -= guard5.speed;
+		//animate
+		//guard5.y -= guard5.speed;
+		availSpace5 = 0;
+	}
+	/*
+	if (availSpace4 >= 700 ){
+		guard5.y += guard5.speed;
+		//animate
+		guard5.x -= guard5.speed;
+	}
+	
+	if (availSpace4 >= 840){
+		guard5.x += guard5.speed;
+		//animate
+		availSpace4 = 0;
+	}*/
+};
+	
 
 	/*if (player.gcollision(guard)) {
 		screenMan.push(gameOver);
