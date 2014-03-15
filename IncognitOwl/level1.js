@@ -832,13 +832,6 @@ function start2() {//////////////////////////////////////////////////////
 	roof.y = u * 1.25 - 3;
 	world.addChild(roof);
 
-	var win = new Sprite();
-	win.image = Textures.load("http://static2.wikia.nocookie.net/__cb20100728113416/mafiawars/images/7/7e/Boss_title_youwin.png");
-	win.width = 70 * 4;
-	win.height = 70 * 1;
-	win.x = 70 * 11;
-	win.y = 70 * 2;
-
 	var dirtcount = 15;
 	var dirts = new Array();
 	for (var i = 0; i < dirtcount; i++) {////////////////////////////////////////////////////////////dirts array
@@ -1013,21 +1006,6 @@ function start2() {//////////////////////////////////////////////////////
 	var green = new Sprite();
 	green.image = Textures.load("Resources/green.png");
 
-	var end = new Array();
-
-	end[0] = new End(12, 0);
-	/////////////////////////////////////////////////////////////ends
-
-	function End(x, y) {
-		end = new Sprite();
-		end.x = u * this.x, end.y = u * this.y, end.width = u;
-		end.height = u;
-	};
-
-	for (var i = 0; i < end.length; i++) {
-		world.addChild(end[i]);
-	}
-
 	var cursor = new Sprite();
 	cursor.image = red.image;
 	cursor.width = 70;
@@ -1173,8 +1151,8 @@ function start2() {//////////////////////////////////////////////////////
 	guard.x = 70 * 11;
 	guard.y = 70 * 25;
 	guard.alerted = false;
-	guard.frameWidth = 63;
-	guard.frameHeight = 49;
+	guard.frameWidth = 64;
+	guard.frameHeight = 51;
 	guard.frameCount = 20;
 	guard.frameRate = 7;
 	guard.moveRate = 7;
@@ -1244,8 +1222,8 @@ function start2() {//////////////////////////////////////////////////////
 	guard2.x = 70 * 3;
 	guard2.y = 70 * 21;
 	guard2.alerted = false;
-	guard2.frameWidth = 63;
-	guard2.frameHeight = 49;
+	guard2.frameWidth = 64;
+	guard2.frameHeight = 51;
 	guard2.frameCount = 20;
 	guard2.frameRate = 7;
 	guard2.moveRate = 7;
@@ -1310,8 +1288,8 @@ function start2() {//////////////////////////////////////////////////////
 	guard3.x = 70 * 15;
 	guard3.y = 70 * 26;
 	guard3.alerted = false;
-	guard3.frameWidth = 63;
-	guard3.frameHeight = 49;
+	guard3.frameWidth = 64;
+	guard3.frameHeight = 51;
 	guard3.frameCount = 20;
 	guard3.frameRate = 7;
 	guard3.moveRate = 7;
@@ -1377,8 +1355,8 @@ function start2() {//////////////////////////////////////////////////////
 	guard4.x = 70 * 3;
 	guard4.y = 70 * 16;
 	guard4.alerted = false;
-	guard4.frameWidth = 63;
-	guard4.frameHeight = 49;
+	guard4.frameWidth = 64;
+	guard4.frameHeight = 51;
 	guard4.frameCount = 20;
 	guard4.frameRate = 7;
 	guard4.moveRate = 7;
@@ -1456,7 +1434,7 @@ function start2() {//////////////////////////////////////////////////////
 		}
 	};
 	player.gcollision = function(sprite) {
-		if (this.x < sprite.x + sprite.width + gxv && this.x + this.width > sprite.x - gxv && this.y < sprite.y + sprite.height + gxy && this.y + this.height > sprite.y + gxy) {
+		if (this.x < sprite.x + sprite.width + gxv && this.x + this.width > sprite.x - gxv && this.y < sprite.y + sprite.height + gyv && this.y + this.height > sprite.y + gyv) {
 			return true;
 		} else {
 			return false;
@@ -1775,12 +1753,12 @@ function start2() {//////////////////////////////////////////////////////
 		var bigW = 30;
 		var smallW = 11;
 		ctx.fillStyle = "lightgreen";
-		ctx.fillText("noup " + player.noup, canvas.width / 2 + -world.x - (70 * 4), canvas.height / 2 + -world.y - (70 * 4));
-		ctx.fillText("nodown " + player.nodown, canvas.width / 2 + -world.x - (70 * 4), canvas.height / 2 + -world.y - (70 * 4) + 10);
-		ctx.fillText("guard.index " + guard.index, canvas.width / 2 + -world.x - (70 * 4), canvas.height / 2 + -world.y - (70 * 4) + 20);
-		ctx.fillText("guard2.index " + guard2.index, canvas.width / 2 + -world.x - (70 * 4), canvas.height / 2 + -world.y - (70 * 4) + 30);
+		//ctx.fillText("noup " + player.noup, canvas.width / 2 + -world.x - (70 * 4), canvas.height / 2 + -world.y - (70 * 4));
+		//ctx.fillText("nodown " + player.nodown, canvas.width / 2 + -world.x - (70 * 4), canvas.height / 2 + -world.y - (70 * 4) + 10);
+		//ctx.fillText("guard.index " + guard.index, canvas.width / 2 + -world.x - (70 * 4), canvas.height / 2 + -world.y - (70 * 4) + 20);
+		//ctx.fillText("guard2.index " + guard2.index, canvas.width / 2 + -world.x - (70 * 4), canvas.height / 2 + -world.y - (70 * 4) + 30);
 		ctx.fillText("continue cookie: " + getCookie("continue"), canvas.width / 2 + -world.x - (70 * 4), canvas.height / 2 + -world.y - (70 * 4) + 40);
-		ctx.fillText("auto2 cookie: " + getCookie("auto2"), canvas.width / 2 + -world.x - (70 * 4), canvas.height / 2 + -world.y - (70 * 4) + 50);
+		ctx.fillText("auto cookie: " + getCookie(auto), canvas.width / 2 + -world.x - (70 * 4), canvas.height / 2 + -world.y - (70 * 4) + 50);
 		ctx.fillStyle = "white";
 		ctx.font="30px Verdana";
 		ctx.fillText("x" + boxcount, canvas.width/2 + -world.x + (70 * 4) - 20, canvas.height/2 + -world.y + (70 * 4) + 10);
@@ -2081,6 +2059,7 @@ function start2() {//////////////////////////////////////////////////////
 				boxes[k].alpha = 0;
 			}
 			player.speed = 0;
+			setCookie("auto3", 1);
 			textEndLevelOne();
 		}
 
