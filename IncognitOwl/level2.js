@@ -11,14 +11,15 @@ function start3() {//////////////////////////////////////////////////////
 	world.y = -70 * 25;
 
 	var u = 70;
-	
+
 	var gxv = 8;
 	var gyv = 15;
 
 	var sounds = new SoundManager();
 	sounds.loop("Audio/nightvideogame.mp3");
 
-	var auto = "auto3";  ///////////////////////////////////////////////////////////
+	var auto = "auto3";
+	///////////////////////////////////////////////////////////
 	setCookie(auto, 0);
 	setCookie("continue", 3);
 
@@ -38,7 +39,7 @@ function start3() {//////////////////////////////////////////////////////
 			return false;
 		}
 	};
-	
+
 	l90.update = function(d) {
 		if (!this.turn) {
 			if (this.reverse) {
@@ -151,7 +152,6 @@ function start3() {//////////////////////////////////////////////////////
 	lights[3] = new Light(u * 1.5, u * 28.5, 0, "right", 1);
 	lights[4] = new Light(u * 9.5, u * 7.5, 2, "down", 1);
 	lights[5] = new Light(u * 17.5, u * 19.5, 0, "down", 0);
-
 
 	var ll = 2.5;
 
@@ -457,7 +457,7 @@ function start3() {//////////////////////////////////////////////////////
 		points.direc = this.direc;
 		points.origin = this.origin;
 		points.clock = this.clock;
-		
+
 		points.x0 = points.origin.x + l90.mc0 * -u * 3.5;
 		points.y0 = points.origin.y + l90.ms0 * -u * 3.5;
 		points.x1 = points.origin.x + l90.mc1 * -u * 3.5;
@@ -475,7 +475,7 @@ function start3() {//////////////////////////////////////////////////////
 	};
 	lights[2].update = function(d) {
 		var points = new Object();
-		
+
 		points.x0 = this.x0;
 		points.y0 = this.y0;
 		points.x1 = this.x1;
@@ -487,7 +487,7 @@ function start3() {//////////////////////////////////////////////////////
 		points.direc = this.direc;
 		points.origin = this.origin;
 		points.clock = this.clock;
-				
+
 		points.x0 = points.origin.x + l90.nc0 * u * 3.5;
 		points.y0 = points.origin.y + l90.ns0 * u * 3.5;
 		points.x1 = points.origin.x + l90.nc1 * u * 3.5;
@@ -550,7 +550,7 @@ function start3() {//////////////////////////////////////////////////////
 		this.bcollisions[21] = intersect(boxes[1].tl, boxes[1].bl, this.origin, this.xy0);
 		this.bcollisions[22] = intersect(boxes[1].tl, boxes[1].bl, this.origin, this.xy1);
 		this.bcollisions[23] = intersect(boxes[1].tl, boxes[1].bl, this.origin, this.xy2);
-			
+
 		for (var i = 0; i < this.bcollisions.length; i++) {
 			if (!(this.bcollisions[i] == undefined) && this.bcollisions[i].occurred) {
 				if (i % 3 == 0) {
@@ -601,7 +601,7 @@ function start3() {//////////////////////////////////////////////////////
 		this.xy2.y = points.y2;
 
 		//box collisions//////////////////////////////////////////////////////////////////////////////
-		if(this.xy1.y < this.origin.y){
+		if (this.xy1.y < this.origin.y) {
 			this.bcollisions[0] = intersect(boxes[0].bl, boxes[0].br, this.origin, this.xy0);
 			this.bcollisions[1] = intersect(boxes[0].bl, boxes[0].br, this.origin, this.xy1);
 			this.bcollisions[2] = intersect(boxes[0].bl, boxes[0].br, this.origin, this.xy2);
@@ -628,7 +628,7 @@ function start3() {//////////////////////////////////////////////////////
 			this.bcollisions[10] = intersect(boxes[1].tl, boxes[1].tr, this.origin, this.xy1);
 			this.bcollisions[11] = intersect(boxes[1].tl, boxes[1].tr, this.origin, this.xy2);
 		}
-		
+
 		this.bcollisions[12] = intersect(boxes[0].tl, boxes[0].bl, this.origin, this.xy0);
 		this.bcollisions[13] = intersect(boxes[0].tl, boxes[0].bl, this.origin, this.xy1);
 		this.bcollisions[14] = intersect(boxes[0].tl, boxes[0].bl, this.origin, this.xy2);
@@ -641,7 +641,7 @@ function start3() {//////////////////////////////////////////////////////
 		this.bcollisions[21] = intersect(boxes[1].tl, boxes[1].bl, this.origin, this.xy0);
 		this.bcollisions[22] = intersect(boxes[1].tl, boxes[1].bl, this.origin, this.xy1);
 		this.bcollisions[23] = intersect(boxes[1].tl, boxes[1].bl, this.origin, this.xy2);
-			
+
 		for (var i = 0; i < this.bcollisions.length; i++) {
 			if (!(this.bcollisions[i] == undefined) && this.bcollisions[i].occurred) {
 				if (i % 3 == 0) {
@@ -676,7 +676,7 @@ function start3() {//////////////////////////////////////////////////////
 		points.direc = this.direc;
 		points.origin = this.origin;
 		points.clock = this.clock;
-		
+
 		points.x0 = points.origin.x + l90.ns0 * u * 2.8;
 		points.y0 = points.origin.y + l90.nc0 * u * 2.8;
 		points.x1 = points.origin.x + l90.ns1 * u * 2.8;
@@ -721,21 +721,29 @@ function start3() {//////////////////////////////////////////////////////
 	var ycenter = 315;
 	var traps = 0;
 
-	/*var roof = new Sprite();
-	roof.image = Textures.load("Resources/roof.png");
-	roof.width = u * 3.6 + 4;
-	roof.height = u * 3.75 + 6;
-	roof.x = u * 4.5 + 12;
-	roof.y = u * 1.25 - 3;
-	world.addChild(roof);*/
-	
+	var levelDone = false;
 
-	var win = new Sprite();
-	win.image = Textures.load("http://static2.wikia.no.net/__cb20100728113416/mafiawars/images/7/7e/Boss_title_youwin.png");
-	win.width = 70 * 4;
-	win.height = 70 * 1;
-	win.x = 70 * 11;
-	win.y = 70 * 2;
+	var extraItem = new Sprite();
+	extraItem.image = Textures.load("Resources/bonus_item.png");
+	extraItem.width = 50;
+	extraItem.height = 40;
+	extraItem.x = 70 * 17 + 12;
+	extraItem.y = 70 * 31 + 17;
+
+	var winItem = new Sprite();
+	winItem.image = Textures.load("Resources/briefcase.png");
+	winItem.width = 50;
+	winItem.height = 40;
+	winItem.x = 70 * 3 + 13;
+	winItem.y = 70 * 2 + 30;
+
+	var roof = new Sprite();
+	roof.image = Textures.load("Resources/level_2_roof.png");
+	roof.index = -1;
+	roof.width = u * 4.6 + 4;
+	roof.height = u * 7.75 + 16;
+	roof.x = u * 8.5 + 12;
+	roof.y = u * 10.25 - 12;
 
 	var dirtcount = 14;
 	var dirts = new Array();
@@ -750,20 +758,20 @@ function start3() {//////////////////////////////////////////////////////
 	};
 
 	//make sure to scale the dirts array////////////////////////////////////////////////////////////////////////
-	dirts[0] = dirts.at(1,26);
-	dirts[1] = dirts.at(2,26);
-	dirts[2] = dirts.at(1,27);
-	dirts[3] = dirts.at(2,27);
-	dirts[4] = dirts.at(11,25);
-	dirts[5] = dirts.at(12,25);
-	dirts[6] = dirts.at(11,26);
-	dirts[7] = dirts.at(12,26);
-	dirts[8] = dirts.at(13,26);
-	dirts[9] = dirts.at(9,6);
-	dirts[10] = dirts.at(10,6);
-	dirts[11] = dirts.at(10,7);
-	dirts[12] = dirts.at(10,8);
-	dirts[13] = dirts.at(9,8);
+	dirts[0] = dirts.at(1, 26);
+	dirts[1] = dirts.at(2, 26);
+	dirts[2] = dirts.at(1, 27);
+	dirts[3] = dirts.at(2, 27);
+	dirts[4] = dirts.at(11, 25);
+	dirts[5] = dirts.at(12, 25);
+	dirts[6] = dirts.at(11, 26);
+	dirts[7] = dirts.at(12, 26);
+	dirts[8] = dirts.at(13, 26);
+	dirts[9] = dirts.at(9, 6);
+	dirts[10] = dirts.at(10, 6);
+	dirts[11] = dirts.at(10, 7);
+	dirts[12] = dirts.at(10, 8);
+	dirts[13] = dirts.at(9, 8);
 
 	var walls = new Array();
 	for (var i = 0; i < 78; i++) {////////////////////////////////////////////////////////////walls array
@@ -808,85 +816,84 @@ function start3() {//////////////////////////////////////////////////////
 	//walls[1] = walls.u(2, 5, 12);
 	//walls[2] = walls.r(4, 8, 15);
 	//walls[3] = walls.d(2, 15, 4);
-	walls[0] = walls.l(2,2,5);
-    walls[1] = walls.u(2,2,5);
-    walls[2] = walls.d(2,5,6);
-    walls[3] = walls.r(5,2,4);
-    walls[4] = walls.u(5,4,7);
-    walls[5] = walls.r(7,4,5);
-    walls[6] = walls.u(7,5,13);
-    walls[7] = walls.l(6,5,10);
-    walls[8] = walls.r(13,5,13);
-    walls[9] = walls.d(6,10,12);
-    walls[10] = walls.r(9,7,8);
-    walls[11] = walls.u(9,8,10);
-    walls[12] = walls.l(10,7,8);
-    walls[13] = walls.d(9,7,10);
-    walls[14] = walls.u(9,11,12);
-    walls[15] = walls.l(12,10,11);
-    walls[16] = walls.l(9,11,16);
-    walls[17] = walls.d(11,13,13);
-    walls[18] = walls.r(11,13,14);
-    walls[19] = walls.u(11,14,13);
-    walls[20] = walls.r(13,14,18);
-    walls[21] = walls.d(9,16,10);
-    walls[22] = walls.l(10,16,18);
-    walls[23] = walls.d(10,18,11);
-    walls[24] = walls.d(12,18,13);
-    walls[25] = walls.r(11,15,16);
-    walls[26] = walls.u(11,16,12);
-    walls[27] = walls.l(12,15,16);
-    walls[28] = walls.d(11,15,12);
-    walls[29] = walls.l(11,18,19);
-    walls[30] = walls.r(12,18,19);
-    walls[31] = walls.u(2,19,11);
-    walls[32] = walls.u(12,19,14);
-    walls[33] = walls.l(2,19,25);
-    walls[34] = walls.u(1,25,2);
-    walls[35] = walls.l(1,25,28);
-    walls[36] = walls.d(1,28,2);
-    walls[37] = walls.l(2,28,29);
-    walls[38] = walls.d(2,29,7);
-    walls[39] = walls.r(14,19,20);
-    walls[40] = walls.u(14,20,19);
-    walls[41] = walls.r(19,20,25);
-    walls[42] = walls.d(17,26,19);
-    walls[43] = walls.r(17,26,30);
-    walls[44] = walls.u(17,30,18);
-    walls[45] = walls.r(18,30,32);
-    walls[46] = walls.d(16,32,18);
-    walls[47] = walls.l(16,31,32);
-    walls[48] = walls.d(12,31,16);
-    walls[49] = walls.l(12,29,31);
-    walls[50] = walls.d(11,29,12);
-    walls[51] = walls.r(11,29,35);
-    walls[52] = walls.d(7,35,11);
-    walls[53] = walls.l(7,29,35);
-    walls[54] = walls.r(4,26,27);
-    walls[55] = walls.l(5,26,27);
-    walls[56] = walls.u(4,27,5);
-    walls[57] = walls.d(4,26,5);
-    walls[58] = walls.r(7,21,27);
-    walls[59] = walls.d(7,21,10);
-    walls[60] = walls.l(10,21,22);
-    walls[61] = walls.d(10,22,13);
-    walls[62] = walls.l(13,22,23);
-    walls[63] = walls.d(13,23,16);
-    walls[64] = walls.l(16,23,24);
-    walls[65] = walls.u(10,24,16);
-    walls[66] = walls.l(10,24,25);
-    walls[67] = walls.d(10,25,11);
-    walls[68] = walls.l(11,25,26);
-    walls[69] = walls.u(10,26,11);
-    walls[70] = walls.l(10,26,27);
-    walls[71] = walls.u(7,27,10);
-    walls[72] = walls.r(13,27,29);
-    walls[73] = walls.d(13,27,14);
-    walls[74] = walls.l(14,27,28);
-    walls[75] = walls.d(14,28,15);
-    walls[76] = walls.l(15,28,29);
-    walls[77] = walls.u(13,29,15);
-
+	walls[0] = walls.l(2, 2, 5);
+	walls[1] = walls.u(2, 2, 5);
+	walls[2] = walls.d(2, 5, 6);
+	walls[3] = walls.r(5, 2, 4);
+	walls[4] = walls.u(5, 4, 7);
+	walls[5] = walls.r(7, 4, 5);
+	walls[6] = walls.u(7, 5, 13);
+	walls[7] = walls.l(6, 5, 10);
+	walls[8] = walls.r(13, 5, 13);
+	walls[9] = walls.d(6, 10, 12);
+	walls[10] = walls.r(9, 7, 8);
+	walls[11] = walls.u(9, 8, 10);
+	walls[12] = walls.l(10, 7, 8);
+	walls[13] = walls.d(9, 7, 10);
+	walls[14] = walls.u(9, 11, 12);
+	walls[15] = walls.l(12, 10, 11);
+	walls[16] = walls.l(9, 11, 16);
+	walls[17] = walls.d(11, 13, 13);
+	walls[18] = walls.r(11, 13, 14);
+	walls[19] = walls.u(11, 14, 13);
+	walls[20] = walls.r(13, 14, 18);
+	walls[21] = walls.d(9, 16, 10);
+	walls[22] = walls.l(10, 16, 18);
+	walls[23] = walls.d(10, 18, 11);
+	walls[24] = walls.d(12, 18, 13);
+	walls[25] = walls.r(11, 15, 16);
+	walls[26] = walls.u(11, 16, 12);
+	walls[27] = walls.l(12, 15, 16);
+	walls[28] = walls.d(11, 15, 12);
+	walls[29] = walls.l(11, 18, 19);
+	walls[30] = walls.r(12, 18, 19);
+	walls[31] = walls.u(2, 19, 11);
+	walls[32] = walls.u(12, 19, 14);
+	walls[33] = walls.l(2, 19, 25);
+	walls[34] = walls.u(1, 25, 2);
+	walls[35] = walls.l(1, 25, 28);
+	walls[36] = walls.d(1, 28, 2);
+	walls[37] = walls.l(2, 28, 29);
+	walls[38] = walls.d(2, 29, 7);
+	walls[39] = walls.r(14, 19, 20);
+	walls[40] = walls.u(14, 20, 19);
+	walls[41] = walls.r(19, 20, 26);
+	walls[42] = walls.d(17, 26, 19);
+	walls[43] = walls.r(17, 26, 30);
+	walls[44] = walls.u(17, 30, 18);
+	walls[45] = walls.r(18, 30, 32);
+	walls[46] = walls.d(16, 32, 18);
+	walls[47] = walls.l(16, 31, 32);
+	walls[48] = walls.d(12, 31, 16);
+	walls[49] = walls.l(12, 29, 31);
+	walls[50] = walls.d(11, 29, 12);
+	walls[51] = walls.r(11, 29, 35);
+	walls[52] = walls.d(7, 35, 11);
+	walls[53] = walls.l(7, 29, 35);
+	walls[54] = walls.r(4, 26, 27);
+	walls[55] = walls.l(5, 26, 27);
+	walls[56] = walls.u(4, 27, 5);
+	walls[57] = walls.d(4, 26, 5);
+	walls[58] = walls.r(7, 21, 27);
+	walls[59] = walls.d(7, 21, 10);
+	walls[60] = walls.l(10, 21, 22);
+	walls[61] = walls.d(10, 22, 13);
+	walls[62] = walls.l(13, 22, 23);
+	walls[63] = walls.d(13, 23, 16);
+	walls[64] = walls.l(16, 23, 24);
+	walls[65] = walls.u(10, 24, 16);
+	walls[66] = walls.l(10, 24, 25);
+	walls[67] = walls.d(10, 25, 11);
+	walls[68] = walls.l(11, 25, 26);
+	walls[69] = walls.u(10, 26, 11);
+	walls[70] = walls.l(10, 26, 27);
+	walls[71] = walls.u(7, 27, 10);
+	walls[72] = walls.r(13, 27, 29);
+	walls[73] = walls.d(13, 27, 14);
+	walls[74] = walls.l(14, 27, 28);
+	walls[75] = walls.d(14, 28, 15);
+	walls[76] = walls.l(15, 28, 29);
+	walls[77] = walls.u(13, 29, 15);
 
 	var boxcount = 2;
 	//////BOXES ARRAY////////////////////////////////////////////////
@@ -934,6 +941,7 @@ function start3() {//////////////////////////////////////////////////////
 
 	var cursor = new Sprite();
 	cursor.image = red.image;
+	cursor.index = -2;
 	cursor.width = 70;
 	cursor.height = 70;
 	cursor.x = 70 * 6;
@@ -970,7 +978,7 @@ function start3() {//////////////////////////////////////////////////////
 			}
 			if (gInput.up) {
 				this.moving = true;
-				if (this.y != 70) {
+				if (this.y != 0) {
 					this.y -= this.speed;
 				}
 				if (world.y < -2 && this.y < bg.height - ycenter) {
@@ -1040,13 +1048,15 @@ function start3() {//////////////////////////////////////////////////////
 				boxes[boxcount - 1].placed = true;
 				boxcount--;
 				world.x = -70 * 4;
-				world.y = -70 * 25;
+				world.y = -70 * 27;
 				world.addChild(player);
 				world.addChild(guard);
 				world.addChild(guard2);
 				world.addChild(guard3);
 				world.addChild(guard4);
 				world.addChild(guard5);
+				world.addChild(extraItem);
+				world.addChild(winItem);
 				setTimeout(function() {
 					traps = 1;
 				}, 300);
@@ -1062,99 +1072,97 @@ function start3() {//////////////////////////////////////////////////////
 	};
 
 	/*//Right guard (left) 1
-	var guard = new Sprite();
-	guard.image = Textures.load("Resources/bat_full.png");
-	guard.width = 67;
-	guard.height = 67;
-	guard.x = 70 * 11;
-	guard.y = 70 * 25;
-	guard.alerted = false;
-	guard.frameWidth = 63;
-	guard.frameHeight = 49;
-	guard.frameCount = 20;
-	guard.frameRate = 7;
-	guard.moveRate = 7;
-	guard.speed = 2;
-	guard.addAnimations(["down", "up", "right", "left"], [5, 5, 5, 5]);
+	 var guard = new Sprite();
+	 guard.image = Textures.load("Resources/bat_full.png");
+	 guard.width = 67;
+	 guard.height = 67;
+	 guard.x = 70 * 11;
+	 guard.y = 70 * 25;
+	 guard.alerted = false;
+	 guard.frameWidth = 63;
+	 guard.frameHeight = 49;
+	 guard.frameCount = 20;
+	 guard.frameRate = 7;
+	 guard.moveRate = 7;
+	 guard.speed = 2;
+	 guard.addAnimations(["down", "up", "right", "left"], [5, 5, 5, 5]);
 
-	var availSpace = 0;
+	 var availSpace = 0;
 
-	guard.update = function() {
-		if (trap.collision(guard)) {
-			setTimeout(function() {
-				guard.x = 0;
-				guard.y = 0;
-				world.removeChild(guard);
-				trap.alpha = 0;
-			}, 250);
-		}
-		
-		availSpace += guard.speed;
+	 guard.update = function() {
+	 if (trap.collision(guard)) {
+	 setTimeout(function() {
+	 guard.x = 0;
+	 guard.y = 0;
+	 world.removeChild(guard);
+	 trap.alpha = 0;
+	 }, 250);
+	 }
 
-		if (availSpace <= 70) {//curently working
-			guard.animation = "up";
-			//guard2.frameRate = guard2.moveRate;
-			guard.y -= guard.speed;
-		}
-		if (availSpace >= 70) {
-			guard.y -= 0;
-			guard.animation = "right";
-			//guard2.frameRate = guard2.moveRate;
-			guard.x += guard.speed;
-		}
+	 availSpace += guard.speed;
 
-		if (availSpace >= 210) {
-			guard.x -= guard.speed;
-			guard.animation = "down";
-			//guard2.frameRate = guard2.moveRate;
-			guard.y += guard.speed;
-		}
+	 if (availSpace <= 70) {//curently working
+	 guard.animation = "up";
+	 //guard2.frameRate = guard2.moveRate;
+	 guard.y -= guard.speed;
+	 }
+	 if (availSpace >= 70) {
+	 guard.y -= 0;
+	 guard.animation = "right";
+	 //guard2.frameRate = guard2.moveRate;
+	 guard.x += guard.speed;
+	 }
 
-		if (availSpace >= 350) {
-			guard.y -= guard.speed;
-			guard.animation = "left";
-			//guard2.frameRate = guard2.moveRate;
-			guard.x -= guard.speed;
-		}
+	 if (availSpace >= 210) {
+	 guard.x -= guard.speed;
+	 guard.animation = "down";
+	 //guard2.frameRate = guard2.moveRate;
+	 guard.y += guard.speed;
+	 }
 
-		if (availSpace >= 490) {
-			guard.x += guard.speed;
-			guard.animation = "up";
-			//guard2.frameRate = guard2.moveRate;
-			guard.y -= guard.speed;
-		}
+	 if (availSpace >= 350) {
+	 guard.y -= guard.speed;
+	 guard.animation = "left";
+	 //guard2.frameRate = guard2.moveRate;
+	 guard.x -= guard.speed;
+	 }
 
-		if (availSpace >= 560) {
-			guard.y += guard.speed;
-			//guard2.frameRate = guard2.moveRate;
-			availSpace = 0;
-		}
+	 if (availSpace >= 490) {
+	 guard.x += guard.speed;
+	 guard.animation = "up";
+	 //guard2.frameRate = guard2.moveRate;
+	 guard.y -= guard.speed;
+	 }
 
-	};*/
+	 if (availSpace >= 560) {
+	 guard.y += guard.speed;
+	 //guard2.frameRate = guard2.moveRate;
+	 availSpace = 0;
+	 }
 
-
+	 };*/
 
 	/*function short_collision(px, py) {
-		if (px > 70 * 8 - 35 && px < 70 * 9 - 30 && py > 70 * 5 - 35 && py < 70 * 6) {
-			return true;
-		}
-		return false;
-	}
+	 if (px > 70 * 8 - 35 && px < 70 * 9 - 30 && py > 70 * 5 - 35 && py < 70 * 6) {
+	 return true;
+	 }
+	 return false;
+	 }
 
-	function long_collision(px, py) {
-		if (px > 70 * 8 - 35 && px < 70 * 9 - 30 && py > 70 * 5 - 35 && py < 70 * 8) {
-			return true;
-		}
-		return false;
-	}*/
+	 function long_collision(px, py) {
+	 if (px > 70 * 8 - 35 && px < 70 * 9 - 30 && py > 70 * 5 - 35 && py < 70 * 8) {
+	 return true;
+	 }
+	 return false;
+	 }*/
 
 	var player = new Sprite();
 	player.image = Textures.load("Resources/Jax_walk_FULL.png");
 	player.width = 62;
 	player.height = 62;
 	player.x = 70 * 8;
-	player.y = 70 * 33;
-	
+	player.y = 70 * 34;
+
 	player.collision = function(sprite) {
 		if (this.x < sprite.x + sprite.width && this.x + this.width > sprite.x && this.y < sprite.y + sprite.height && this.y + this.height > sprite.y) {
 			return true;
@@ -1170,7 +1178,7 @@ function start3() {//////////////////////////////////////////////////////
 		}
 	};
 
-	var guard = new Sprite(); 
+	var guard = new Sprite();
 	guard.image = Textures.load("Resources/bat_full.png");
 	guard.width = 67;
 	guard.height = 67;
@@ -1186,22 +1194,19 @@ function start3() {//////////////////////////////////////////////////////
 	guard.addAnimations(["down", "up", "right", "left"], [5, 5, 5, 5]);
 
 	var availSpace = 0;
-	
-	
-	
 
-guard.update = function() {
-	availSpace += guard.speed;
-	
-		if (trap.collision(this)) {
+	guard.update = function() {
+		availSpace += guard.speed;
+
+		if (trap.collision(guard)) {
 			setTimeout(function() {
-				this.x = 0;
-				this.y = 0;
-				world.removeChild(guard);
+				guard.x = -1000;
+				guard.y = 0;
+				//world.removeChild(guard);
 				trap.alpha = 0;
 			}, 250);
 		}
-		if (availSpace <= 70) {   //curently working
+		if (availSpace <= 70) {//curently working
 			guard.animation = "left";
 			//guard2.frameRate = guard2.moveRate;
 			guard.x -= guard.speed;
@@ -1220,7 +1225,7 @@ guard.update = function() {
 			//guard2.frameRate = guard2.moveRate;
 			guard.x -= guard.speed;
 		}
-		
+
 		if (availSpace >= 420) {
 			guard.x += guard.speed;
 			//guard.animation = "left";
@@ -1228,11 +1233,9 @@ guard.update = function() {
 			availSpace = 0;
 		}
 	};
-	
-	
-	
+
 	//guard2 (Bottom-right)
-var guard2 = new Sprite(); 
+	var guard2 = new Sprite();
 	guard2.image = Textures.load("Resources/bat_full.png");
 	guard2.width = 67;
 	guard2.height = 67;
@@ -1247,68 +1250,64 @@ var guard2 = new Sprite();
 	guard2.speed = 2;
 	guard2.addAnimations(["down", "up", "right", "left"], [5, 5, 5, 5]);
 
+	var availSpace2 = 0;
 
-var availSpace2 = 0;
-	
-	
-	
-
-guard2.update = function() {
-availSpace2 += guard2.speed;
-if (trap.collision(this)) {
+	guard2.update = function() {
+		availSpace2 += guard2.speed;
+		if (trap.collision(guard2)) {
 			setTimeout(function() {
-				this.x = 0;
-				this.y = 0;
-				world.removeChild(guard2);
+				guard2.x = -1000;
+				guard2.y = 0;
+				//world.removeChild(guard2);
 				trap.alpha = 0;
 			}, 250);
 		}
-	
-	if (availSpace2 <= 140) {   //curently working
-		guard2.animation = "up";
-		//guard2.frameRate = guard2.moveRate;
-		guard2.y -= guard2.speed;
-	}
 
-	if (availSpace2 >= 140) {
-		guard2.y -= 0;
-		guard2.animation = "down";
-		//guard2.frameRate = guard2.moveRate;
-		guard2.y += guard2.speed;
-	}
+		if (availSpace2 <= 140) {//curently working
+			guard2.animation = "up";
+			//guard2.frameRate = guard2.moveRate;
+			guard2.y -= guard2.speed;
+		}
 
-	if (availSpace2 >= 420) {
-		guard2.y -= guard2.speed;
-		guard2.animation = "left";
-		//guard2.frameRate = guard2.moveRate;
-		guard2.x -= guard2.speed;
-	}
+		if (availSpace2 >= 140) {
+			guard2.y -= 0;
+			guard2.animation = "down";
+			//guard2.frameRate = guard2.moveRate;
+			guard2.y += guard2.speed;
+		}
 
-	if (availSpace2 >= 560) {
-		guard2.x += guard2.speed;
-		guard2.animation = "right";
-		//guard2.frameRate = guard2.moveRate;
-		guard2.x += guard2.speed;
-	}
+		if (availSpace2 >= 420) {
+			guard2.y -= guard2.speed;
+			guard2.animation = "left";
+			//guard2.frameRate = guard2.moveRate;
+			guard2.x -= guard2.speed;
+		}
 
-	if (availSpace2 >= 700) {
-		guard2.x -= guard2.speed;
-		guard2.animation = "up";
-		//guard2.frameRate = guard2.moveRate;
-		guard2.y -= guard2.speed;
-	}
+		if (availSpace2 >= 560) {
+			guard2.x += guard2.speed;
+			guard2.animation = "right";
+			//guard2.frameRate = guard2.moveRate;
+			guard2.x += guard2.speed;
+		}
 
-	if (availSpace2 >= 840) {
-		guard2.y += guard2.speed;
-		//guard2.animation = "left";
-		//guard2.frameRate = guard2.moveRate;
-		availSpace2 = 0;
-	}
+		if (availSpace2 >= 700) {
+			guard2.x -= guard2.speed;
+			guard2.animation = "up";
+			//guard2.frameRate = guard2.moveRate;
+			guard2.y -= guard2.speed;
+		}
 
-};
+		if (availSpace2 >= 840) {
+			guard2.y += guard2.speed;
+			//guard2.animation = "left";
+			//guard2.frameRate = guard2.moveRate;
+			availSpace2 = 0;
+		}
 
-//guard3 top middle
-var guard3 = new Sprite(); 
+	};
+
+	//guard3 top middle
+	var guard3 = new Sprite();
 	guard3.image = Textures.load("Resources/bat_full.png");
 	guard3.width = 67;
 	guard3.height = 67;
@@ -1323,53 +1322,49 @@ var guard3 = new Sprite();
 	guard3.speed = 2;
 	guard3.addAnimations(["down", "up", "right", "left"], [5, 5, 5, 5]);
 
+	var availSpace3 = 0;
 
-var availSpace3 = 0;
-	
-	
-	
-
-guard3.update = function() {
-availSpace3 += guard3.speed;
-if (trap.collision(this)) {
+	guard3.update = function() {
+		availSpace3 += guard3.speed;
+		if (trap.collision(guard3)) {
 			setTimeout(function() {
-				this.x = 0;
-				this.y = 0;
-				world.removeChild(guard3);
+				guard3.x = -1000;
+				guard3.y = 0;
+				//world.removeChild(guard3);
 				trap.alpha = 0;
 			}, 250);
 		}
-	
-	if (availSpace3 <= 70) {   //curently working
-		guard3.animation = "left";
-		//guard2.frameRate = guard2.moveRate;
-		guard3.x -= guard3.speed;
-	}
 
-	if (availSpace3 >= 70) {
-		guard3.x -= 0;
-		guard3.animation = "right";
-		//guard2.frameRate = guard2.moveRate;
-		guard3.x += guard3.speed;
-	}
+		if (availSpace3 <= 70) {//curently working
+			guard3.animation = "left";
+			//guard2.frameRate = guard2.moveRate;
+			guard3.x -= guard3.speed;
+		}
 
-	if (availSpace3 >= 350) {
-		guard3.x -= guard3.speed;
-		guard3.animation = "left";
-		//guard2.frameRate = guard2.moveRate;
-		guard3.x -= guard3.speed;
-	}
+		if (availSpace3 >= 70) {
+			guard3.x -= 0;
+			guard3.animation = "right";
+			//guard2.frameRate = guard2.moveRate;
+			guard3.x += guard3.speed;
+		}
 
-	if (availSpace3 >= 560) {
-		guard3.x += guard3.speed;
-		//guard3.animation = "right";
-		//guard2.frameRate = guard2.moveRate;
-		//guard3.x += guard3.speed;
-		availSpace3 = 0;
-	}
-	
-};
-var guard4 = new Sprite(); 
+		if (availSpace3 >= 350) {
+			guard3.x -= guard3.speed;
+			guard3.animation = "left";
+			//guard2.frameRate = guard2.moveRate;
+			guard3.x -= guard3.speed;
+		}
+
+		if (availSpace3 >= 560) {
+			guard3.x += guard3.speed;
+			//guard3.animation = "right";
+			//guard2.frameRate = guard2.moveRate;
+			//guard3.x += guard3.speed;
+			availSpace3 = 0;
+		}
+
+	};
+	var guard4 = new Sprite();
 	guard4.image = Textures.load("Resources/bat_full.png");
 	guard4.width = 67;
 	guard4.height = 67;
@@ -1384,66 +1379,65 @@ var guard4 = new Sprite();
 	guard4.speed = 2;
 	guard4.addAnimations(["down", "up", "right", "left"], [5, 5, 5, 5]);
 
+	var availSpace4 = 0;
 
-var availSpace4 = 0;
+	guard4.update = function() {
+		availSpace4 += guard4.speed;
 
-guard4.update = function(){
-	availSpace4 += guard4.speed;
-	
-	if (trap.collision(this)) {
+		if (trap.collision(guard4)) {
 			setTimeout(function() {
-				this.x = 0;
-				this.y = 0;
-				world.removeChild(guard4);
+				guard4.x = -1000;
+				guard4.y = 0;
+				//world.removeChild(guard4);
 				trap.alpha = 0;
 			}, 250);
 		}
-	if (availSpace4 <= 140 ){
-		guard4.animation = "right";
-		guard4.x += guard4.speed;
-	}
-	
-	if (availSpace4 >= 140 ){
-		guard4.x += 0;
-		//animate
-		guard4.animation = "down";
-		guard4.y += guard4.speed;
-	}
-	if (availSpace4 >= 280 ){
-		guard4.animation = "left";
-		guard4.y -= guard4.speed;
-		//animate
-		guard4.x -= guard4.speed;
-	}
-	if (availSpace4 >= 420 ){
-		guard4.animation = "right";
-		guard4.x += guard4.speed;
-		//animate
-		guard4.x += guard4.speed;
-	}
-	
-	if (availSpace4 >= 560){
-		guard4.animation = "up";
-		guard4.x -= guard4.speed;
-		//animate
-		guard4.y -= guard4.speed;
-	}
-	
-	if (availSpace4 >= 700 ){
-		guard4.animation = "left";
-		guard4.y += guard4.speed;
-		//animate
-		guard4.x -= guard4.speed;
-	}
-	
-	if (availSpace4 >= 840){
-		guard4.x += guard4.speed;
-		//animate
-		availSpace4 = 0;
-	}
-};
+		if (availSpace4 <= 140) {
+			guard4.animation = "right";
+			guard4.x += guard4.speed;
+		}
 
-var guard5 = new Sprite(); 
+		if (availSpace4 >= 140) {
+			guard4.x += 0;
+			//animate
+			guard4.animation = "down";
+			guard4.y += guard4.speed;
+		}
+		if (availSpace4 >= 280) {
+			guard4.animation = "left";
+			guard4.y -= guard4.speed;
+			//animate
+			guard4.x -= guard4.speed;
+		}
+		if (availSpace4 >= 420) {
+			guard4.animation = "right";
+			guard4.x += guard4.speed;
+			//animate
+			guard4.x += guard4.speed;
+		}
+
+		if (availSpace4 >= 560) {
+			guard4.animation = "up";
+			guard4.x -= guard4.speed;
+			//animate
+			guard4.y -= guard4.speed;
+		}
+
+		if (availSpace4 >= 700) {
+			guard4.animation = "left";
+			guard4.y += guard4.speed;
+			//animate
+			guard4.x -= guard4.speed;
+		}
+
+		if (availSpace4 >= 840) {
+			guard4.x += guard4.speed;
+			//animate
+			availSpace4 = 0;
+		}
+	};
+
+	var guard5 = new Sprite();
 	guard5.image = Textures.load("Resources/bat_full.png");
 	guard5.width = 67;
 	guard5.height = 67;
@@ -1458,63 +1452,62 @@ var guard5 = new Sprite();
 	guard5.speed = 2;
 	guard5.addAnimations(["down", "up", "right", "left"], [5, 5, 5, 5]);
 
+	var availSpace5 = 0;
 
-var availSpace5 = 0;
-
-guard5.update = function(){
-	availSpace5 += guard5.speed;
-	if (trap.collision(this)) {
+	guard5.update = function() {
+		availSpace5 += guard5.speed;
+		if (trap.collision(guard5)) {
 			setTimeout(function() {
-				this.x = 0;
-				this.y = 0;
-				world.removeChild(guard5);
+				guard5.x = -1000;
+				guard5.y = 0;
+				//world.removeChild(guard5);
 				trap.alpha = 0;
 			}, 250);
 		}
-	
-	if (availSpace5 <= 210 ){
-		guard5.animation = "down";
-		guard5.y += guard5.speed;
-	}
-	
-	if (availSpace5 >= 210 ){
-		guard5.animation = "left";
-		guard5.y += 0;
-		//animate
-		guard5.x -= guard5.speed;
-	}
-	if (availSpace5 >= 280 ){
-		guard5.animation = "up";
-		guard5.x += guard5.speed;
-		//animate
-		guard5.y -= guard5.speed;
-	}
-	if (availSpace5 >= 490 ){
-		guard5.animation = "right";
-		guard5.y += guard5.speed;
-		//animate
-		guard5.x += guard5.speed;
-	}
-	
-	if (availSpace5 >= 560){
-		guard5.x -= guard5.speed;
-		//animate
-		//guard5.y -= guard5.speed;
-		availSpace5 = 0;
-	}
-	/*
-	if (availSpace4 >= 700 ){
-		guard5.y += guard5.speed;
-		//animate
-		guard5.x -= guard5.speed;
-	}
-	
-	if (availSpace4 >= 840){
-		guard5.x += guard5.speed;
-		//animate
-		availSpace4 = 0;
-	}*/
-};
+
+		if (availSpace5 <= 210) {
+			guard5.animation = "down";
+			guard5.y += guard5.speed;
+		}
+
+		if (availSpace5 >= 210) {
+			guard5.animation = "left";
+			guard5.y += 0;
+			//animate
+			guard5.x -= guard5.speed;
+		}
+		if (availSpace5 >= 280) {
+			guard5.animation = "up";
+			guard5.x += guard5.speed;
+			//animate
+			guard5.y -= guard5.speed;
+		}
+		if (availSpace5 >= 490) {
+			guard5.animation = "right";
+			guard5.y += guard5.speed;
+			//animate
+			guard5.x += guard5.speed;
+		}
+
+		if (availSpace5 >= 560) {
+			guard5.x -= guard5.speed;
+			//animate
+			//guard5.y -= guard5.speed;
+			availSpace5 = 0;
+		}
+		/*
+		 if (availSpace4 >= 700 ){
+		 guard5.y += guard5.speed;
+		 //animate
+		 guard5.x -= guard5.speed;
+		 }
+
+		 if (availSpace4 >= 840){
+		 guard5.x += guard5.speed;
+		 //animate
+		 availSpace4 = 0;
+		 }*/
+	};
 
 	if (player.gcollision(guard)) {
 		screenMan.push(gameOver);
@@ -1571,25 +1564,30 @@ guard5.update = function(){
 	player.nodown = false;
 
 	player.update = function(d) {
-		
-		
-		if(player.gcollision(guard)){
+		if (player.y < 18.5 * u && player.y > 9.5 * u) {
+			roof.alpha = 0.2;
+		}
+		if (player.y > 18.5 * u || player.y < 9.5 * u) {
+			roof.alpha = 1;
+		}
+
+		if (player.gcollision(guard)) {
 			setCookie("auto", 1, 30);
 			screenMan.push(gameOver);
 		}
-		if(player.gcollision(guard2)){
+		if (player.gcollision(guard2)) {
 			setCookie("auto", 1, 30);
 			screenMan.push(gameOver);
 		}
-		if(player.gcollision(guard3)){
+		if (player.gcollision(guard3)) {
 			setCookie("auto", 1, 30);
 			screenMan.push(gameOver);
 		}
-		if(player.gcollision(guard4)){
+		if (player.gcollision(guard4)) {
 			setCookie("auto", 1, 30);
 			screenMan.push(gameOver);
 		}
-		if(player.gcollision(guard5)){
+		if (player.gcollision(guard5)) {
 			setCookie("auto", 1, 30);
 			screenMan.push(gameOver);
 		}
@@ -1700,33 +1698,33 @@ guard5.update = function(){
 
 		 ////////////////////////////////////////////////////////////////////////////////*/
 		/*if (!guard.alerted) {
-			if (guard.vision == 0 && short_collision(this.x, this.y)) {
-				guard.frameRate = 7;
-				guard.moveRate = 7;
-				setCookie(auto, 1);
-				screenMan.push(gameOver);
-				guard.alerted = true;
-			} else if (guard.vision == 1 && long_collision(this.x, this.y)) {
-				guard.frameRate = 7;
-				guard.moveRate = 7;
-				setCookie(auto, 1);
-				screenMan.push(gameOver);
-				guard.alerted = true;
-			}
-			if (this.collision(light)) {
-				guard.frameRate = 7;
-				guard.moveRate = 7;
-				setCookie(auto, 1);
-				screenMan.push(gameOver);
-				guard.alerted = true;
-			}
-			for (var i = 0; i < end.length; i++) {
-				if (player.collision(end[i])) {
-					world.addChild(win);
-					guard.alerted = true;
-				}
-			}
-		}*/
+		 if (guard.vision == 0 && short_collision(this.x, this.y)) {
+		 guard.frameRate = 7;
+		 guard.moveRate = 7;
+		 setCookie(auto, 1);
+		 screenMan.push(gameOver);
+		 guard.alerted = true;
+		 } else if (guard.vision == 1 && long_collision(this.x, this.y)) {
+		 guard.frameRate = 7;
+		 guard.moveRate = 7;
+		 setCookie(auto, 1);
+		 screenMan.push(gameOver);
+		 guard.alerted = true;
+		 }
+		 if (this.collision(light)) {
+		 guard.frameRate = 7;
+		 guard.moveRate = 7;
+		 setCookie(auto, 1);
+		 screenMan.push(gameOver);
+		 guard.alerted = true;
+		 }
+		 for (var i = 0; i < end.length; i++) {
+		 if (player.collision(end[i])) {
+		 world.addChild(win);
+		 guard.alerted = true;
+		 }
+		 }
+		 }*/
 		if (screenMan.screens.find(pauseMenu)) {
 			traps = 0;
 			player.speed = 0;
@@ -1815,7 +1813,7 @@ guard5.update = function(){
 	 /////////////////////////////////////////////////////////////////////////////////////////////*/
 
 	function startGame3() {
-		//textLevelOne();
+		textLevelTwo();
 	}
 
 
@@ -1824,17 +1822,17 @@ guard5.update = function(){
 		var bigW = 30;
 		var smallW = 11;
 		/*ctx.fillStyle = "lightgreen";
-		ctx.fillText("noup " + player.noup, canvas.width / 2 + -world.x - (70 * 4), canvas.height / 2 + -world.y - (70 * 4));
-		ctx.fillText("nodown " + player.nodown, canvas.width / 2 + -world.x - (70 * 4), canvas.height / 2 + -world.y - (70 * 4) + 10);
-		ctx.fillText("noleft " + player.noleft, canvas.width / 2 + -world.x - (70 * 4), canvas.height / 2 + -world.y - (70 * 4) + 20);
-		ctx.fillText("noright " + player.noright, canvas.width / 2 + -world.x - (70 * 4), canvas.height / 2 + -world.y - (70 * 4) + 30);*/
+		 ctx.fillText("noup " + player.noup, canvas.width / 2 + -world.x - (70 * 4), canvas.height / 2 + -world.y - (70 * 4));
+		 ctx.fillText("nodown " + player.nodown, canvas.width / 2 + -world.x - (70 * 4), canvas.height / 2 + -world.y - (70 * 4) + 10);
+		 ctx.fillText("noleft " + player.noleft, canvas.width / 2 + -world.x - (70 * 4), canvas.height / 2 + -world.y - (70 * 4) + 20);
+		 ctx.fillText("noright " + player.noright, canvas.width / 2 + -world.x - (70 * 4), canvas.height / 2 + -world.y - (70 * 4) + 30);*/
 		ctx.fillText("lights[4].xy1.x: " + lights[4].xy1.y, canvas.width / 2 + -world.x - (70 * 4), canvas.height / 2 + -world.y - (70 * 4) + 40);
 		ctx.fillText("lights[4].origin.x: " + lights[4].origin.y, canvas.width / 2 + -world.x - (70 * 4), canvas.height / 2 + -world.y - (70 * 4) + 50);
 		ctx.fillStyle = "white";
-		ctx.font="30px Verdana";
-		ctx.fillText("x" + boxcount, canvas.width/2 + -world.x + (70 * 4) - 20, canvas.height/2 + -world.y + (70 * 4) + 10);
-		ctx.fillText("x" + traps, canvas.width/2 + -world.x + (70 * 4) + 90, canvas.height/2 + -world.y + (70 * 4) + 10);
-		
+		ctx.font = "30px Verdana";
+		ctx.fillText("x" + boxcount, canvas.width / 2 + -world.x + (70 * 4) - 20, canvas.height / 2 + -world.y + (70 * 4) + 10);
+		ctx.fillText("x" + traps, canvas.width / 2 + -world.x + (70 * 4) + 90, canvas.height / 2 + -world.y + (70 * 4) + 10);
+
 		ctx.strokeStyle = "orange";
 		ctx.lineWidth = smallW;
 		//var g = 76;
@@ -1886,7 +1884,7 @@ guard5.update = function(){
 			}
 		}
 		if (!this.nodown) {
-			if (player.y + 315 < bg.height && player.y > ycenter) {
+			if (player.y + 315 < bg.height && player.y >= ycenter) {
 				world.y -= player.speed;
 			}
 			this.animation = "down";
@@ -1920,7 +1918,7 @@ guard5.update = function(){
 			}
 		}
 		if (!this.noright) {
-			if (player.x + 420 < bg.width && player.x > xcenter) {
+			if (player.x + 420 < bg.width - 140 && player.x > xcenter) {
 				world.x -= player.speed;
 			}
 			this.animation = "right";
@@ -2030,7 +2028,7 @@ guard5.update = function(){
 			return true;
 		}
 	};
-	
+
 	trap.collision = function(sprite) {
 		if (this.x < sprite.x + sprite.width && this.x + this.width > sprite.x && this.y < sprite.y + sprite.height && this.y + this.height > sprite.y) {
 			return true;
@@ -2038,7 +2036,20 @@ guard5.update = function(){
 			return false;
 		}
 	};
-	
+	extraItem.collision = function(sprite) {
+		if (this.x < sprite.x + sprite.width && this.x + this.width > sprite.x && this.y < sprite.y + sprite.height && this.y + this.height > sprite.y) {
+			return true;
+		} else {
+			return false;
+		}
+	};
+	winItem.collision = function(sprite) {
+		if (this.x < sprite.x + sprite.width && this.x + this.width > sprite.x && this.y < sprite.y + sprite.height && this.y + this.height > sprite.y) {
+			return true;
+		} else {
+			return false;
+		}
+	};
 
 	function intersect(l0p0, l0p1, l1p0, l1p1) {
 		var coll = new Object();
@@ -2075,27 +2086,51 @@ guard5.update = function(){
 	var pcollisions = new Array();
 
 	startGame3();
-	
+
 	var trapGive = false;
+
+	var blank = new Sprite();
+	blank.image = Textures.load("Resources/box_game_sprite.jpg");
+	blank.width = 35;
+	blank.height = 35;
+	blank.x = -35;
+	world.addChild(blank);
+	world.addChild(blank);
+	world.addChild(blank);
+	world.addChild(blank);
+	world.addChild(blank);
+	world.addChild(blank);
+	world.addChild(blank);
+	world.addChild(blank);
 
 	world.update = function(d) {
 		//player with light collisions HERE///////////////////lights.edit////////////////////////////////////////
-		if (!cursor.active /*&& levelScriptOne == true*/) {
+		if (!cursor.active && levelScriptTwo == true) {
 			cursor.moving = true;
 			setTimeout(function() {
 				cursor.moving = false;
 			}, 150);
 			screenMan.push(inventory);
 			world.addChild(cursor);
+			world.addChild(roof);
 			cursor.active = true;
 		}
-		/*if (player.y < 3.5 * u) {
+		if (winItem.collision(player) && !levelDone) {
 			for (var k = 0; k < 2; k++) {
 				boxes[k].alpha = 0;
 			}
 			player.speed = 0;
-			textEndLevelOne();
-		}*/
+			textEndLevelTwo();
+			levelDone = true;
+		}
+		if (extraItem.collision(player)) {
+			setTimeout(function() {
+				extraItem.x = 0;
+				extraItem.y = 0;
+				world.removeChild(extraItem);
+				extraItem.alpha = 0;
+			}, 250);
+		}
 
 		pcollisions[0] = intersect(player.tl, player.br, lights[0].origin, lights[0].lp[0]);
 		pcollisions[1] = intersect(player.tr, player.bl, lights[0].origin, lights[0].lp[0]);
@@ -2140,19 +2175,19 @@ guard5.update = function(){
 		pcollisions[35] = intersect(player.tr, player.bl, lights[5].origin, lights[5].lp[2]);
 		//[5]
 		/*pcollisions[36] = intersect(player.tl, player.br, lights[6].origin, lights[6].lp[0]);
-		pcollisions[37] = intersect(player.tr, player.bl, lights[6].origin, lights[6].lp[0]);
-		pcollisions[38] = intersect(player.tl, player.br, lights[6].origin, lights[6].lp[1]);
-		pcollisions[39] = intersect(player.tr, player.bl, lights[6].origin, lights[6].lp[1]);
-		pcollisions[40] = intersect(player.tl, player.br, lights[6].origin, lights[6].lp[2]);
-		pcollisions[41] = intersect(player.tr, player.bl, lights[6].origin, lights[6].lp[2]);
-		//[6]
-		pcollisions[42] = intersect(player.tl, player.br, lights[7].origin, lights[7].lp[0]);
-		pcollisions[43] = intersect(player.tr, player.bl, lights[7].origin, lights[7].lp[0]);
-		pcollisions[44] = intersect(player.tl, player.br, lights[7].origin, lights[7].lp[1]);
-		pcollisions[45] = intersect(player.tr, player.bl, lights[7].origin, lights[7].lp[1]);
-		pcollisions[46] = intersect(player.tl, player.br, lights[7].origin, lights[7].lp[2]);
-		pcollisions[47] = intersect(player.tr, player.bl, lights[7].origin, lights[7].lp[2]);
-		//[7]*/
+		 pcollisions[37] = intersect(player.tr, player.bl, lights[6].origin, lights[6].lp[0]);
+		 pcollisions[38] = intersect(player.tl, player.br, lights[6].origin, lights[6].lp[1]);
+		 pcollisions[39] = intersect(player.tr, player.bl, lights[6].origin, lights[6].lp[1]);
+		 pcollisions[40] = intersect(player.tl, player.br, lights[6].origin, lights[6].lp[2]);
+		 pcollisions[41] = intersect(player.tr, player.bl, lights[6].origin, lights[6].lp[2]);
+		 //[6]
+		 pcollisions[42] = intersect(player.tl, player.br, lights[7].origin, lights[7].lp[0]);
+		 pcollisions[43] = intersect(player.tr, player.bl, lights[7].origin, lights[7].lp[0]);
+		 pcollisions[44] = intersect(player.tl, player.br, lights[7].origin, lights[7].lp[1]);
+		 pcollisions[45] = intersect(player.tr, player.bl, lights[7].origin, lights[7].lp[1]);
+		 pcollisions[46] = intersect(player.tl, player.br, lights[7].origin, lights[7].lp[2]);
+		 pcollisions[47] = intersect(player.tr, player.bl, lights[7].origin, lights[7].lp[2]);
+		 //[7]*/
 
 		var lose = false;
 		if (!lose) {
