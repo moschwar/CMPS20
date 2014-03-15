@@ -721,29 +721,21 @@ function start3() {//////////////////////////////////////////////////////
 	var ycenter = 315;
 	var traps = 0;
 
-	var levelDone = false;
+	/*var roof = new Sprite();
+	roof.image = Textures.load("Resources/roof.png");
+	roof.width = u * 3.6 + 4;
+	roof.height = u * 3.75 + 6;
+	roof.x = u * 4.5 + 12;
+	roof.y = u * 1.25 - 3;
+	world.addChild(roof);*/
+	
 
-	var extraItem = new Sprite();
-	extraItem.image = Textures.load("Resources/bonus_item.png");
-	extraItem.width = 50;
-	extraItem.height = 40;
-	extraItem.x = 70 * 17 + 12;
-	extraItem.y = 70 * 31 + 17;
-
-	var winItem = new Sprite();
-	winItem.image = Textures.load("Resources/briefcase.png");
-	winItem.width = 50;
-	winItem.height = 40;
-	winItem.x = 70 * 3 + 13;
-	winItem.y = 70 * 2 + 30;
-
-	var roof = new Sprite();
-	roof.image = Textures.load("Resources/level_2_roof.png");
-	roof.index = -1;
-	roof.width = u * 4.6 + 4;
-	roof.height = u * 7.75 + 16;
-	roof.x = u * 8.5 + 12;
-	roof.y = u * 10.25 - 12;
+	var win = new Sprite();
+	win.image = Textures.load("http://static2.wikia.no.net/__cb20100728113416/mafiawars/images/7/7e/Boss_title_youwin.png");
+	win.width = 70 * 4;
+	win.height = 70 * 1;
+	win.x = 70 * 11;
+	win.y = 70 * 2;
 
 	
 
@@ -929,7 +921,6 @@ function start3() {//////////////////////////////////////////////////////
 
 	var cursor = new Sprite();
 	cursor.image = red.image;
-	cursor.index = -2;
 	cursor.width = 70;
 	cursor.height = 70;
 	cursor.x = 70 * 6;
@@ -966,7 +957,7 @@ function start3() {//////////////////////////////////////////////////////
 			}
 			if (gInput.up) {
 				this.moving = true;
-				if (this.y != 0) {
+				if (this.y != 70) {
 					this.y -= this.speed;
 				}
 				if (world.y < -2 && this.y < bg.height - ycenter) {
@@ -1036,15 +1027,13 @@ function start3() {//////////////////////////////////////////////////////
 				boxes[boxcount - 1].placed = true;
 				boxcount--;
 				world.x = -70 * 4;
-				world.y = -70 * 27;
+				world.y = -70 * 25;
 				world.addChild(player);
 				world.addChild(guard);
 				world.addChild(guard2);
 				world.addChild(guard3);
 				world.addChild(guard4);
 				world.addChild(guard5);
-				world.addChild(extraItem);
-				world.addChild(winItem);
 				setTimeout(function() {
 					traps = 1;
 				}, 300);
@@ -1151,7 +1140,11 @@ function start3() {//////////////////////////////////////////////////////
 	player.width = 62;
 	player.height = 62;
 	player.x = 70 * 8;
+<<<<<<< HEAD
 	player.y = 70 * 34;
+=======
+	player.y = 70 * 33;
+>>>>>>> parent of 0f26808... Updated Level 2!!! BOIIIIII
 	
 	player.collision = function(sprite) {
 		if (this.x < sprite.x + sprite.width && this.x + this.width > sprite.x && this.y < sprite.y + sprite.height && this.y + this.height > sprite.y) {
@@ -1168,7 +1161,7 @@ function start3() {//////////////////////////////////////////////////////
 		}
 	};
 
-	var guard = new Sprite();
+	var guard = new Sprite(); 
 	guard.image = Textures.load("Resources/bat_full.png");
 	guard.width = 67;
 	guard.height = 67;
@@ -1184,19 +1177,22 @@ function start3() {//////////////////////////////////////////////////////
 	guard.addAnimations(["down", "up", "right", "left"], [5, 5, 5, 5]);
 
 	var availSpace = 0;
+	
+	
+	
 
-	guard.update = function() {
-		availSpace += guard.speed;
-
-		if (trap.collision(guard)) {
+guard.update = function() {
+	availSpace += guard.speed;
+	
+		if (trap.collision(this)) {
 			setTimeout(function() {
-				guard.x = -1000;
-				guard.y = 0;
-				//world.removeChild(guard);
+				this.x = 0;
+				this.y = 0;
+				world.removeChild(guard);
 				trap.alpha = 0;
 			}, 250);
 		}
-		if (availSpace <= 70) {//curently working
+		if (availSpace <= 70) {   //curently working
 			guard.animation = "left";
 			//guard2.frameRate = guard2.moveRate;
 			guard.x -= guard.speed;
@@ -1215,7 +1211,7 @@ function start3() {//////////////////////////////////////////////////////
 			//guard2.frameRate = guard2.moveRate;
 			guard.x -= guard.speed;
 		}
-
+		
 		if (availSpace >= 420) {
 			guard.x += guard.speed;
 			//guard.animation = "left";
@@ -1223,9 +1219,11 @@ function start3() {//////////////////////////////////////////////////////
 			availSpace = 0;
 		}
 	};
-
+	
+	
+	
 	//guard2 (Bottom-right)
-	var guard2 = new Sprite();
+var guard2 = new Sprite(); 
 	guard2.image = Textures.load("Resources/bat_full.png");
 	guard2.width = 67;
 	guard2.height = 67;
@@ -1240,64 +1238,68 @@ function start3() {//////////////////////////////////////////////////////
 	guard2.speed = 2;
 	guard2.addAnimations(["down", "up", "right", "left"], [5, 5, 5, 5]);
 
-	var availSpace2 = 0;
 
-	guard2.update = function() {
-		availSpace2 += guard2.speed;
-		if (trap.collision(guard2)) {
+var availSpace2 = 0;
+	
+	
+	
+
+guard2.update = function() {
+availSpace2 += guard2.speed;
+if (trap.collision(this)) {
 			setTimeout(function() {
-				guard2.x = -1000;
-				guard2.y = 0;
-				//world.removeChild(guard2);
+				this.x = 0;
+				this.y = 0;
+				world.removeChild(guard2);
 				trap.alpha = 0;
 			}, 250);
 		}
+	
+	if (availSpace2 <= 140) {   //curently working
+		guard2.animation = "up";
+		//guard2.frameRate = guard2.moveRate;
+		guard2.y -= guard2.speed;
+	}
 
-		if (availSpace2 <= 140) {//curently working
-			guard2.animation = "up";
-			//guard2.frameRate = guard2.moveRate;
-			guard2.y -= guard2.speed;
-		}
+	if (availSpace2 >= 140) {
+		guard2.y -= 0;
+		guard2.animation = "down";
+		//guard2.frameRate = guard2.moveRate;
+		guard2.y += guard2.speed;
+	}
 
-		if (availSpace2 >= 140) {
-			guard2.y -= 0;
-			guard2.animation = "down";
-			//guard2.frameRate = guard2.moveRate;
-			guard2.y += guard2.speed;
-		}
+	if (availSpace2 >= 420) {
+		guard2.y -= guard2.speed;
+		guard2.animation = "left";
+		//guard2.frameRate = guard2.moveRate;
+		guard2.x -= guard2.speed;
+	}
 
-		if (availSpace2 >= 420) {
-			guard2.y -= guard2.speed;
-			guard2.animation = "left";
-			//guard2.frameRate = guard2.moveRate;
-			guard2.x -= guard2.speed;
-		}
+	if (availSpace2 >= 560) {
+		guard2.x += guard2.speed;
+		guard2.animation = "right";
+		//guard2.frameRate = guard2.moveRate;
+		guard2.x += guard2.speed;
+	}
 
-		if (availSpace2 >= 560) {
-			guard2.x += guard2.speed;
-			guard2.animation = "right";
-			//guard2.frameRate = guard2.moveRate;
-			guard2.x += guard2.speed;
-		}
+	if (availSpace2 >= 700) {
+		guard2.x -= guard2.speed;
+		guard2.animation = "up";
+		//guard2.frameRate = guard2.moveRate;
+		guard2.y -= guard2.speed;
+	}
 
-		if (availSpace2 >= 700) {
-			guard2.x -= guard2.speed;
-			guard2.animation = "up";
-			//guard2.frameRate = guard2.moveRate;
-			guard2.y -= guard2.speed;
-		}
+	if (availSpace2 >= 840) {
+		guard2.y += guard2.speed;
+		//guard2.animation = "left";
+		//guard2.frameRate = guard2.moveRate;
+		availSpace2 = 0;
+	}
 
-		if (availSpace2 >= 840) {
-			guard2.y += guard2.speed;
-			//guard2.animation = "left";
-			//guard2.frameRate = guard2.moveRate;
-			availSpace2 = 0;
-		}
+};
 
-	};
-
-	//guard3 top middle
-	var guard3 = new Sprite();
+//guard3 top middle
+var guard3 = new Sprite(); 
 	guard3.image = Textures.load("Resources/bat_full.png");
 	guard3.width = 67;
 	guard3.height = 67;
@@ -1312,49 +1314,53 @@ function start3() {//////////////////////////////////////////////////////
 	guard3.speed = 2;
 	guard3.addAnimations(["down", "up", "right", "left"], [5, 5, 5, 5]);
 
-	var availSpace3 = 0;
 
-	guard3.update = function() {
-		availSpace3 += guard3.speed;
-		if (trap.collision(guard3)) {
+var availSpace3 = 0;
+	
+	
+	
+
+guard3.update = function() {
+availSpace3 += guard3.speed;
+if (trap.collision(this)) {
 			setTimeout(function() {
-				guard3.x = -1000;
-				guard3.y = 0;
-				//world.removeChild(guard3);
+				this.x = 0;
+				this.y = 0;
+				world.removeChild(guard3);
 				trap.alpha = 0;
 			}, 250);
 		}
+	
+	if (availSpace3 <= 70) {   //curently working
+		guard3.animation = "left";
+		//guard2.frameRate = guard2.moveRate;
+		guard3.x -= guard3.speed;
+	}
 
-		if (availSpace3 <= 70) {//curently working
-			guard3.animation = "left";
-			//guard2.frameRate = guard2.moveRate;
-			guard3.x -= guard3.speed;
-		}
+	if (availSpace3 >= 70) {
+		guard3.x -= 0;
+		guard3.animation = "right";
+		//guard2.frameRate = guard2.moveRate;
+		guard3.x += guard3.speed;
+	}
 
-		if (availSpace3 >= 70) {
-			guard3.x -= 0;
-			guard3.animation = "right";
-			//guard2.frameRate = guard2.moveRate;
-			guard3.x += guard3.speed;
-		}
+	if (availSpace3 >= 350) {
+		guard3.x -= guard3.speed;
+		guard3.animation = "left";
+		//guard2.frameRate = guard2.moveRate;
+		guard3.x -= guard3.speed;
+	}
 
-		if (availSpace3 >= 350) {
-			guard3.x -= guard3.speed;
-			guard3.animation = "left";
-			//guard2.frameRate = guard2.moveRate;
-			guard3.x -= guard3.speed;
-		}
-
-		if (availSpace3 >= 560) {
-			guard3.x += guard3.speed;
-			//guard3.animation = "right";
-			//guard2.frameRate = guard2.moveRate;
-			//guard3.x += guard3.speed;
-			availSpace3 = 0;
-		}
-
-	};
-	var guard4 = new Sprite();
+	if (availSpace3 >= 560) {
+		guard3.x += guard3.speed;
+		//guard3.animation = "right";
+		//guard2.frameRate = guard2.moveRate;
+		//guard3.x += guard3.speed;
+		availSpace3 = 0;
+	}
+	
+};
+var guard4 = new Sprite(); 
 	guard4.image = Textures.load("Resources/bat_full.png");
 	guard4.width = 67;
 	guard4.height = 67;
@@ -1369,65 +1375,66 @@ function start3() {//////////////////////////////////////////////////////
 	guard4.speed = 2;
 	guard4.addAnimations(["down", "up", "right", "left"], [5, 5, 5, 5]);
 
-	var availSpace4 = 0;
 
-	guard4.update = function() {
-		availSpace4 += guard4.speed;
+var availSpace4 = 0;
 
-		if (trap.collision(guard4)) {
+guard4.update = function(){
+	availSpace4 += guard4.speed;
+	
+	if (trap.collision(this)) {
 			setTimeout(function() {
-				guard4.x = -1000;
-				guard4.y = 0;
-				//world.removeChild(guard4);
+				this.x = 0;
+				this.y = 0;
+				world.removeChild(guard4);
 				trap.alpha = 0;
 			}, 250);
 		}
-		if (availSpace4 <= 140) {
-			guard4.animation = "right";
-			guard4.x += guard4.speed;
-		}
+	if (availSpace4 <= 140 ){
+		guard4.animation = "right";
+		guard4.x += guard4.speed;
+	}
+	
+	if (availSpace4 >= 140 ){
+		guard4.x += 0;
+		//animate
+		guard4.animation = "down";
+		guard4.y += guard4.speed;
+	}
+	if (availSpace4 >= 280 ){
+		guard4.animation = "left";
+		guard4.y -= guard4.speed;
+		//animate
+		guard4.x -= guard4.speed;
+	}
+	if (availSpace4 >= 420 ){
+		guard4.animation = "right";
+		guard4.x += guard4.speed;
+		//animate
+		guard4.x += guard4.speed;
+	}
+	
+	if (availSpace4 >= 560){
+		guard4.animation = "up";
+		guard4.x -= guard4.speed;
+		//animate
+		guard4.y -= guard4.speed;
+	}
+	
+	if (availSpace4 >= 700 ){
+		guard4.animation = "left";
+		guard4.y += guard4.speed;
+		//animate
+		guard4.x -= guard4.speed;
+	}
+	
+	if (availSpace4 >= 840){
+		guard4.x += guard4.speed;
+		//animate
+		availSpace4 = 0;
+	}
+};
 
-		if (availSpace4 >= 140) {
-			guard4.x += 0;
-			//animate
-			guard4.animation = "down";
-			guard4.y += guard4.speed;
-		}
-		if (availSpace4 >= 280) {
-			guard4.animation = "left";
-			guard4.y -= guard4.speed;
-			//animate
-			guard4.x -= guard4.speed;
-		}
-		if (availSpace4 >= 420) {
-			guard4.animation = "right";
-			guard4.x += guard4.speed;
-			//animate
-			guard4.x += guard4.speed;
-		}
-
-		if (availSpace4 >= 560) {
-			guard4.animation = "up";
-			guard4.x -= guard4.speed;
-			//animate
-			guard4.y -= guard4.speed;
-		}
-
-		if (availSpace4 >= 700) {
-			guard4.animation = "left";
-			guard4.y += guard4.speed;
-			//animate
-			guard4.x -= guard4.speed;
-		}
-
-		if (availSpace4 >= 840) {
-			guard4.x += guard4.speed;
-			//animate
-			availSpace4 = 0;
-		}
-	};
-
-	var guard5 = new Sprite();
+var guard5 = new Sprite(); 
 	guard5.image = Textures.load("Resources/bat_full.png");
 	guard5.width = 67;
 	guard5.height = 67;
@@ -1442,62 +1449,63 @@ function start3() {//////////////////////////////////////////////////////
 	guard5.speed = 2;
 	guard5.addAnimations(["down", "up", "right", "left"], [5, 5, 5, 5]);
 
-	var availSpace5 = 0;
 
-	guard5.update = function() {
-		availSpace5 += guard5.speed;
-		if (trap.collision(guard5)) {
+var availSpace5 = 0;
+
+guard5.update = function(){
+	availSpace5 += guard5.speed;
+	if (trap.collision(this)) {
 			setTimeout(function() {
-				guard5.x = -1000;
-				guard5.y = 0;
-				//world.removeChild(guard5);
+				this.x = 0;
+				this.y = 0;
+				world.removeChild(guard5);
 				trap.alpha = 0;
 			}, 250);
 		}
-
-		if (availSpace5 <= 210) {
-			guard5.animation = "down";
-			guard5.y += guard5.speed;
-		}
-
-		if (availSpace5 >= 210) {
-			guard5.animation = "left";
-			guard5.y += 0;
-			//animate
-			guard5.x -= guard5.speed;
-		}
-		if (availSpace5 >= 280) {
-			guard5.animation = "up";
-			guard5.x += guard5.speed;
-			//animate
-			guard5.y -= guard5.speed;
-		}
-		if (availSpace5 >= 490) {
-			guard5.animation = "right";
-			guard5.y += guard5.speed;
-			//animate
-			guard5.x += guard5.speed;
-		}
-
-		if (availSpace5 >= 560) {
-			guard5.x -= guard5.speed;
-			//animate
-			//guard5.y -= guard5.speed;
-			availSpace5 = 0;
-		}
-		/*
-		 if (availSpace4 >= 700 ){
-		 guard5.y += guard5.speed;
-		 //animate
-		 guard5.x -= guard5.speed;
-		 }
-
-		 if (availSpace4 >= 840){
-		 guard5.x += guard5.speed;
-		 //animate
-		 availSpace4 = 0;
-		 }*/
-	};
+	
+	if (availSpace5 <= 210 ){
+		guard5.animation = "down";
+		guard5.y += guard5.speed;
+	}
+	
+	if (availSpace5 >= 210 ){
+		guard5.animation = "left";
+		guard5.y += 0;
+		//animate
+		guard5.x -= guard5.speed;
+	}
+	if (availSpace5 >= 280 ){
+		guard5.animation = "up";
+		guard5.x += guard5.speed;
+		//animate
+		guard5.y -= guard5.speed;
+	}
+	if (availSpace5 >= 490 ){
+		guard5.animation = "right";
+		guard5.y += guard5.speed;
+		//animate
+		guard5.x += guard5.speed;
+	}
+	
+	if (availSpace5 >= 560){
+		guard5.x -= guard5.speed;
+		//animate
+		//guard5.y -= guard5.speed;
+		availSpace5 = 0;
+	}
+	/*
+	if (availSpace4 >= 700 ){
+		guard5.y += guard5.speed;
+		//animate
+		guard5.x -= guard5.speed;
+	}
+	
+	if (availSpace4 >= 840){
+		guard5.x += guard5.speed;
+		//animate
+		availSpace4 = 0;
+	}*/
+};
 
 
 	if (player.gcollision(guard)) {
@@ -1799,7 +1807,7 @@ function start3() {//////////////////////////////////////////////////////
 	 /////////////////////////////////////////////////////////////////////////////////////////////*/
 
 	function startGame3() {
-		textLevelTwo();
+		//textLevelOne();
 	}
 
 
@@ -1812,8 +1820,13 @@ function start3() {//////////////////////////////////////////////////////
 		ctx.fillText("nodown " + player.nodown, canvas.width / 2 + -world.x - (70 * 4), canvas.height / 2 + -world.y - (70 * 4) + 10);
 		ctx.fillText("noleft " + player.noleft, canvas.width / 2 + -world.x - (70 * 4), canvas.height / 2 + -world.y - (70 * 4) + 20);
 		ctx.fillText("noright " + player.noright, canvas.width / 2 + -world.x - (70 * 4), canvas.height / 2 + -world.y - (70 * 4) + 30);*/
+<<<<<<< HEAD
 		ctx.fillText("continue cookie: " + getCookie("continue"), canvas.width / 2 + -world.x - (70 * 4), canvas.height / 2 + -world.y - (70 * 4) + 40);
 		ctx.fillText("auto cookie: " + getCookie(auto), canvas.width / 2 + -world.x - (70 * 4), canvas.height / 2 + -world.y - (70 * 4) + 50);
+=======
+		ctx.fillText("lights[4].xy1.x: " + lights[4].xy1.y, canvas.width / 2 + -world.x - (70 * 4), canvas.height / 2 + -world.y - (70 * 4) + 40);
+		ctx.fillText("lights[4].origin.x: " + lights[4].origin.y, canvas.width / 2 + -world.x - (70 * 4), canvas.height / 2 + -world.y - (70 * 4) + 50);
+>>>>>>> parent of 0f26808... Updated Level 2!!! BOIIIIII
 		ctx.fillStyle = "white";
 		ctx.font="30px Verdana";
 		ctx.fillText("x" + boxcount, canvas.width/2 + -world.x + (70 * 4) - 20, canvas.height/2 + -world.y + (70 * 4) + 10);
@@ -1870,7 +1883,7 @@ function start3() {//////////////////////////////////////////////////////
 			}
 		}
 		if (!this.nodown) {
-			if (player.y + 315 < bg.height && player.y >= ycenter) {
+			if (player.y + 315 < bg.height && player.y > ycenter) {
 				world.y -= player.speed;
 			}
 			this.animation = "down";
@@ -1904,7 +1917,7 @@ function start3() {//////////////////////////////////////////////////////
 			}
 		}
 		if (!this.noright) {
-			if (player.x + 420 < bg.width - 140 && player.x > xcenter) {
+			if (player.x + 420 < bg.width && player.x > xcenter) {
 				world.x -= player.speed;
 			}
 			this.animation = "right";
@@ -2023,6 +2036,7 @@ function start3() {//////////////////////////////////////////////////////
 		}
 	};
 	
+<<<<<<< HEAD
 	extraItem.collision = function(sprite) {
 		if (this.x < sprite.x + sprite.width && this.x + this.width > sprite.x && this.y < sprite.y + sprite.height && this.y + this.height > sprite.y) {
 			return true;
@@ -2038,6 +2052,9 @@ function start3() {//////////////////////////////////////////////////////
 		}
 	};
 	
+=======
+
+>>>>>>> parent of 0f26808... Updated Level 2!!! BOIIIIII
 	function intersect(l0p0, l0p1, l1p0, l1p1) {
 		var coll = new Object();
 		coll.occurred = false;
@@ -2076,6 +2093,7 @@ function start3() {//////////////////////////////////////////////////////
 	
 	var trapGive = false;
 
+<<<<<<< HEAD
 	var blank = new Sprite();
 	blank.image = Textures.load("Resources/box_game_sprite.jpg");
 	blank.width = 35;
@@ -2090,9 +2108,11 @@ function start3() {//////////////////////////////////////////////////////
 	world.addChild(blank);
 	world.addChild(blank);
 	
+=======
+>>>>>>> parent of 0f26808... Updated Level 2!!! BOIIIIII
 	world.update = function(d) {
 		//player with light collisions HERE///////////////////lights.edit////////////////////////////////////////
-		if (!cursor.active && levelScriptTwo == true) {
+		if (!cursor.active /*&& levelScriptOne == true*/) {
 			cursor.moving = true;
 			setTimeout(function() {
 				cursor.moving = false;
@@ -2101,12 +2121,17 @@ function start3() {//////////////////////////////////////////////////////
 			world.addChild(cursor);
 			cursor.active = true;
 		}
+<<<<<<< HEAD
 		if (winItem.collision(player) && !levelDone) {
 
+=======
+		/*if (player.y < 3.5 * u) {
+>>>>>>> parent of 0f26808... Updated Level 2!!! BOIIIIII
 			for (var k = 0; k < 2; k++) {
 				boxes[k].alpha = 0;
 			}
 			player.speed = 0;
+<<<<<<< HEAD
 			setCookie("auto4", 1);
 			textEndLevelTwo();
 			levelDone = true;
@@ -2120,6 +2145,10 @@ function start3() {//////////////////////////////////////////////////////
 			}, 250);
 		}
 		
+=======
+			textEndLevelOne();
+		}*/
+>>>>>>> parent of 0f26808... Updated Level 2!!! BOIIIIII
 
 		pcollisions[0] = intersect(player.tl, player.br, lights[0].origin, lights[0].lp[0]);
 		pcollisions[1] = intersect(player.tr, player.bl, lights[0].origin, lights[0].lp[0]);
