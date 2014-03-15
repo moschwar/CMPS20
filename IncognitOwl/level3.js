@@ -164,7 +164,7 @@ function start4() {//////////////////////////////////////////////////////
     lights[3] = new Light(70 * 6.5, 70 * 15.5, 2, "left", 0);//end360 lights
     lights[4] = new Light(70 * 6.5, 70 * 18.5, 1, "left", 1);
     lights[5] = new Light(70 * 7.5, 70 * 9.5, 0, "down", 0);
-    lights[6] = new Light(70 * 4.5, 70 * 2.5, 0, "down", 1);
+    lights[6] = new Light(70 * 4.5, 70 * 2.5, 1, "down", 1);
     lights[7] = new Light(70 * 13.5, 70 * 14.5, 0, "right", 0);
     lights[8] = new Light(70 * 18.5, 70 * 10.5, 0, "left", 0);
     lights[9] = new Light(70 * 18.5, 70 * 13.5, 0, "left", 0); //doesnt move on purpose

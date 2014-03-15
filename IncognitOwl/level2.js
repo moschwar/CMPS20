@@ -1555,7 +1555,12 @@ function start3() {//////////////////////////////////////////////////////
 	player.nodown = false;
 
 	player.update = function(d) {
-		
+		if (player.y < 18.5 * u && player.y > 9.5 * u) {
+			roof.alpha = 0.2;
+		}
+		if (player.y > 18.5 * u || player.y < 9.5 * u) {
+			roof.alpha = 1;
+		}
 		
 		if(player.gcollision(guard)){
 			setCookie("auto", 1, 30);
