@@ -1401,7 +1401,7 @@ function start() {
 			boxes[1].alpha = 0;
 			textEight();
 			eightDone = true;
-			setCookie("auto2",true,30);
+			setCookie(auto,true,30);
 			setCookie("continue",1,30);
 		}
 		//Simulate checking against 500 rectangles
