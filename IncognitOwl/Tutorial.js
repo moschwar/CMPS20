@@ -10,6 +10,9 @@ function start() {
 	var sevenDone = false;
 	var eightDone = false;
 	
+	var gxv = 8;
+	var gyv = 15;
+	
 	var posttxt = false;
 	if(getCookie("continue") == 0){
 			posttxt = true;
@@ -1034,8 +1037,42 @@ function start() {
 		ctx.fillText("player.x " + player.x, canvas.width/2 + -world.x - (70 * 4), canvas.height/2 + -world.y - (70 * 4) + 40);
 		ctx.fillText("player.y " + player.y, canvas.width/2 + -world.x - (70 * 4), canvas.height/2 + -world.y - (70 * 4) + 50);
 		ctx.fillText("player.moveRate " + player.moveRate, canvas.width/2 + -world.x - (70 * 4), canvas.height/2 + -world.y - (70 * 4) + 60);*/
+		if(!sevenDone && sixDone){
+			ctx.lineWidth = 1;
+			ctx.fillStyle = "green";
+			ctx.beginPath();
+			ctx.moveTo(guard2.x-gxv, guard2.y-gyv);
+			ctx.lineTo(guard2.x-gxv, guard2.y+guard2.height+gyv);
+			ctx.stroke();
+			ctx.beginPath();
+			ctx.moveTo(guard2.x-gxv, guard2.y-gyv);
+			ctx.lineTo(guard2.x+guard2.width+gxv, guard2.y-gyv);
+			ctx.stroke();
+			ctx.moveTo(guard2.x+guard2.width+gxv, guard2.y-gyv);
+			ctx.lineTo(guard2.x+guard2.width+gxv, guard2.y+guard2.height+gyv);
+			ctx.stroke();
+			ctx.moveTo(guard2.x-gxv, guard2.y+guard2.height+gyv);
+			ctx.lineTo(guard2.x+guard2.width+gxv, guard2.y+guard2.height+gyv);
+			ctx.stroke();
+			//
+			ctx.beginPath();
+			ctx.moveTo(player.x, player.y);
+			ctx.lineTo(player.x, player.y+player.height);
+			ctx.stroke();
+			ctx.beginPath();
+			ctx.moveTo(player.x, player.y);
+			ctx.lineTo(player.x+player.width, player.y);
+			ctx.stroke();
+			ctx.moveTo(player.x+player.width, player.y);
+			ctx.lineTo(player.x+player.width, player.y+player.height);
+			ctx.stroke();
+			ctx.moveTo(player.x, player.y+player.height);
+			ctx.lineTo(player.x+player.width, player.y+player.height);
+			ctx.stroke();
+		}
 		ctx.strokeStyle = "orange";
 		ctx.lineWidth = smallW;
+		
 		for (var i = 0; i < lights.length; i++) {
 			ctx.beginPath();
 			ctx.moveTo(lights[i].origin.x, lights[i].origin.y);
@@ -1233,7 +1270,7 @@ function start() {
 		}
 	};
 	player.gcollision = function(sprite) {
-		if (this.x < sprite.x + sprite.width + 15 && this.x + this.width > sprite.x - 15 && this.y < sprite.y + sprite.height + 25 && this.y + this.height > sprite.y - 25) {
+		if (this.x < sprite.x + sprite.width + gxv && this.x + this.width > sprite.x - gxv && this.y < sprite.y + sprite.height + gyv && this.y + this.height > sprite.y - gyv) {
 			return true;
 		} else {
 			return false;

@@ -1456,7 +1456,7 @@ function start2() {//////////////////////////////////////////////////////
 		}
 	};
 	player.gcollision = function(sprite) {
-		if (this.x < sprite.x + sprite.width + 15 && this.x + this.width > sprite.x - 15 && this.y < sprite.y + sprite.height + 25 && this.y + this.height > sprite.y + 25) {
+		if (this.x < sprite.x + sprite.width + gxv && this.x + this.width > sprite.x - gxv && this.y < sprite.y + sprite.height + gxy && this.y + this.height > sprite.y + gxy) {
 			return true;
 		} else {
 			return false;
@@ -1786,7 +1786,7 @@ function start2() {//////////////////////////////////////////////////////
 		ctx.fillText("x" + boxcount, canvas.width/2 + -world.x + (70 * 4) - 20, canvas.height/2 + -world.y + (70 * 4) + 10);
 		ctx.fillText("x" + traps, canvas.width/2 + -world.x + (70 * 4) + 90, canvas.height/2 + -world.y + (70 * 4) + 10);
 		
-		//
+		/*
 		ctx.lineWidth = 1;
 		ctx.fillStyle = "green";
 		ctx.beginPath();
@@ -1803,7 +1803,7 @@ function start2() {//////////////////////////////////////////////////////
 		ctx.moveTo(guard2.x-gxv, guard2.y+guard2.height+gyv);
 		ctx.lineTo(guard2.x+guard2.width+gxv, guard2.y+guard2.height+gyv);
 		ctx.stroke();
-		//
+		*/
 		
 		ctx.strokeStyle = "orange";
 		ctx.lineWidth = smallW;
@@ -2053,6 +2053,7 @@ function start2() {//////////////////////////////////////////////////////
 	blank.image = Textures.load("Resources/box_game_sprite.jpg");
 	blank.width = 35;
 	blank.height = 35;
+	blank.x = -35;
 	world.addChild(blank);
 	world.addChild(blank);
 	world.addChild(blank);

@@ -11,6 +11,9 @@ function start3() {//////////////////////////////////////////////////////
 	world.y = -70 * 25;
 
 	var u = 70;
+	
+	var gxv = 8;
+	var gyv = 15;
 
 	var sounds = new SoundManager();
 	sounds.loop("Audio/nightvideogame.mp3");
@@ -1160,7 +1163,7 @@ function start3() {//////////////////////////////////////////////////////
 		}
 	};
 	player.gcollision = function(sprite) {
-		if (this.x < sprite.x + sprite.width + 15 && this.x + this.width > sprite.x - 15 && this.y < sprite.y + sprite.height + 25 && this.y + this.height > sprite.y + 25) {
+		if (this.x < sprite.x + sprite.width + gxv && this.x + this.width > sprite.x - gxv && this.y < sprite.y + sprite.height + gyv && this.y + this.height > sprite.y + gyv) {
 			return true;
 		} else {
 			return false;
