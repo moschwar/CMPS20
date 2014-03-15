@@ -7,7 +7,6 @@ var currLvl = -1;
 var autoStart1 = getCookie("auto1");
 var autoStart2 = getCookie("auto2");
 var autoStart3 = getCookie("auto3");
-var autoStart4 = getCookie("auto4");
 var gc = getCookie("continue");
 if(gc!=""){
 	currLvl = gc;
@@ -422,7 +421,7 @@ var gameScreen4 = new Screen(false, true);
 gameScreen4.image = Textures.load("Resources/level_3_grid.png");
 
 //Override the empty init function to set some properties
-gameScreen4.init = function(){
+gameScreen3.init = function(){
     //Since we set a background we want the screen to fill  the canvas
     this.width = 2380;
     this.height = 1890;
@@ -460,9 +459,5 @@ if(autoStart2 == 1){
 if(autoStart3 == 1){
 	screenMan.remove(mainMenu);
 	screenMan.push(gameScreen3);
-}
-if(autoStart4 == 1){
-	screenMan.remove(mainMenu);
-	screenMan.push(gameScreen4);
 }
 

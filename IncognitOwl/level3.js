@@ -538,64 +538,12 @@ function start4() {//////////////////////////////////////////////////////
 		points.clock = this.clock;
 		points = findPoints(points);
 
-		this.xy0.x = points.x0;
-		this.xy0.y = points.y0;
-		this.xy1.x = points.x1;
-		this.xy1.y = points.y1;
-		this.xy2.x = points.x2;
-		this.xy2.y = points.y2;
-
-		//box collisions//////////////////////////////////////////////////////////////////////////////
-		this.bcollisions[0] = intersect(boxes[0].tr, boxes[0].br, this.origin, this.xy0);
-		this.bcollisions[1] = intersect(boxes[0].tr, boxes[0].br, this.origin, this.xy1);
-		this.bcollisions[2] = intersect(boxes[0].tr, boxes[0].br, this.origin, this.xy2);
-		this.bcollisions[3] = intersect(boxes[0].tr, boxes[0].br, this.origin, this.xy0);
-		this.bcollisions[4] = intersect(boxes[0].tr, boxes[0].br, this.origin, this.xy1);
-		this.bcollisions[5] = intersect(boxes[0].tr, boxes[0].br, this.origin, this.xy2);
-		this.bcollisions[6] = intersect(boxes[1].tr, boxes[1].br, this.origin, this.xy0);
-		this.bcollisions[7] = intersect(boxes[1].tr, boxes[1].br, this.origin, this.xy1);
-		this.bcollisions[8] = intersect(boxes[1].tr, boxes[1].br, this.origin, this.xy2);
-		this.bcollisions[9] = intersect(boxes[1].tr, boxes[1].br, this.origin, this.xy0);
-		this.bcollisions[10] = intersect(boxes[1].tr, boxes[1].br, this.origin, this.xy1);
-		this.bcollisions[11] = intersect(boxes[1].tr, boxes[1].br, this.origin, this.xy2);
-		this.bcollisions[12] = intersect(boxes[0].tl, boxes[0].tr, this.origin, this.xy0);
-		this.bcollisions[13] = intersect(boxes[0].tl, boxes[0].tr, this.origin, this.xy1);
-		this.bcollisions[14] = intersect(boxes[0].tl, boxes[0].tr, this.origin, this.xy2);
-		this.bcollisions[15] = intersect(boxes[0].tl, boxes[0].tr, this.origin, this.xy0);
-		this.bcollisions[16] = intersect(boxes[0].tl, boxes[0].tr, this.origin, this.xy1);
-		this.bcollisions[17] = intersect(boxes[0].tl, boxes[0].tr, this.origin, this.xy2);
-		this.bcollisions[18] = intersect(boxes[1].tl, boxes[1].tr, this.origin, this.xy0);
-		this.bcollisions[19] = intersect(boxes[1].tl, boxes[1].tr, this.origin, this.xy1);
-		this.bcollisions[20] = intersect(boxes[1].tl, boxes[1].tr, this.origin, this.xy2);
-		this.bcollisions[21] = intersect(boxes[1].tl, boxes[1].tr, this.origin, this.xy0);
-		this.bcollisions[22] = intersect(boxes[1].tl, boxes[1].tr, this.origin, this.xy1);
-		this.bcollisions[23] = intersect(boxes[1].tl, boxes[1].tr, this.origin, this.xy2);
-			
-		for (var i = 0; i < this.bcollisions.length; i++) {
-			if (!(this.bcollisions[i] == undefined) && this.bcollisions[i].occurred) {
-				if (i % 3 == 0) {
-					this.lp[0].x = this.bcollisions[i].point.x;
-					this.lp[0].y = this.bcollisions[i].point.y;
-				} else if (i % 3 == 1) {
-					this.lp[1].x = this.bcollisions[i].point.x;
-					this.lp[1].y = this.bcollisions[i].point.y;
-				} else if (i % 3 == 2) {
-					this.lp[2].x = this.bcollisions[i].point.x;
-					this.lp[2].y = this.bcollisions[i].point.y;
-				}
-			} else {
-				if (i == 0) {
-					this.lp[0].x = points.x0;
-					this.lp[0].y = points.y0;
-				} else if (i == 1) {
-					this.lp[1].x = points.x1;
-					this.lp[1].y = points.y1;
-				} else if (i == 2) {
-					this.lp[2].x = points.x2;
-					this.lp[2].y = points.y2;
-				}
-			}
-		}
+		this.lp[0].x = points.x0;
+		this.lp[0].y = points.y0;
+		this.lp[1].x = points.x1;
+		this.lp[1].y = points.y1;
+		this.lp[2].x = points.x2;
+		this.lp[2].y = points.y2;
 
 	};
 	lights[5].update = function(d) {
@@ -688,25 +636,27 @@ function start4() {//////////////////////////////////////////////////////
 		this.lp[2].x = points.x2;
 		this.lp[2].y = points.y2;
 	};
-	var stop = false;
 	lights[9].update = function(d) {
 		var points = new Object();
-		if (!stop) {
-			stop = true;
+		points.x0 = this.x0;
+		points.y0 = this.y0;
+		points.x1 = this.x1;
+		points.y1 = this.y1;
+		points.x2 = this.x2;
+		points.y2 = this.y2;
 
-			points.rotation = this.rotation;
-			points.direc = this.direc;
-			points.origin = this.origin;
-			points.clock = this.clock;
-			points = findPoints(points);
+		points.rotation = this.rotation;
+		points.direc = this.direc;
+		points.origin = this.origin;
+		points.clock = this.clock;
+		points = findPoints(points);
 
-			this.lp[0].x = points.x0;
-			this.lp[0].y = points.y0;
-			this.lp[1].x = points.x1;
-			this.lp[1].y = points.y1;
-			this.lp[2].x = points.x2;
-			this.lp[2].y = points.y2;
-		}
+		this.lp[0].x = points.x0;
+		this.lp[0].y = points.y0;
+		this.lp[1].x = points.x1;
+		this.lp[1].y = points.y1;
+		this.lp[2].x = points.x2;
+		this.lp[2].y = points.y2;
 	};
 	lights[10].update = function(d) {
 		var points = new Object();
@@ -810,6 +760,14 @@ function start4() {//////////////////////////////////////////////////////
 	roof.x = u * 4.5 + 12;
 	roof.y = u * 1.25 - 3;
 	world.addChild(roof);*/
+	
+
+	var win = new Sprite();
+	win.image = Textures.load("http://static2.wikia.no.net/__cb20100728113416/mafiawars/images/7/7e/Boss_title_youwin.png");
+	win.width = 70 * 4;
+	win.height = 70 * 1;
+	win.x = 70 * 11;
+	win.y = 70 * 2;
 
 	var dirtcount = 22;
 	var dirts = new Array();
@@ -1039,6 +997,21 @@ function start4() {//////////////////////////////////////////////////////
 	red.image = Textures.load("Resources/red.png");
 	var green = new Sprite();
 	green.image = Textures.load("Resources/green.png");
+
+	var end = new Array();
+
+	end[0] = new End(12, 0);
+	/////////////////////////////////////////////////////////////ends
+
+	function End(x, y) {
+		end = new Sprite();
+		end.x = u * this.x, end.y = u * this.y, end.width = u;
+		end.height = u;
+	};
+
+	for (var i = 0; i < end.length; i++) {
+		world.addChild(end[i]);
+	}
 
 	var cursor = new Sprite();
 	cursor.image = red.image;
@@ -1532,8 +1505,6 @@ function start4() {//////////////////////////////////////////////////////
 		ctx.fillText("noright " + player.noright, canvas.width / 2 + -world.x - (70 * 4), canvas.height / 2 + -world.y - (70 * 4) + 30);*/
 		//ctx.fillText("lights[4].xy1.x: " + lights[4].xy1.y, canvas.width / 2 + -world.x - (70 * 4), canvas.height / 2 + -world.y - (70 * 4) + 40);
 		//ctx.fillText("lights[4].origin.x: " + lights[4].origin.y, canvas.width / 2 + -world.x - (70 * 4), canvas.height / 2 + -world.y - (70 * 4) + 50);
-		ctx.fillText("continue cookie: " + getCookie("continue"), canvas.width / 2 + -world.x - (70 * 4), canvas.height / 2 + -world.y - (70 * 4) + 40);
-		ctx.fillText("auto cookie: " + getCookie(auto), canvas.width / 2 + -world.x - (70 * 4), canvas.height / 2 + -world.y - (70 * 4) + 50);
 		ctx.fillStyle = "white";
 		ctx.font="30px Verdana";
 		ctx.fillText("x" + boxcount, canvas.width/2 + -world.x + (70 * 4) - 20, canvas.height/2 + -world.y + (70 * 4) + 10);
@@ -1801,7 +1772,7 @@ function start4() {//////////////////////////////////////////////////////
 			textEndLevelOne();
 		}*/
 
-		pcollisions[0] = intersect(player.tl, player.br, lights[0].origin, lights[0].lp[0]);
+		/*pcollisions[0] = intersect(player.tl, player.br, lights[0].origin, lights[0].lp[0]);
 		pcollisions[1] = intersect(player.tr, player.bl, lights[0].origin, lights[0].lp[0]);
 		pcollisions[2] = intersect(player.tl, player.br, lights[0].origin, lights[0].lp[1]);
 		pcollisions[3] = intersect(player.tr, player.bl, lights[0].origin, lights[0].lp[1]);
@@ -1827,7 +1798,7 @@ function start4() {//////////////////////////////////////////////////////
 		pcollisions[20] = intersect(player.tl, player.br, lights[3].origin, lights[3].lp[1]);
 		pcollisions[21] = intersect(player.tr, player.bl, lights[3].origin, lights[3].lp[1]);
 		pcollisions[22] = intersect(player.tl, player.br, lights[3].origin, lights[3].lp[2]);
-		pcollisions[23] = intersect(player.tr, player.bl, lights[3].origin, lights[3].lp[2]);
+		pcollisions[23] = intersect(player.tr, player.bl, lights[3].origin, lights[3].lp[2]);*/
 		//[3]
 		pcollisions[24] = intersect(player.tl, player.br, lights[4].origin, lights[4].lp[0]);
 		pcollisions[25] = intersect(player.tr, player.bl, lights[4].origin, lights[4].lp[0]);
