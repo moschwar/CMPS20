@@ -247,6 +247,19 @@ levelSelect.init = function(){
         screenMan.push(gameScreen3);
     };
     
+    var levelThree = new TextButton("Level 3");
+    levelThree.y = 150;
+    levelThree.center = true;
+    levelThree.label.dropShadow = true;
+    levelThree.label.fontSize = 30;
+    levelThree.setLabelColors("#aaaaaa", "#ffffff", "#ff0000");
+    this.gui.addChild(levelThree);
+    
+    levelThree.func = function(){
+        screenMan.remove(mainMenu);
+        screenMan.push(gameScreen4);
+    };
+    
 };
 
 var pauseMenu = new Screen(false, true);
@@ -404,9 +417,20 @@ gameScreen3.init = function(){
     start3();
 };
 
+var gameScreen4 = new Screen(false, true);
+gameScreen4.image = Textures.load("Resources/level_3_grid.png");
+
+//Override the empty init function to set some properties
+gameScreen3.init = function(){
+    //Since we set a background we want the screen to fill  the canvas
+    this.width = 2380;
+    this.height = 1890;
+    start4();
+};
+
 
 gInput.addFunc(27, function(){
-    if(screenMan.screens.find(gameScreen) && !screenMan.screens.find(pauseMenu)){
+    if((screenMan.screens.find(gameScreen) || screenMan.screens.find(gameScreen2) || screenMan.screens.find(gameScreen3) || screenMan.screens.find(gameScreen4)) && !screenMan.screens.find(pauseMenu)){
         pauseMenu.gui.x = canvas.width/2 + -world.x;
         pauseMenu.gui.y = canvas.height/2 + -world.y;
         screenMan.push(pauseMenu);
