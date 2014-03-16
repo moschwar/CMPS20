@@ -2124,6 +2124,7 @@ guard5.update = function(){
 			}, 150);
 			screenMan.push(inventory);
 			world.addChild(cursor);
+			world.addChild(roof);
 			cursor.active = true;
 		}
 <<<<<<< HEAD

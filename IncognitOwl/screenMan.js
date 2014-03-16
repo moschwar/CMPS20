@@ -13,6 +13,16 @@ if(gc!=""){
 	currLvl = gc;
 }
 
+var sounds = new SoundManager();
+var daysong = sounds.load("Audio/day_time_final.mp3");
+var nightsong = sounds.load("Audio/OWLJAMZ.mp3");
+var boxsnd = sounds.load("Audio/boxbeingdroppedondirt_.mp3");
+var alertsnd = sounds.load("Audio/alert.mp3");
+sounds.loop("Audio/day_time_final.mp3");
+sounds.loop("Audio/OWLJAMZ.mp3");
+nightsong.pause();
+
+
 //Create a screen class
 
 function Screen(alwaysUpdate, alwaysDraw) {
@@ -196,6 +206,8 @@ mainMenu.init = function(){
         	setCookie("continue",-1,30);
         	screenMan.remove(mainMenu);
         	screenMan.push(gameScreen);
+        	//daysong.pause();
+
         }
     };
 };
@@ -333,6 +345,8 @@ gameOver.init = function(){
         screenMan.remove(gameOver);
         screenMan.remove(gameScreen);
     };
+    nightsong.pause();
+    sounds.play("Audio/alert.mp3");
 };
 
 var inventory = new Screen(false, true);
