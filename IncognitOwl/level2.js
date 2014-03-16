@@ -1140,11 +1140,11 @@ function start3() {//////////////////////////////////////////////////////
 	player.width = 62;
 	player.height = 62;
 	player.x = 70 * 8;
-<<<<<<< HEAD
+//<<<<<<< HEAD
 	player.y = 70 * 34;
-=======
+//=======
 	player.y = 70 * 33;
->>>>>>> parent of 0f26808... Updated Level 2!!! BOIIIIII
+//>>>>>>> parent of 0f26808... Updated Level 2!!! BOIIIIII
 	
 	player.collision = function(sprite) {
 		if (this.x < sprite.x + sprite.width && this.x + this.width > sprite.x && this.y < sprite.y + sprite.height && this.y + this.height > sprite.y) {
@@ -1181,7 +1181,7 @@ function start3() {//////////////////////////////////////////////////////
 	
 	
 
-guard.update = function() {
+	guard.update = function() {
 	availSpace += guard.speed;
 	
 		if (trap.collision(this)) {
@@ -1223,7 +1223,7 @@ guard.update = function() {
 	
 	
 	//guard2 (Bottom-right)
-var guard2 = new Sprite(); 
+	var guard2 = new Sprite(); 
 	guard2.image = Textures.load("Resources/bat_full.png");
 	guard2.width = 67;
 	guard2.height = 67;
@@ -1239,7 +1239,7 @@ var guard2 = new Sprite();
 	guard2.addAnimations(["down", "up", "right", "left"], [5, 5, 5, 5]);
 
 
-var availSpace2 = 0;
+	var availSpace2 = 0;
 	
 	
 	
@@ -1825,13 +1825,13 @@ guard5.update = function(){
 		ctx.fillText("nodown " + player.nodown, canvas.width / 2 + -world.x - (70 * 4), canvas.height / 2 + -world.y - (70 * 4) + 10);
 		ctx.fillText("noleft " + player.noleft, canvas.width / 2 + -world.x - (70 * 4), canvas.height / 2 + -world.y - (70 * 4) + 20);
 		ctx.fillText("noright " + player.noright, canvas.width / 2 + -world.x - (70 * 4), canvas.height / 2 + -world.y - (70 * 4) + 30);*/
-<<<<<<< HEAD
+//<<<<<<< HEAD
 		ctx.fillText("continue cookie: " + getCookie("continue"), canvas.width / 2 + -world.x - (70 * 4), canvas.height / 2 + -world.y - (70 * 4) + 40);
 		ctx.fillText("auto cookie: " + getCookie(auto), canvas.width / 2 + -world.x - (70 * 4), canvas.height / 2 + -world.y - (70 * 4) + 50);
-=======
+//=======
 		ctx.fillText("lights[4].xy1.x: " + lights[4].xy1.y, canvas.width / 2 + -world.x - (70 * 4), canvas.height / 2 + -world.y - (70 * 4) + 40);
 		ctx.fillText("lights[4].origin.x: " + lights[4].origin.y, canvas.width / 2 + -world.x - (70 * 4), canvas.height / 2 + -world.y - (70 * 4) + 50);
->>>>>>> parent of 0f26808... Updated Level 2!!! BOIIIIII
+//>>>>>>> parent of 0f26808... Updated Level 2!!! BOIIIIII
 		ctx.fillStyle = "white";
 		ctx.font="30px Verdana";
 		ctx.fillText("x" + boxcount, canvas.width/2 + -world.x + (70 * 4) - 20, canvas.height/2 + -world.y + (70 * 4) + 10);
@@ -2041,7 +2041,7 @@ guard5.update = function(){
 		}
 	};
 	
-<<<<<<< HEAD
+//<<<<<<< HEAD
 	extraItem.collision = function(sprite) {
 		if (this.x < sprite.x + sprite.width && this.x + this.width > sprite.x && this.y < sprite.y + sprite.height && this.y + this.height > sprite.y) {
 			return true;
@@ -2057,9 +2057,9 @@ guard5.update = function(){
 		}
 	};
 	
-=======
+//=======
 
->>>>>>> parent of 0f26808... Updated Level 2!!! BOIIIIII
+//>>>>>>> parent of 0f26808... Updated Level 2!!! BOIIIIII
 	function intersect(l0p0, l0p1, l1p0, l1p1) {
 		var coll = new Object();
 		coll.occurred = false;
@@ -2098,7 +2098,7 @@ guard5.update = function(){
 	
 	var trapGive = false;
 
-<<<<<<< HEAD
+///<<<<<<< HEAD
 	var blank = new Sprite();
 	blank.image = Textures.load("Resources/box_game_sprite.jpg");
 	blank.width = 35;
@@ -2113,8 +2113,8 @@ guard5.update = function(){
 	world.addChild(blank);
 	world.addChild(blank);
 	
-=======
->>>>>>> parent of 0f26808... Updated Level 2!!! BOIIIIII
+//=======
+//>>>>>>> parent of 0f26808... Updated Level 2!!! BOIIIIII
 	world.update = function(d) {
 		//player with light collisions HERE///////////////////lights.edit////////////////////////////////////////
 		if (!cursor.active /*&& levelScriptOne == true*/) {
@@ -2127,10 +2127,10 @@ guard5.update = function(){
 			world.addChild(roof);
 			cursor.active = true;
 		}
-<<<<<<< HEAD
+//<<<<<<< HEAD
 		if (winItem.collision(player) && !levelDone) {
 
-=======
+//=======
 		/*if (player.y < 3.5 * u) {
 >>>>>>> parent of 0f26808... Updated Level 2!!! BOIIIIII
 			for (var k = 0; k < 2; k++) {
@@ -2154,7 +2154,7 @@ guard5.update = function(){
 =======
 			textEndLevelOne();
 		}*/
->>>>>>> parent of 0f26808... Updated Level 2!!! BOIIIIII
+//>>>>>>> parent of 0f26808... Updated Level 2!!! BOIIIIII
 
 		pcollisions[0] = intersect(player.tl, player.br, lights[0].origin, lights[0].lp[0]);
 		pcollisions[1] = intersect(player.tr, player.bl, lights[0].origin, lights[0].lp[0]);
